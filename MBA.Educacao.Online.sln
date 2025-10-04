@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D52C1838-569
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "api", "api", "{A54DE412-1D26-4296-93C8-9C1F5FA2B8BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.API", "MBA.Educacao.Online.API\MBA.Educacao.Online.API.csproj", "{49B51775-5BFB-4F70-BD90-4187C3AA2A3F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.API", "api\MBA.Educacao.Online.API\MBA.Educacao.Online.API.csproj", "{49B51775-5BFB-4F70-BD90-4187C3AA2A3F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
