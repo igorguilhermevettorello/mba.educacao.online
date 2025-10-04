@@ -1,6 +1,5 @@
-﻿namespace MBA.Educacao.Online.Core.Domain.DomainObjects
+namespace MBA.Educacao.Online.Core.Domain.DomainObjects
 {
-    public interface IAggregateRoot
-    {
-    }
+    public interface IAggregateRoot { }
 }
+
