@@ -20,4 +20,8 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\src\Curso\MBA.Educacao.Online.Curso.Domain\MBA.Educacao.Online.Curso.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
