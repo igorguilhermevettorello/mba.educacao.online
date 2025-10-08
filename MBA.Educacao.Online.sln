@@ -19,9 +19,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Aluno.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Aluno.Application", "src\Aluno\MBA.Educacao.Online.Aluno.Application\MBA.Educacao.Online.Aluno.Application.csproj", "{05482354-EE9C-4F3D-8679-ADADAE2ECAD8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Curso", "Curso", "{8A65BA5A-033E-4187-82AE-B4292B1C47BA}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cursos", "Cursos", "{8A65BA5A-033E-4187-82AE-B4292B1C47BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Curso.Domain", "src\Curso\MBA.Educacao.Online.Curso.Domain\MBA.Educacao.Online.Curso.Domain.csproj", "{41AEE594-3B51-47DD-A82D-EC4B8032E3F6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Cursos.Domain", "src\Cursos\MBA.Educacao.Online.Cursos.Domain\MBA.Educacao.Online.Cursos.Domain.csproj", "{41AEE594-3B51-47DD-A82D-EC4B8032E3F6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pagamento", "Pagamento", "{701EB9E9-0F40-4C3B-BE30-97F8A4B98E63}"
 EndProject
@@ -29,15 +29,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Pagamen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Aluno.Test.Unit", "test\unidade\Aluno\MBA.Educacao.Online.Aluno.Test.Unit\MBA.Educacao.Online.Aluno.Test.Unit.csproj", "{9518F5C4-599B-4EC2-AF4D-F35D47CA89D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Core.Data", "src\Core\MBA.Educacao.Online.Core.Data\MBA.Educacao.Online.Core.Data.csproj", "{F6CF3722-E737-41F0-B116-A9E0E9AAF1AF}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Core.Test.Unit", "test\unidade\Core\MBA.Educacao.Online.Core.Test.Unit\MBA.Educacao.Online.Core.Test.Unit.csproj", "{ED2C3D30-D35D-4DEC-9BE8-BAE0F686F520}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Curso.Application", "src\Curso\MBA.Educacao.Online.Curso.Application\MBA.Educacao.Online.Curso.Application.csproj", "{BE9AF5E5-AD8C-4358-ADFD-9853B1E6884F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Cursos.Application", "src\Cursos\MBA.Educacao.Online.Cursos.Application\MBA.Educacao.Online.Cursos.Application.csproj", "{BE9AF5E5-AD8C-4358-ADFD-9853B1E6884F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Pagamento.Application", "src\Pagamento\MBA.Educacao.Online.Pagamento.Application\MBA.Educacao.Online.Pagamento.Application.csproj", "{D770E01F-FF47-44A1-8279-49AC243530E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Curso.Test.Unit", "test\unidade\Curso\MBA.Educacao.Online.Curso.Test.Unit\MBA.Educacao.Online.Curso.Test.Unit.csproj", "{ACA7A5B4-DB38-416D-9296-0BB024A6E4BC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Cursos.Test.Unit", "test\unidade\Cursos\MBA.Educacao.Online.Cursos.Test.Unit\MBA.Educacao.Online.Cursos.Test.Unit.csproj", "{ACA7A5B4-DB38-416D-9296-0BB024A6E4BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,10 +71,6 @@ Global
 		{9518F5C4-599B-4EC2-AF4D-F35D47CA89D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9518F5C4-599B-4EC2-AF4D-F35D47CA89D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9518F5C4-599B-4EC2-AF4D-F35D47CA89D7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F6CF3722-E737-41F0-B116-A9E0E9AAF1AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F6CF3722-E737-41F0-B116-A9E0E9AAF1AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F6CF3722-E737-41F0-B116-A9E0E9AAF1AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F6CF3722-E737-41F0-B116-A9E0E9AAF1AF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ED2C3D30-D35D-4DEC-9BE8-BAE0F686F520}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ED2C3D30-D35D-4DEC-9BE8-BAE0F686F520}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED2C3D30-D35D-4DEC-9BE8-BAE0F686F520}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -109,7 +103,6 @@ Global
 		{701EB9E9-0F40-4C3B-BE30-97F8A4B98E63} = {D52C1838-5690-4206-B3A5-10E890FD77CB}
 		{332D3D06-4474-43A3-A70F-695721C1A648} = {701EB9E9-0F40-4C3B-BE30-97F8A4B98E63}
 		{9518F5C4-599B-4EC2-AF4D-F35D47CA89D7} = {A1FE9BA6-CCCA-473F-935D-CB6D8181CB82}
-		{F6CF3722-E737-41F0-B116-A9E0E9AAF1AF} = {DC4AF0EF-BA26-4106-A536-009CE45BDFEA}
 		{ED2C3D30-D35D-4DEC-9BE8-BAE0F686F520} = {DC4AF0EF-BA26-4106-A536-009CE45BDFEA}
 		{BE9AF5E5-AD8C-4358-ADFD-9853B1E6884F} = {8A65BA5A-033E-4187-82AE-B4292B1C47BA}
 		{D770E01F-FF47-44A1-8279-49AC243530E1} = {701EB9E9-0F40-4C3B-BE30-97F8A4B98E63}

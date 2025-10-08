@@ -1,13 +1,14 @@
 using MediatR;
 
-namespace MBA.Educacao.Online.Core.Domain.Messages;
-
-public class Event : Message, INotification
+namespace MBA.Educacao.Online.Core.Domain.Messages
 {
-    public DateTime Timestamp { get; private set; }
-
-    protected Event()
+    public class Event : Message, INotification
     {
-        Timestamp = DateTime.Now;
+        public DateTime Timestamp { get; private set; }
+
+        protected Event()
+        {
+            Timestamp = DateTime.Now;
+        }
     }
 }
