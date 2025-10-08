@@ -86,4 +86,20 @@ public class Curso: Entity, IAggregateRoot
 
         Nivel = novoNivel;
     }
+
+    public void AtualizarInformacoes(string titulo, string descricao, NivelCurso nivel)
+    {
+        if (string.IsNullOrWhiteSpace(titulo))
+            throw new ArgumentException("Título do curso é obrigatório", nameof(titulo));
+
+        if (string.IsNullOrWhiteSpace(descricao))
+            throw new ArgumentException("Descrição do curso é obrigatória", nameof(descricao));
+
+        if (!Enum.IsDefined(typeof(NivelCurso), nivel))
+            throw new ArgumentException("Nível do curso inválido", nameof(nivel));
+
+        Titulo = titulo;
+        Descricao = descricao;
+        Nivel = nivel;
+    }
 }
