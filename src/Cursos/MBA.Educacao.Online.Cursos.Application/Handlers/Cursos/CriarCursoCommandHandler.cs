@@ -23,38 +23,12 @@ namespace MBA.Educacao.Online.Cursos.Application.Handlers.Cursos
 
             _cursoRepository.Adicionar(curso);
 
-            await _mediator.Publish(new CriarCursoEvent(curso.Id, request.Titulo, request.Descricao), cancellationToken);
+            curso.AdicionarEvento(new CriarCursoEvent(curso.Id, request.Titulo, request.Descricao));
+            
+            // await _mediator.Publish(new CriarCursoEvent(curso.Id, request.Titulo, request.Descricao), cancellationToken);
 
-            return true;
+            return await _cursoRepository.UnitOfWork.Commit();
         }
-
-        // public async Task<Result<Guid>> Handle(CriarCursoCommand request, CancellationToken cancellationToken)
-        // {
-        //     try
-        //     {
-        //         // Verificar se já existe um curso com o mesmo título
-        //         if (await _cursoRepository.TituloExistsAsync(request.Titulo))
-        //         {
-        //             return Result.Failure<Guid>("Já existe um curso com este título.");
-        //         }
-        //
-        //         // Criar o curso
-        //         var curso = new Domain.Entities.Curso(request.Titulo, request.Descricao, request.Nivel);
-        //
-        //         // Salvar no repositório
-        //         var cursoSalvo = await _cursoRepository.AddAsync(curso);
-        //
-        //         return Result.Success(cursoSalvo.Id);
-        //     }
-        //     catch (ArgumentException ex)
-        //     {
-        //         return Result.Failure<Guid>(ex.Message);
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         return Result.Failure<Guid>($"Erro interno ao criar curso: {ex.Message}");
-        //     }
-        // }
     }
 }
 
