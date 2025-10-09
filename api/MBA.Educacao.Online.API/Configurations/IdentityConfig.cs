@@ -1,3 +1,7 @@
+using MBA.Educacao.Online.API.Extensions;
+using MBA.Educacao.Online.Core.Data.Context;
+using Microsoft.AspNetCore.Identity;
+
 namespace MBA.Educacao.Online.API.Configurations
 {
     public static class IdentityConfig

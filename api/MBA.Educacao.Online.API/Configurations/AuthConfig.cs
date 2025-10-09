@@ -1,6 +1,8 @@
 
 using System.Text;
 using MBA.Educacao.Online.API.Extensions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace MBA.Educacao.Online.API.Configurations
 {

@@ -1,4 +1,6 @@
 using MBA.Educacao.Online.Core.Domain.Interfaces.Identity;
+using MBA.Educacao.Online.Core.Domain.Interfaces.Notifications;
+using MBA.Educacao.Online.Core.Domain.Notifications;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 

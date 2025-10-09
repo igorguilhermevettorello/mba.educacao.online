@@ -1,5 +1,4 @@
-using MBA.Educacao.Online.Core.Data.Interfaces;
-using MBA.Educacao.Online.Cursos.Data.Extensions;
+using MBA.Educacao.Online.Core.Domain.Interfaces;
 using MBA.Educacao.Online.Cursos.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

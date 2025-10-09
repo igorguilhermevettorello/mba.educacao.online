@@ -1,3 +1,5 @@
+using AutoMapper;
+
 namespace MBA.Educacao.Online.API.Configurations
 {
     public class AutomapperConfig : Profile

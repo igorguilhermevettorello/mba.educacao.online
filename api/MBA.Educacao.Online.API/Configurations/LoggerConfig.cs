@@ -1,3 +1,5 @@
+using Elmah.Io.Extensions.Logging;
+
 namespace MBA.Educacao.Online.API.Configurations
 {
     public static class LoggerConfig

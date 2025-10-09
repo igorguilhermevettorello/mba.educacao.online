@@ -1,4 +1,4 @@
-using MBA.Educacao.Online.Core.Data.Interfaces;
+using MBA.Educacao.Online.Core.Domain.Interfaces;
 using MBA.Educacao.Online.Cursos.Data.Context;
 using MBA.Educacao.Online.Cursos.Domain.Entities;
 using MBA.Educacao.Online.Cursos.Domain.Interfaces.Repositories;

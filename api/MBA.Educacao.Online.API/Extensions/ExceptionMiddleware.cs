@@ -1,3 +1,6 @@
+using Elmah.Io.AspNetCore;
+using System.Net;
+
 namespace MBA.Educacao.Online.API.Extensions
 {
     public class ExceptionMiddleware

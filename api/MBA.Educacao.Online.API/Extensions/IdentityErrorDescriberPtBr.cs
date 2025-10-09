@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Identity;
+
 namespace MBA.Educacao.Online.API.Extensions
 {
     public class IdentityErrorDescriberPtBr : IdentityErrorDescriber

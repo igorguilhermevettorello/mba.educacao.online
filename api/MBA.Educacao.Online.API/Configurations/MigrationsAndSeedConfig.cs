@@ -1,3 +1,5 @@
+using MBA.Educacao.Online.Core.Data.Seeds;
+
 namespace MBA.Educacao.Online.API.Configurations
 {
     public static class MigrationsAndSeedConfig
