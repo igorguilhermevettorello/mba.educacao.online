@@ -2,68 +2,68 @@ namespace MBA.Educacao.Online.Cursos.Domain.ValueObjects;
 
 public class ConteudoProgramatico
 {
-    public string Titulo { get; private set; }
-    public string Descricao { get; private set; }
-    public int Ordem { get; private set; }
-    public DateTime DataCriacao { get; private set; }
-    public bool Ativo { get; private set; }
-
+    public string Ementa { get; private set; }
+    public string Objetivo { get; private set; }
+    public string Bibliografia { get; private set; }
+    public string MaterialUrl { get; private set; }
     private ConteudoProgramatico() { }
 
-    public ConteudoProgramatico(string titulo, string descricao, int ordem)
+    public ConteudoProgramatico(string ementa, string objetivo, string bibliografia, string materialUrl)
     {
-        Titulo = titulo;
-        Descricao = descricao;
-        Ordem = ordem;
-        DataCriacao = DateTime.UtcNow;
-        Ativo = true;
+        Ementa = ementa;
+        Objetivo = objetivo;
+        Bibliografia = bibliografia;
+        MaterialUrl = materialUrl;
 
         ValidarConteudoProgramatico();
     }
 
     private void ValidarConteudoProgramatico()
     {
-        if (string.IsNullOrWhiteSpace(Titulo))
-            throw new ArgumentException("Título do conteúdo programático é obrigatório", nameof(Titulo));
+        if (string.IsNullOrWhiteSpace(Ementa))
+            throw new ArgumentException("Ementa do conteúdo programático é obrigatório", nameof(Ementa));
 
-        if (string.IsNullOrWhiteSpace(Descricao))
-            throw new ArgumentException("Descrição do conteúdo programático é obrigatória", nameof(Descricao));
+        if (string.IsNullOrWhiteSpace(Objetivo))
+            throw new ArgumentException("Objetivo do conteúdo programático é obrigatória", nameof(Objetivo));
+        
+        if (string.IsNullOrWhiteSpace(Bibliografia))
+            throw new ArgumentException("Bibliografia do conteúdo programático é obrigatória", nameof(Bibliografia));
 
-        if (Ordem <= 0)
-            throw new ArgumentException("Ordem deve ser maior que zero", nameof(Ordem));
+        if (string.IsNullOrWhiteSpace(MaterialUrl))
+            throw new ArgumentException("Url do Material do conteúdo programático é obrigatória", nameof(MaterialUrl));
     }
 
-    public void AtualizarTitulo(string novoTitulo)
+    public void AtualizarEmenta(string ementa)
     {
-        if (string.IsNullOrWhiteSpace(novoTitulo))
-            throw new ArgumentException("Título do conteúdo programático é obrigatório", nameof(novoTitulo));
+        if (string.IsNullOrWhiteSpace(ementa))
+            throw new ArgumentException("Ementa do conteúdo programático é obrigatório", nameof(Ementa));
 
-        Titulo = novoTitulo;
+        Ementa = ementa;
     }
-
-    public void AtualizarDescricao(string novaDescricao)
+    
+    public void AtualizarObjetivo(string objetivo)
     {
-        if (string.IsNullOrWhiteSpace(novaDescricao))
-            throw new ArgumentException("Descrição do conteúdo programático é obrigatória", nameof(novaDescricao));
+        if (string.IsNullOrWhiteSpace(objetivo))
+            throw new ArgumentException("Objetivo do conteúdo programático é obrigatório", nameof(Objetivo));
 
-        Descricao = novaDescricao;
+        Objetivo = objetivo;
     }
-
-    public void AtualizarOrdem(int novaOrdem)
+    
+    public void AtualizarBibliografia(string bibliografia)
     {
-        if (novaOrdem <= 0)
-            throw new ArgumentException("Ordem deve ser maior que zero", nameof(novaOrdem));
+        if (string.IsNullOrWhiteSpace(bibliografia))
+            throw new ArgumentException("Bibliografia do conteúdo programático é obrigatório", nameof(Bibliografia));
 
-        Ordem = novaOrdem;
+        Bibliografia = bibliografia;
     }
-
-    public void Inativar()
+    
+    public void AtualizarMaterialUrl(string materialUrl)
     {
-        Ativo = false;
+        if (string.IsNullOrWhiteSpace(materialUrl))
+            throw new ArgumentException("Url do Material do conteúdo programático é obrigatório", nameof(MaterialUrl));
+
+        MaterialUrl = materialUrl;
     }
 
-    public void Ativar()
-    {
-        Ativo = true;
-    }
+    
 }

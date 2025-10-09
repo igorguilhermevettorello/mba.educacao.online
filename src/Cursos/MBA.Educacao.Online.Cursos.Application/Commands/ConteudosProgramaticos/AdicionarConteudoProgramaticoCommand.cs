@@ -5,7 +5,7 @@ namespace MBA.Educacao.Online.Cursos.Application.Commands.ConteudosProgramaticos
 {
     public class AdicionarConteudoProgramaticoCommand : Command
     {
-        public Guid AulaId { get; set; }
+        public Guid CursoId { get; set; }
         public string Titulo { get; set; }
         public string Descricao { get; set; }
         public int Ordem { get; set; }

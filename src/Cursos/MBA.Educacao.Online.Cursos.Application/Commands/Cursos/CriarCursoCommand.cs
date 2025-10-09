@@ -8,13 +8,17 @@ namespace MBA.Educacao.Online.Cursos.Application.Commands.Cursos
     {
         public string Titulo { get; set; }
         public string Descricao { get; set; }
+        public string Instrutor { get; set; }
         public NivelCurso Nivel { get; set; }
+        public decimal Valor { get; set; }
 
-        public CriarCursoCommand(string titulo, string descricao, NivelCurso nivel) 
+        public CriarCursoCommand(string titulo, string descricao, string instrutor, NivelCurso nivel,  decimal valor) 
         {
             Titulo = titulo;       
             Descricao = descricao;
+            Instrutor = instrutor;
             Nivel = nivel;
+            Valor = valor;
         }
 
         public override bool IsValid()

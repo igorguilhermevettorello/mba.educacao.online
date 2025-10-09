@@ -12,8 +12,6 @@ namespace MBA.Educacao.Online.Cursos.Domain.Entities
         public DateTime DataCriacao { get; private set; }
         public bool Ativa { get; private set; }
 
-        private ConteudoProgramatico ConteudoProgramatico;
-        
         private Aula() { }
 
         public Aula(string titulo, string descricao, int duracaoMinutos, int ordem)
@@ -84,14 +82,6 @@ namespace MBA.Educacao.Online.Cursos.Domain.Entities
         public void Ativar()
         {
             Ativa = true;
-        }
-
-        public void AdicionarConteudoProgramatico(ConteudoProgramatico conteudo)
-        {
-            if (conteudo == null)
-                throw new ArgumentNullException(nameof(conteudo));
-
-            ConteudoProgramatico = conteudo;
         }
     }
 }

@@ -19,11 +19,11 @@ namespace MBA.Educacao.Online.Cursos.Application.Handlers.Aulas
 
         public async Task<bool> Handle(AdicionarAulaCommand request, CancellationToken cancellationToken)
         {
-            var curso = new Domain.Entities.Curso(request.Titulo, request.Descricao, NivelCurso.Avancado);
-
-            _cursoRepository.Adicionar(curso);
-
-            await _mediator.Publish(new CriarCursoEvent(curso.Id, request.Titulo, request.Descricao), cancellationToken);
+            // var curso = new Domain.Entities.Curso(request.Titulo, request.Descricao, NivelCurso.Avancado);
+            //
+            // _cursoRepository.Adicionar(curso);
+            //
+            // await _mediator.Publish(new CriarCursoEvent(curso.Id, request.Titulo, request.Descricao), cancellationToken);
 
             return true;
         }

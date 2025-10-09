@@ -1,6 +1,7 @@
 using MBA.Educacao.Online.Core.Data.Interfaces;
 using MBA.Educacao.Online.Core.Domain.Models;
 using MBA.Educacao.Online.Cursos.Domain.Enums;
+using MBA.Educacao.Online.Cursos.Domain.ValueObjects;
 
 namespace MBA.Educacao.Online.Cursos.Domain.Entities
 {
@@ -8,18 +9,21 @@ namespace MBA.Educacao.Online.Cursos.Domain.Entities
     {
         public string Titulo { get; private set; }
         public string Descricao { get; private set; }
+        public string Instrutor { get; private set; }
         public NivelCurso Nivel { get; private set; }
+        public decimal Valor { get; private set; }
         public DateTime DataCriacao { get; private set; }
         public bool Ativo { get; private set; }
         private readonly List<Aula> _aulas;
         public IReadOnlyCollection<Aula> Aulas => _aulas.AsReadOnly();
+        public ConteudoProgramatico ConteudoProgramatico { get; private set; }
         
         private Curso()
         {
             _aulas = new List<Aula>();
         }
 
-        public Curso(string titulo, string descricao, NivelCurso nivel) : this()
+        public Curso(string titulo, string descricao, string instrutor, NivelCurso nivel, decimal valor) : this()
         {
             if (string.IsNullOrWhiteSpace(titulo))
                 throw new ArgumentException("Título do curso é obrigatório", nameof(titulo));
@@ -27,13 +31,20 @@ namespace MBA.Educacao.Online.Cursos.Domain.Entities
             if (string.IsNullOrWhiteSpace(descricao))
                 throw new ArgumentException("Descrição do curso é obrigatória", nameof(descricao));
 
+            if (string.IsNullOrWhiteSpace(instrutor))
+                throw new ArgumentException("Instrutor do curso é obrigatório", nameof(Instrutor));
+            
             if (!Enum.IsDefined(typeof(NivelCurso), nivel))
                 throw new ArgumentException("Nível do curso inválido", nameof(nivel));
 
-            Id = Guid.NewGuid();
+            if (valor <= 0)
+                throw new ArgumentException("Valor do curso deve ser maior que zero", nameof(valor));
+            
             Titulo = titulo;
             Descricao = descricao;
+            Instrutor = instrutor;
             Nivel = nivel;
+            Valor = valor;
             DataCriacao = DateTime.UtcNow;
             Ativo = true;
         }
@@ -72,20 +83,37 @@ namespace MBA.Educacao.Online.Cursos.Domain.Entities
             Nivel = novoNivel;
         }
 
-        public void AtualizarInformacoes(string titulo, string descricao, NivelCurso nivel)
+        public void AtualizarInformacoes(string titulo, string descricao, string instrutor, NivelCurso nivel, decimal valor)
         {
             if (string.IsNullOrWhiteSpace(titulo))
                 throw new ArgumentException("Título do curso é obrigatório", nameof(titulo));
 
             if (string.IsNullOrWhiteSpace(descricao))
                 throw new ArgumentException("Descrição do curso é obrigatória", nameof(descricao));
+            
+            if (string.IsNullOrWhiteSpace(instrutor))
+                throw new ArgumentException("Instrutor do curso é obrigatório", nameof(instrutor));
 
             if (!Enum.IsDefined(typeof(NivelCurso), nivel))
                 throw new ArgumentException("Nível do curso inválido", nameof(nivel));
-
+            
+            if (valor <= 0)
+                throw new ArgumentException("Valor do curso deve ser maior que zero", nameof(valor));
+                    
             Titulo = titulo;
             Descricao = descricao;
+            Instrutor = instrutor;
             Nivel = nivel;
+            Valor = valor;
         }
+        
+        public void AdicionarConteudoProgramatico(ConteudoProgramatico conteudo)
+        {
+            if (conteudo == null)
+                throw new ArgumentNullException(nameof(conteudo));
+
+            ConteudoProgramatico = conteudo;
+        }
+
     }
 }

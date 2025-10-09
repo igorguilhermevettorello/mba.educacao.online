@@ -19,7 +19,7 @@ namespace MBA.Educacao.Online.Cursos.Application.Handlers.Cursos
 
         public async Task<bool> Handle(CriarCursoCommand request, CancellationToken cancellationToken)
         {
-            var curso = new Curso(request.Titulo, request.Descricao, request.Nivel);
+            var curso = new Curso(request.Titulo, request.Descricao, request.Instrutor, request.Nivel, request.Valor);
 
             await _cursoRepository.Adicionar(curso);
 

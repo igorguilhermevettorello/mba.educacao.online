@@ -28,6 +28,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Core\MBA.Educacao.Online.Core.Domain\MBA.Educacao.Online.Core.Domain.csproj" />
+      <ProjectReference Include="..\MBA.Educacao.Online.Cursos.Domain\MBA.Educacao.Online.Cursos.Domain.csproj" />
     </ItemGroup>
 
 </Project>

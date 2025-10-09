@@ -22,6 +22,14 @@ namespace MBA.Educacao.Online.Cursos.Application.Validators
                 .WithMessage("Descrição do curso deve ter no máximo 1000 caracteres")
                 .MinimumLength(10)
                 .WithMessage("Descrição do curso deve ter no mínimo 10 caracteres");
+            
+            RuleFor(x => x.Instrutor)
+                .NotEmpty()
+                .WithMessage("Instrutor do curso é obrigatória")
+                .MaximumLength(200)
+                .WithMessage("Instrutor do curso deve ter no máximo 200 caracteres")
+                .MinimumLength(3)
+                .WithMessage("Instrutor do curso deve ter no mínimo 3 caracteres");
 
             RuleFor(x => x.Nivel)
                 .IsInEnum()

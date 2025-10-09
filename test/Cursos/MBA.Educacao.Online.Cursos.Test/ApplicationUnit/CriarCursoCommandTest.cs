@@ -26,7 +26,9 @@ namespace MBA.Educacao.Online.Cursos.Test.ApplicationUnit
             var command = new CriarCursoCommand(
                 "MBA em Gestão de Projetos",
                 "Curso completo de MBA",
-                NivelCurso.Avancado
+                "Eduardo Pires",
+                NivelCurso.Avancado,
+                100
             );
 
             // Act
@@ -46,7 +48,9 @@ namespace MBA.Educacao.Online.Cursos.Test.ApplicationUnit
             var command = new CriarCursoCommand(
                 "MBA em Gestão de Projetos",
                 "Curso completo de MBA",
-                NivelCurso.Avancado
+                "Eduardo Pires",
+                NivelCurso.Avancado,
+                    100
             );
 
             var mocker = new AutoMocker();
