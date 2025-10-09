@@ -1,6 +1,6 @@
 using MBA.Educacao.Online.Core.Domain.Messages;
 
-namespace MBA.Educacao.Online.Core.Data.Interfaces.Mediator
+namespace MBA.Educacao.Online.Core.Domain.Interfaces.Mediator
 {
     public interface IMediatorHandler
     {

@@ -1,4 +1,4 @@
-namespace MBA.Educacao.Online.Core.Data.Interfaces
+namespace MBA.Educacao.Online.Core.Domain.Interfaces
 {
     public interface IUnitOfWork
     {
