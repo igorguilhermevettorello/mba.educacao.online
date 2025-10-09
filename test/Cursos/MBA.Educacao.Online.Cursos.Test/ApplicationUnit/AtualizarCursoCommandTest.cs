@@ -1,7 +1,7 @@
 using MBA.Educacao.Online.Cursos.Domain.Interfaces.Repositories;
 using Moq;
 
-namespace MBA.Educacao.Online.Cursos.Test.Unit.Application
+namespace MBA.Educacao.Online.Cursos.Test.ApplicationUnit
 {
     public class AtualizarCursoCommandTest
     {

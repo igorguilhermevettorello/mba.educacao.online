@@ -29,7 +29,6 @@ namespace MBA.Educacao.Online.Cursos.Test.Unit.Domain
             Assert.NotEqual(Guid.Empty, curso.Id);
             Assert.True(curso.DataCriacao <= DateTime.UtcNow);
             Assert.Empty(curso.Aulas);
-            Assert.Empty(curso.ConteudosProgramaticos);
         }
 
         [Theory(DisplayName = "Criar Curso - Dados Inválidos - Deve Lançar Exceção")]
@@ -154,71 +153,57 @@ namespace MBA.Educacao.Online.Cursos.Test.Unit.Domain
 
         #endregion
 
-        #region 4. Adicionar Conteúdo Programático
+        //#region 4. Adicionar Conteúdo Programático
 
-        [Fact(DisplayName = "Adicionar Conteúdo Programático - Conteúdo Válido - Deve Adicionar ao Curso")]
-        [Trait("Categoria", "Curso - Conteúdo Programático")]
-        public void AdicionarConteudoProgramatico_ConteudoValido_DeveAdicionarAoCurso()
-        {
-            // Arrange
-            var curso = new Curso("MBA em Gestão", "Descrição do curso", NivelCurso.Basico);
-            var conteudo = new ConteudoProgramatico("Módulo 1", "Fundamentos", 1);
 
-            // Act
-            curso.AdicionarConteudoProgramatico(conteudo);
 
-            // Assert
-            Assert.Single(curso.ConteudosProgramaticos);
-            Assert.Contains(conteudo, curso.ConteudosProgramaticos);
-        }
+        //[Fact(DisplayName = "Adicionar Conteúdo Programático - Múltiplos Conteúdos - Deve Adicionar Todos ao Curso")]
+        //[Trait("Categoria", "Curso - Conteúdo Programático")]
+        //public void AdicionarConteudoProgramatico_MultiplosConteudos_DeveAdicionarTodosAoCurso()
+        //{
+        //    // Arrange
+        //    var curso = new Curso("MBA em Gestão", "Descrição do curso", NivelCurso.Basico);
+        //    var conteudo1 = new ConteudoProgramatico("Módulo 1", "Fundamentos", 1);
+        //    var conteudo2 = new ConteudoProgramatico("Módulo 2", "Avançado", 2);
+        //    var conteudo3 = new ConteudoProgramatico("Módulo 3", "Especialização", 3);
 
-        [Fact(DisplayName = "Adicionar Conteúdo Programático - Múltiplos Conteúdos - Deve Adicionar Todos ao Curso")]
-        [Trait("Categoria", "Curso - Conteúdo Programático")]
-        public void AdicionarConteudoProgramatico_MultiplosConteudos_DeveAdicionarTodosAoCurso()
-        {
-            // Arrange
-            var curso = new Curso("MBA em Gestão", "Descrição do curso", NivelCurso.Basico);
-            var conteudo1 = new ConteudoProgramatico("Módulo 1", "Fundamentos", 1);
-            var conteudo2 = new ConteudoProgramatico("Módulo 2", "Avançado", 2);
-            var conteudo3 = new ConteudoProgramatico("Módulo 3", "Especialização", 3);
+        //    // Act
+        //    curso.AdicionarConteudoProgramatico(conteudo1);
+        //    curso.AdicionarConteudoProgramatico(conteudo2);
+        //    curso.AdicionarConteudoProgramatico(conteudo3);
 
-            // Act
-            curso.AdicionarConteudoProgramatico(conteudo1);
-            curso.AdicionarConteudoProgramatico(conteudo2);
-            curso.AdicionarConteudoProgramatico(conteudo3);
+        //    // Assert
+        //    Assert.Equal(3, curso.ConteudosProgramaticos.Count);
+        //    Assert.Contains(conteudo1, curso.ConteudosProgramaticos);
+        //    Assert.Contains(conteudo2, curso.ConteudosProgramaticos);
+        //    Assert.Contains(conteudo3, curso.ConteudosProgramaticos);
+        //}
 
-            // Assert
-            Assert.Equal(3, curso.ConteudosProgramaticos.Count);
-            Assert.Contains(conteudo1, curso.ConteudosProgramaticos);
-            Assert.Contains(conteudo2, curso.ConteudosProgramaticos);
-            Assert.Contains(conteudo3, curso.ConteudosProgramaticos);
-        }
+        //[Fact(DisplayName = "Adicionar Conteúdo Programático - Conteúdo Nulo - Deve Lançar Exceção")]
+        //[Trait("Categoria", "Curso - Conteúdo Programático")]
+        //public void AdicionarConteudoProgramatico_ConteudoNulo_DeveLancarExcecao()
+        //{
+        //    // Arrange
+        //    var curso = new Curso("MBA em Gestão", "Descrição do curso", NivelCurso.Basico);
 
-        [Fact(DisplayName = "Adicionar Conteúdo Programático - Conteúdo Nulo - Deve Lançar Exceção")]
-        [Trait("Categoria", "Curso - Conteúdo Programático")]
-        public void AdicionarConteudoProgramatico_ConteudoNulo_DeveLancarExcecao()
-        {
-            // Arrange
-            var curso = new Curso("MBA em Gestão", "Descrição do curso", NivelCurso.Basico);
+        //    // Act & Assert
+        //    Assert.Throws<ArgumentNullException>(() => curso.AdicionarConteudoProgramatico(null!));
+        //}
 
-            // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => curso.AdicionarConteudoProgramatico(null!));
-        }
+        //[Fact(DisplayName = "Adicionar Conteúdo Programático - Curso Inativo - Deve Lançar Exceção")]
+        //[Trait("Categoria", "Curso - Conteúdo Programático")]
+        //public void AdicionarConteudoProgramatico_CursoInativo_DeveLancarExcecao()
+        //{
+        //    // Arrange
+        //    var curso = new Curso("MBA em Gestão", "Descrição do curso", NivelCurso.Basico);
+        //    curso.Inativar();
+        //    var conteudo = new ConteudoProgramatico("Módulo", "Descrição", 1);
 
-        [Fact(DisplayName = "Adicionar Conteúdo Programático - Curso Inativo - Deve Lançar Exceção")]
-        [Trait("Categoria", "Curso - Conteúdo Programático")]
-        public void AdicionarConteudoProgramatico_CursoInativo_DeveLancarExcecao()
-        {
-            // Arrange
-            var curso = new Curso("MBA em Gestão", "Descrição do curso", NivelCurso.Basico);
-            curso.Inativar();
-            var conteudo = new ConteudoProgramatico("Módulo", "Descrição", 1);
+        //    // Act & Assert
+        //    Assert.Throws<InvalidOperationException>(() => curso.AdicionarConteudoProgramatico(conteudo));
+        //}
 
-            // Act & Assert
-            Assert.Throws<InvalidOperationException>(() => curso.AdicionarConteudoProgramatico(conteudo));
-        }
-
-        #endregion
+        //#endregion
 
         #region 5. Verificar se Aula está cadastrada
 
@@ -400,39 +385,39 @@ namespace MBA.Educacao.Online.Cursos.Test.Unit.Domain
 
         #endregion
 
-        #region Testes de Integração
+        //#region Testes de Integração
 
-        [Fact(DisplayName = "Gerenciar Curso - Curso Completo - Deve Gerenciar Aulas e Conteúdos Programáticos")]
-        [Trait("Categoria", "Curso - Integração")]
-        public void GerenciarCurso_CursoCompleto_DeveGerenciarAulasEConteudosProgramaticos()
-        {
-            // Arrange
-            var curso = new Curso("MBA em Gestão de Projetos", "Curso completo de MBA", NivelCurso.Avancado);
+        //[Fact(DisplayName = "Gerenciar Curso - Curso Completo - Deve Gerenciar Aulas e Conteúdos Programáticos")]
+        //[Trait("Categoria", "Curso - Integração")]
+        //public void GerenciarCurso_CursoCompleto_DeveGerenciarAulasEConteudosProgramaticos()
+        //{
+        //    // Arrange
+        //    var curso = new Curso("MBA em Gestão de Projetos", "Curso completo de MBA", NivelCurso.Avancado);
 
-            var aula1 = new Aula("Introdução", "Aula introdutória", 60, 1);
-            var aula2 = new Aula("Metodologias", "Metodologias ágeis", 90, 2);
+        //    var aula1 = new Aula("Introdução", "Aula introdutória", 60, 1);
+        //    var aula2 = new Aula("Metodologias", "Metodologias ágeis", 90, 2);
 
-            var conteudo1 = new ConteudoProgramatico("Fundamentos", "Conceitos básicos", 1);
-            var conteudo2 = new ConteudoProgramatico("Avançado", "Tópicos avançados", 2);
+        //    var conteudo1 = new ConteudoProgramatico("Fundamentos", "Conceitos básicos", 1);
+        //    var conteudo2 = new ConteudoProgramatico("Avançado", "Tópicos avançados", 2);
 
-            // Act
-            curso.AdicionarAula(aula1);
-            curso.AdicionarAula(aula2);
-            curso.AdicionarConteudoProgramatico(conteudo1);
-            curso.AdicionarConteudoProgramatico(conteudo2);
+        //    // Act
+        //    curso.AdicionarAula(aula1);
+        //    curso.AdicionarAula(aula2);
+        //    curso.AdicionarConteudoProgramatico(conteudo1);
+        //    curso.AdicionarConteudoProgramatico(conteudo2);
 
-            // Assert
-            Assert.Equal(2, curso.Aulas.Count);
-            Assert.Equal(2, curso.ConteudosProgramaticos.Count);
-            Assert.True(curso.VerificarSeAulaEstaCadastrada(aula1.Id));
-            Assert.True(curso.VerificarSeAulaEstaCadastrada(aula2.Id));
-            Assert.Contains(aula1, curso.Aulas);
-            Assert.Contains(aula2, curso.Aulas);
-            Assert.Contains(conteudo1, curso.ConteudosProgramaticos);
-            Assert.Contains(conteudo2, curso.ConteudosProgramaticos);
-        }
+        //    // Assert
+        //    Assert.Equal(2, curso.Aulas.Count);
+        //    Assert.Equal(2, curso.ConteudosProgramaticos.Count);
+        //    Assert.True(curso.VerificarSeAulaEstaCadastrada(aula1.Id));
+        //    Assert.True(curso.VerificarSeAulaEstaCadastrada(aula2.Id));
+        //    Assert.Contains(aula1, curso.Aulas);
+        //    Assert.Contains(aula2, curso.Aulas);
+        //    Assert.Contains(conteudo1, curso.ConteudosProgramaticos);
+        //    Assert.Contains(conteudo2, curso.ConteudosProgramaticos);
+        //}
 
-        #endregion
+        //#endregion
     }
 }
 

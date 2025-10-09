@@ -9,7 +9,7 @@ namespace MBA.Educacao.Online.Cursos.Application.Validators
         {
             RuleFor(x => x.CursoId)
                 .Empty()
-                .WithMessage("Título do curso deve ter no mínimo 3 caracteres");
+                .WithMessage("Id do curso é obrigatório.");
         }
     }
 }

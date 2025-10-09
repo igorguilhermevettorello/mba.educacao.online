@@ -5,7 +5,11 @@ namespace MBA.Educacao.Online.Cursos.Domain.Interfaces.Repositories
 {
     public interface ICursoRepository : IRepository<Curso>
     {
-        void Adicionar(Curso curso);
+        Task Adicionar(Curso curso);
+        Task Alterar(Curso curso);
+        Task Remover(Curso curso);
+        Task<Curso> BuscarPorId(Guid id);
+        void IDisposable();
     }
 }
 

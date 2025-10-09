@@ -1,46 +1,32 @@
-//using MBA.Educacao.Online.Cursos.Application.Commands.Cursos;
-//using MBA.Educacao.Online.Cursos.Domain.Interfaces.Repositories;
+﻿using MBA.Educacao.Online.Cursos.Application.Commands.Cursos;
+using MBA.Educacao.Online.Cursos.Domain.Interfaces.Repositories;
+using MediatR;
 
-//namespace MBA.Educacao.Online.Cursos.Application.Handlers.Cursos
-//{
-//    public class InativarCursoCommandHandler : ICommandHandler<InativarCursoCommand>
-//    {
-//        private readonly ICursoRepository _cursoRepository;
+namespace MBA.Educacao.Online.Cursos.Application.Handlers.Cursos
+{
+    public class InativarCursoCommandHandler : IRequestHandler<InativarCursoCommand, bool>
+    {
+        private readonly ICursoRepository _cursoRepository;
+        private readonly IMediator _mediator;
 
-//        public InativarCursoCommandHandler(ICursoRepository cursoRepository)
-//        {
-//            _cursoRepository = cursoRepository;
-//        }
+        public InativarCursoCommandHandler(ICursoRepository cursoRepository, IMediator mediator)
+        {
+            _cursoRepository = cursoRepository;
+            _mediator = mediator;
+        }
 
-//        public async Task<Result> Handle(InativarCursoCommand request, CancellationToken cancellationToken)
-//        {
-//            try
-//            {
-//                // Buscar o curso
-//                var curso = await _cursoRepository.GetByIdAsync(request.Id);
-//                if (curso == null)
-//                {
-//                    return Result.Failure("Curso não encontrado.");
-//                }
+        public async Task<bool> Handle(InativarCursoCommand request, CancellationToken cancellationToken)
+        {
+            var curso = await _cursoRepository.BuscarPorId(request.CursoId);
 
-//                // Verificar se já está inativo
-//                if (!curso.Ativo)
-//                {
-//                    return Result.Failure("O curso já está inativo.");
-//                }
+            if (curso != null)
+            {
+                curso.Inativar();
+                await _cursoRepository.Alterar(curso);
+                return await _cursoRepository.UnitOfWork.Commit();
+            }
 
-//                // Inativar o curso
-//                curso.Inativar();
-
-//                // Atualizar no repositório
-//                await _cursoRepository.UpdateAsync(curso);
-
-//                return Result.Success();
-//            }
-//            catch (Exception ex)
-//            {
-//                return Result.Failure($"Erro interno ao inativar curso: {ex.Message}");
-//            }
-//        }
-//    }
-//}
+            return false;
+        }
+    }
+}

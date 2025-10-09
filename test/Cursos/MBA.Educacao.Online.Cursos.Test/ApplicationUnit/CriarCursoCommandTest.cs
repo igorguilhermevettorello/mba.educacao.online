@@ -1,13 +1,12 @@
 using MBA.Educacao.Online.Cursos.Application.Commands.Cursos;
 using MBA.Educacao.Online.Cursos.Application.Handlers.Cursos;
+using MBA.Educacao.Online.Cursos.Domain.Entities;
 using MBA.Educacao.Online.Cursos.Domain.Enums;
 using MBA.Educacao.Online.Cursos.Domain.Interfaces.Repositories;
-using MBA.Educacao.Online.Cursos.Domain.Entities;
-using MediatR;
 using Moq;
 using Moq.AutoMock;
 
-namespace MBA.Educacao.Online.Cursos.Test.Unit.Application
+namespace MBA.Educacao.Online.Cursos.Test.ApplicationUnit
 {
     public class CriarCursoCommandTest
     {
@@ -20,7 +19,7 @@ namespace MBA.Educacao.Online.Cursos.Test.Unit.Application
 
         #region Cenários de Sucesso
         [Fact(DisplayName = "Criar Curso - Dados Válidos - Deve Criar Curso com Sucesso")]
-        [Trait("Categoria", "Commands - Curso")]
+        [Trait("Curso", "Commands - Curso")]
         public void CriarCurso_DadosValidos_DeveCriarCursoComSucesso()
         {
             // Arrange
@@ -40,7 +39,7 @@ namespace MBA.Educacao.Online.Cursos.Test.Unit.Application
 
         #region Cenários de Falha
         [Fact(DisplayName = "Criar Curso - Título Já Existe - Deve Retornar Falha")]
-        [Trait("Categoria", "Commands - Curso")]
+        [Trait("Curso", "Commands - Curso")]
         public async Task Handle_TituloJaExiste_DeveRetornarFalha()
         {
             // Arrange
@@ -50,7 +49,6 @@ namespace MBA.Educacao.Online.Cursos.Test.Unit.Application
                 NivelCurso.Avancado
             );
 
-            
             var mocker = new AutoMocker();
             var cursoHandler = mocker.CreateInstance<CriarCursoCommandHandler>();
             mocker.GetMock<ICursoRepository>().Setup(r => r.UnitOfWork.Commit()).Returns(Task.FromResult(true));

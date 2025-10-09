@@ -13,29 +13,29 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{DC4AF0EF-B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Core.Domain", "src\Core\MBA.Educacao.Online.Core.Domain\MBA.Educacao.Online.Core.Domain.csproj", "{54463B41-BFB5-42B9-805A-0DDEA8D59C9E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Aluno", "Aluno", "{A1FE9BA6-CCCA-473F-935D-CB6D8181CB82}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Alunos", "Alunos", "{A1FE9BA6-CCCA-473F-935D-CB6D8181CB82}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Aluno.Domain", "src\Aluno\MBA.Educacao.Online.Aluno.Domain\MBA.Educacao.Online.Aluno.Domain.csproj", "{2DC72C53-E75A-47A4-8877-9B4F73D9840B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Alunos.Domain", "src\Alunos\MBA.Educacao.Online.Alunos.Domain\MBA.Educacao.Online.Alunos.Domain.csproj", "{2DC72C53-E75A-47A4-8877-9B4F73D9840B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Aluno.Application", "src\Aluno\MBA.Educacao.Online.Aluno.Application\MBA.Educacao.Online.Aluno.Application.csproj", "{05482354-EE9C-4F3D-8679-ADADAE2ECAD8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Alunos.Application", "src\Alunos\MBA.Educacao.Online.Alunos.Application\MBA.Educacao.Online.Alunos.Application.csproj", "{05482354-EE9C-4F3D-8679-ADADAE2ECAD8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cursos", "Cursos", "{8A65BA5A-033E-4187-82AE-B4292B1C47BA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Cursos.Domain", "src\Cursos\MBA.Educacao.Online.Cursos.Domain\MBA.Educacao.Online.Cursos.Domain.csproj", "{41AEE594-3B51-47DD-A82D-EC4B8032E3F6}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pagamento", "Pagamento", "{701EB9E9-0F40-4C3B-BE30-97F8A4B98E63}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pagamentos", "Pagamentos", "{701EB9E9-0F40-4C3B-BE30-97F8A4B98E63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Pagamento.Domain", "src\Pagamento\MBA.Educacao.Online.Pagamento.Domain\MBA.Educacao.Online.Pagamento.Domain.csproj", "{332D3D06-4474-43A3-A70F-695721C1A648}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Pagamentos.Domain", "src\Pagamentos\MBA.Educacao.Online.Pagamentos.Domain\MBA.Educacao.Online.Pagamentos.Domain.csproj", "{332D3D06-4474-43A3-A70F-695721C1A648}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Aluno.Test.Unit", "test\unidade\Aluno\MBA.Educacao.Online.Aluno.Test.Unit\MBA.Educacao.Online.Aluno.Test.Unit.csproj", "{9518F5C4-599B-4EC2-AF4D-F35D47CA89D7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Alunos.Test", "test\Alunos\MBA.Educacao.Online.Alunos.Test\MBA.Educacao.Online.Alunos.Test.csproj", "{9518F5C4-599B-4EC2-AF4D-F35D47CA89D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Core.Test.Unit", "test\unidade\Core\MBA.Educacao.Online.Core.Test.Unit\MBA.Educacao.Online.Core.Test.Unit.csproj", "{ED2C3D30-D35D-4DEC-9BE8-BAE0F686F520}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Core.Test", "test\Core\MBA.Educacao.Online.Core.Test\MBA.Educacao.Online.Core.Test.csproj", "{ED2C3D30-D35D-4DEC-9BE8-BAE0F686F520}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Cursos.Application", "src\Cursos\MBA.Educacao.Online.Cursos.Application\MBA.Educacao.Online.Cursos.Application.csproj", "{BE9AF5E5-AD8C-4358-ADFD-9853B1E6884F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Pagamento.Application", "src\Pagamento\MBA.Educacao.Online.Pagamento.Application\MBA.Educacao.Online.Pagamento.Application.csproj", "{D770E01F-FF47-44A1-8279-49AC243530E1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Pagamentos.Application", "src\Pagamentos\MBA.Educacao.Online.Pagamentos.Application\MBA.Educacao.Online.Pagamentos.Application.csproj", "{D770E01F-FF47-44A1-8279-49AC243530E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Cursos.Test.Unit", "test\unidade\Cursos\MBA.Educacao.Online.Cursos.Test.Unit\MBA.Educacao.Online.Cursos.Test.Unit.csproj", "{ACA7A5B4-DB38-416D-9296-0BB024A6E4BC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Cursos.Test", "test\Cursos\MBA.Educacao.Online.Cursos.Test\MBA.Educacao.Online.Cursos.Test.csproj", "{ACA7A5B4-DB38-416D-9296-0BB024A6E4BC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Core.Data", "src\Core\MBA.Educacao.Online.Core.Data\MBA.Educacao.Online.Core.Data.csproj", "{AE41417A-F411-479D-9455-41BBFFC6883E}"
 EndProject

@@ -1,11 +1,12 @@
 using MBA.Educacao.Online.Core.Domain.Models;
 using MBA.Educacao.Online.Cursos.Data.Context;
+using MediatR;
 
 namespace MBA.Educacao.Online.Cursos.Data.Extensions
 {
     public static class MediatorExtension
     {
-        public static async Task PublicarEventos(this IMediatorHandler mediator, CursoContext ctx)
+        public static async Task PublicarEventos(this IMediator mediator, CursoContext ctx)
         {
             var domainEntities = ctx.ChangeTracker
                 .Entries<Entity>()
@@ -20,7 +21,7 @@ namespace MBA.Educacao.Online.Cursos.Data.Extensions
 
             var tasks = domainEvents
                 .Select(async (domainEvent) => {
-                    await mediator.PublicarEvento(domainEvent);
+                    await mediator.Publish(domainEvent);
                 });
 
             await Task.WhenAll(tasks);

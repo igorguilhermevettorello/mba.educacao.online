@@ -1,8 +1,5 @@
 using MBA.Educacao.Online.Cursos.Application.Commands.Cursos;
-using MBA.Educacao.Online.Cursos.Application.Events.Cursos;
-using MBA.Educacao.Online.Cursos.Domain.Enums;
 using MBA.Educacao.Online.Cursos.Domain.Interfaces.Repositories;
-using MBA.Educacao.Online.Cursos.Domain.Entities;
 using MediatR;
 
 namespace MBA.Educacao.Online.Cursos.Application.Handlers.Cursos
@@ -20,55 +17,16 @@ namespace MBA.Educacao.Online.Cursos.Application.Handlers.Cursos
 
         public async Task<bool> Handle(AtivarCursoCommand request, CancellationToken cancellationToken)
         {
-            var curso = new Curso(string.Empty, string.Empty, NivelCurso.Avancado);
+            var curso = await _cursoRepository.BuscarPorId(request.CursoId);
 
-            _cursoRepository.Adicionar(curso);
+            if (curso != null) 
+            {
+                curso.Ativar();
+                await _cursoRepository.Alterar(curso);
+                return await _cursoRepository.UnitOfWork.Commit();
+            }
 
-            await _mediator.Publish(new CriarCursoEvent(curso.Id, string.Empty, string.Empty), cancellationToken);
-
-            return true;
+            return false;
         }
-
     }
 }
-
-//public class AtivarCursoCommandHandler : ICommandHandler<AtivarCursoCommand>
-//{
-//    private readonly ICursoRepository _cursoRepository;
-
-//    public AtivarCursoCommandHandler(ICursoRepository cursoRepository)
-//    {
-//        _cursoRepository = cursoRepository;
-//    }
-
-//    public async Task<Result> Handle(AtivarCursoCommand request, CancellationToken cancellationToken)
-//    {
-//        try
-//        {
-//            // Buscar o curso
-//            var curso = await _cursoRepository.GetByIdAsync(request.Id);
-//            if (curso == null)
-//            {
-//                return Result.Failure("Curso não encontrado.");
-//            }
-
-//            // Verificar se já está ativo
-//            if (curso.Ativo)
-//            {
-//                return Result.Failure("O curso já está ativo.");
-//            }
-
-//            // Ativar o curso
-//            curso.Ativar();
-
-//            // Atualizar no repositório
-//            await _cursoRepository.UpdateAsync(curso);
-
-//            return Result.Success();
-//        }
-//        catch (Exception ex)
-//        {
-//            return Result.Failure($"Erro interno ao ativar curso: {ex.Message}");
-//        }
-//    }
-//}

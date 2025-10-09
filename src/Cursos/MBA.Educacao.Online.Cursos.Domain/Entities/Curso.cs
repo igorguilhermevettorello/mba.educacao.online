@@ -1,7 +1,6 @@
 using MBA.Educacao.Online.Core.Data.Interfaces;
 using MBA.Educacao.Online.Core.Domain.Models;
 using MBA.Educacao.Online.Cursos.Domain.Enums;
-using MBA.Educacao.Online.Cursos.Domain.ValueObjects;
 
 namespace MBA.Educacao.Online.Cursos.Domain.Entities
 {
@@ -12,16 +11,12 @@ namespace MBA.Educacao.Online.Cursos.Domain.Entities
         public NivelCurso Nivel { get; private set; }
         public DateTime DataCriacao { get; private set; }
         public bool Ativo { get; private set; }
-
         private readonly List<Aula> _aulas;
         public IReadOnlyCollection<Aula> Aulas => _aulas.AsReadOnly();
-        private readonly List<ConteudoProgramatico> _conteudosProgramaticos;
-        public IReadOnlyCollection<ConteudoProgramatico> ConteudosProgramaticos => _conteudosProgramaticos.AsReadOnly();
-
+        
         private Curso()
         {
             _aulas = new List<Aula>();
-            _conteudosProgramaticos = new List<ConteudoProgramatico>();
         }
 
         public Curso(string titulo, string descricao, NivelCurso nivel) : this()
@@ -52,17 +47,6 @@ namespace MBA.Educacao.Online.Cursos.Domain.Entities
                 throw new InvalidOperationException("Não é possível adicionar aulas a um curso inativo");
 
             _aulas.Add(aula);
-        }
-
-        public void AdicionarConteudoProgramatico(ConteudoProgramatico conteudo)
-        {
-            if (conteudo == null)
-                throw new ArgumentNullException(nameof(conteudo));
-
-            if (!Ativo)
-                throw new InvalidOperationException("Não é possível adicionar conteúdo programático a um curso inativo");
-
-            _conteudosProgramaticos.Add(conteudo);
         }
 
         public bool VerificarSeAulaEstaCadastrada(Guid aulaId)

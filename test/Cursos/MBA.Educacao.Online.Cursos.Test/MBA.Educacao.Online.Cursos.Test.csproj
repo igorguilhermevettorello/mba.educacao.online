@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -20,12 +20,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Using Include="Xunit" />
+    <ProjectReference Include="..\..\..\src\Alunos\MBA.Educacao.Online.Alunos.Application\MBA.Educacao.Online.Alunos.Application.csproj" />
+    <ProjectReference Include="..\..\..\src\Cursos\MBA.Educacao.Online.Cursos.Application\MBA.Educacao.Online.Cursos.Application.csproj" />
+    <ProjectReference Include="..\..\..\src\Cursos\MBA.Educacao.Online.Cursos.Domain\MBA.Educacao.Online.Cursos.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\src\Cursos\MBA.Educacao.Online.Cursos.Domain\MBA.Educacao.Online.Cursos.Domain.csproj" />
-    <ProjectReference Include="..\..\..\..\src\Cursos\MBA.Educacao.Online.Cursos.Application\MBA.Educacao.Online.Cursos.Application.csproj" />
+    <Using Include="Xunit" />
   </ItemGroup>
 
 </Project>

@@ -21,7 +21,7 @@ namespace MBA.Educacao.Online.Cursos.Application.Handlers.Cursos
         {
             var curso = new Curso(request.Titulo, request.Descricao, request.Nivel);
 
-            _cursoRepository.Adicionar(curso);
+            await _cursoRepository.Adicionar(curso);
 
             curso.AdicionarEvento(new CriarCursoEvent(curso.Id, request.Titulo, request.Descricao));
             

@@ -1,4 +1,5 @@
 using MBA.Educacao.Online.Core.Data.Interfaces;
+using MBA.Educacao.Online.Cursos.Data.Extensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,8 +16,8 @@ namespace MBA.Educacao.Online.Cursos.Data.Context
 
         public async Task<bool> Commit()
         {
-            var success = await base.SaveChanges() > 0;
-            if (success) await _mediator.Publish();
+            var success = (await base.SaveChangesAsync()) > 0;
+            if (success) await _mediator.PublicarEventos(this);
             return success;
         }
     }
