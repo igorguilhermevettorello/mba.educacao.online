@@ -1,7 +1,8 @@
-using MBA.Educacao.Online.Core.Domain.Interfaces;
+using MBA.Educacao.Online.Core.Domain.Interfaces.Repositories;
 using MBA.Educacao.Online.Cursos.Data.Context;
 using MBA.Educacao.Online.Cursos.Domain.Entities;
 using MBA.Educacao.Online.Cursos.Domain.Interfaces.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace MBA.Educacao.Online.Cursos.Data.Repositories
 {
@@ -15,34 +16,34 @@ namespace MBA.Educacao.Online.Cursos.Data.Repositories
         }
         public IUnitOfWork UnitOfWork => _context;
         
-        public Task Adicionar(Curso curso)
+        public void Adicionar(Curso curso)
         {
-            throw new NotImplementedException();
+            _context.Cursos.Add(curso);
         }
 
-        public Task Alterar(Curso curso)
+        public void Alterar(Curso curso)
         {
-            throw new NotImplementedException();
+            _context.Cursos.Update(curso);
         }
 
-        public Task Remover(Curso curso)
+        public void Remover(Curso curso)
         {
-            throw new NotImplementedException();
+            _context.Cursos.Remove(curso);
         }
 
-        public Task<Curso> BuscarPorId(Guid id)
+        public Curso BuscarPorId(Guid id)
         {
-            throw new NotImplementedException();
+            return _context.Cursos.AsNoTracking().FirstOrDefault(c => c.Id == id);
         }
 
         public void IDisposable()
         {
-            throw new NotImplementedException();
+            _context?.Dispose();
         }
         
         public void Dispose()
         {
-            throw new NotImplementedException();
+            _context?.Dispose();
         }
     }
 }

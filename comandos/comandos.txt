@@ -1,0 +1,42 @@
+# Comandos para Migrations
+
+## Criar Migration do Bounded Context Cursos
+dotnet ef migrations add InitialMigrations \
+  --project ./src/Cursos/MBA.Educacao.Online.Cursos.Data/MBA.Educacao.Online.Cursos.Data.csproj \
+  --startup-project ./api/MBA.Educacao.Online.API/MBA.Educacao.Online.API.csproj \
+  --context CursoContext \
+  --output-dir ./Migrations
+
+## Aplicar Migration do Bounded Context Cursos
+dotnet ef database update \
+  --project ./src/Cursos/MBA.Educacao.Online.Cursos.Data/MBA.Educacao.Online.Cursos.Data.csproj \
+  --startup-project ./api/MBA.Educacao.Online.API/MBA.Educacao.Online.API.csproj \
+  --context CursoContext \
+  --connection "Data Source=/home/igor/Documentos/projetos/mba.educacao.online/sqlite/dev.db"
+
+## Criar Migration do Identity
+dotnet ef migrations add IdentityInitialMigration \
+  --project ./src/Core/MBA.Educacao.Online.Core.Data/MBA.Educacao.Online.Core.Data.csproj \
+  --startup-project ./api/MBA.Educacao.Online.API/MBA.Educacao.Online.API.csproj \
+  --context IdentityDbContext \
+  --output-dir ./Migrations
+
+## Aplicar Migration do Identity
+dotnet ef database update \
+  --project ./src/Core/MBA.Educacao.Online.Core.Data/MBA.Educacao.Online.Core.Data.csproj \
+  --startup-project ./api/MBA.Educacao.Online.API/MBA.Educacao.Online.API.csproj \
+  --context IdentityDbContext \
+  --connection "Data Source=/home/igor/Documentos/projetos/mba.educacao.online/sqlite/dev.db"
+
+## Remover última migration (se necessário)
+# Para Cursos:
+dotnet ef migrations remove \
+  --project ./src/Cursos/MBA.Educacao.Online.Cursos.Data/MBA.Educacao.Online.Cursos.Data.csproj \
+  --startup-project ./api/MBA.Educacao.Online.API/MBA.Educacao.Online.API.csproj \
+  --context CursoContext
+
+# Para Identity:
+dotnet ef migrations remove \
+  --project ./src/Core/MBA.Educacao.Online.Core.Data/MBA.Educacao.Online.Core.Data.csproj \
+  --startup-project ./api/MBA.Educacao.Online.API/MBA.Educacao.Online.API.csproj \
+  --context IdentityDbContext

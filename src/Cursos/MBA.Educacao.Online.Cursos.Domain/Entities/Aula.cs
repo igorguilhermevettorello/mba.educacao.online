@@ -11,11 +11,23 @@ namespace MBA.Educacao.Online.Cursos.Domain.Entities
         public int Ordem { get; private set; }
         public DateTime DataCriacao { get; private set; }
         public bool Ativa { get; private set; }
-
+        public Guid CursoId { get; private set; }
+        public Curso? Curso { get; private set; }
         private Aula() { }
-
         public Aula(string titulo, string descricao, int duracaoMinutos, int ordem)
         {
+            if (string.IsNullOrWhiteSpace(titulo))
+                throw new ArgumentException("Título da aula é obrigatório", nameof(titulo));
+
+            if (string.IsNullOrWhiteSpace(descricao))
+                throw new ArgumentException("Descrição da aula é obrigatória", nameof(descricao));
+
+            if (duracaoMinutos <= 0)
+                throw new ArgumentException("Duração deve ser maior que zero", nameof(duracaoMinutos));
+
+            if (ordem <= 0)
+                throw new ArgumentException("Ordem deve ser maior que zero", nameof(ordem));
+            
             Id = Guid.NewGuid();
             Titulo = titulo;
             Descricao = descricao;
@@ -23,25 +35,8 @@ namespace MBA.Educacao.Online.Cursos.Domain.Entities
             Ordem = ordem;
             DataCriacao = DateTime.UtcNow;
             Ativa = true;
-
-            ValidarAula();
         }
-
-        private void ValidarAula()
-        {
-            if (string.IsNullOrWhiteSpace(Titulo))
-                throw new ArgumentException("Título da aula é obrigatório", nameof(Titulo));
-
-            if (string.IsNullOrWhiteSpace(Descricao))
-                throw new ArgumentException("Descrição da aula é obrigatória", nameof(Descricao));
-
-            if (DuracaoMinutos <= 0)
-                throw new ArgumentException("Duração deve ser maior que zero", nameof(DuracaoMinutos));
-
-            if (Ordem <= 0)
-                throw new ArgumentException("Ordem deve ser maior que zero", nameof(Ordem));
-        }
-
+        
         public void AtualizarTitulo(string novoTitulo)
         {
             if (string.IsNullOrWhiteSpace(novoTitulo))

@@ -17,4 +17,10 @@
     <ProjectReference Include="..\MBA.Educacao.Online.Cursos.Domain\MBA.Educacao.Online.Cursos.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\..\..\..\..\..\.nuget\packages\automapper\15.0.1\lib\net8.0\AutoMapper.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

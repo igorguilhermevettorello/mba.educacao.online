@@ -1,3 +1,13 @@
+using MBA.Educacao.Online.Core.Data.Context;
+using MBA.Educacao.Online.Core.Domain.Interfaces.Mediator;
+using MBA.Educacao.Online.Core.Domain.Mediator;
+using MBA.Educacao.Online.Cursos.Application.Services.Cursos;
+using MBA.Educacao.Online.Cursos.Data.Context;
+using MBA.Educacao.Online.Cursos.Data.Repositories;
+using MBA.Educacao.Online.Cursos.Domain.Interfaces.Repositories;
+using MBA.Educacao.Online.Cursos.Domain.Interfaces.Services;
+using MBA.Educacao.Online.Cursos.Domain.Services;
+
 namespace MBA.Educacao.Online.API.Configurations
 {
     public static class DependencyInjectionConfig
@@ -12,7 +22,8 @@ namespace MBA.Educacao.Online.API.Configurations
 
         private static void RegisterApplicationDependencies(IServiceCollection service, IConfiguration configuration)
         {
-            // service.AddScoped<ApplicationDbContext>();
+            service.AddScoped<IdentityDbContext>();
+            service.AddScoped<CursoContext>();
             // service.AddScoped<INotificador, Notificador>();
             // service.Configure<JwtSettings>(configuration.GetSection("Jwt"));
             // service.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -27,6 +38,7 @@ namespace MBA.Educacao.Online.API.Configurations
 
         private static void RegisterRepositories(IServiceCollection service)
         {
+            service.AddScoped<ICursoRepository, CursoRepository>();
             // service.AddScoped<ICategoriaRepository, CategoriaRepository>();
             // service.AddScoped<IClienteRepository, ClienteRepository>();
             // service.AddScoped<IProdutoRepository, ProdutoRepository>();
@@ -37,6 +49,10 @@ namespace MBA.Educacao.Online.API.Configurations
 
         private static void RegisterServices(IServiceCollection service)
         {
+            service.AddScoped<IMediatorHandler, MediatorHandler>();
+            service.AddScoped<ICursoAppService, CursoAppService>();
+            service.AddScoped<ICursoService, CursoService>();
+
             // service.AddScoped<ICategoriaService, CategoriaService>();
             // service.AddScoped<IProdutoService, ProdutoService>();
             // service.AddScoped<IVendedorService, VendedorService>();

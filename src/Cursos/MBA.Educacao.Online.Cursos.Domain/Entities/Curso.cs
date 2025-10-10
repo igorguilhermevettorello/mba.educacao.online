@@ -1,4 +1,4 @@
-using MBA.Educacao.Online.Core.Domain.Interfaces;
+using MBA.Educacao.Online.Core.Domain.Interfaces.Repositories;
 using MBA.Educacao.Online.Core.Domain.Models;
 using MBA.Educacao.Online.Cursos.Domain.Enums;
 using MBA.Educacao.Online.Cursos.Domain.ValueObjects;

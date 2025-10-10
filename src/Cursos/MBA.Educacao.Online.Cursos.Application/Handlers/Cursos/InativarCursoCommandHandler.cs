@@ -17,12 +17,12 @@ namespace MBA.Educacao.Online.Cursos.Application.Handlers.Cursos
 
         public async Task<bool> Handle(InativarCursoCommand request, CancellationToken cancellationToken)
         {
-            var curso = await _cursoRepository.BuscarPorId(request.CursoId);
+            var curso = _cursoRepository.BuscarPorId(request.CursoId);
 
             if (curso != null)
             {
                 curso.Inativar();
-                await _cursoRepository.Alterar(curso);
+                _cursoRepository.Alterar(curso);
                 return await _cursoRepository.UnitOfWork.Commit();
             }
 
