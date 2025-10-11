@@ -27,6 +27,12 @@ namespace MBA.Educacao.Online.Core.Domain.Models
         {
             _notificacoes?.Clear();
         }
+
+        public virtual bool IsValid()
+        {
+            throw new NotImplementedException();
+
+        }
     }    
 }
 

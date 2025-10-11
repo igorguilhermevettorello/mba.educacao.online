@@ -18,9 +18,9 @@ namespace MBA.Educacao.Online.Core.Domain.Mediator
             await _mediator.Publish(evento);
         }
 
-        public Task<bool> EnviarComando<T>(T comando) where T : Command
+        public async Task<bool> EnviarComando<T>(T comando) where T : Command
         {
-            throw new NotImplementedException();
+            return await _mediator.Send(comando);
         }
     }
 }
