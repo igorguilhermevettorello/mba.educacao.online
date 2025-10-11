@@ -1,18 +1,12 @@
 using MBA.Educacao.Online.Core.Domain.Interfaces.Repositories;
 using MBA.Educacao.Online.Cursos.Domain.Entities;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace MBA.Educacao.Online.Cursos.Data.Context
 {
     public class CursoContext : DbContext, IUnitOfWork
     {
-        // private readonly IMediator _mediator;
-
-        public CursoContext(DbContextOptions<CursoContext> options, IMediator mediator) : base(options)
-        {
-            // _mediator = mediator;
-        }
+        public CursoContext(DbContextOptions<CursoContext> options) : base(options) { }
 
         public DbSet<Curso> Cursos { get; set; }
         

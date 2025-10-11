@@ -19,11 +19,11 @@ namespace MBA.Educacao.Online.Vendas.Data.Mappings
                 .IsRequired();
 
             builder.Property(i => i.CursoNome)
-                .HasColumnType("varchar(200)")
-                .IsRequired();
+                .IsRequired()
+                .HasColumnType("varchar(200)");
 
             builder.Property(i => i.Valor)
-                .HasColumnType("decimal(18,2)")
+                .HasPrecision(15, 2)
                 .IsRequired();
 
             // Relacionamento N:1 -> PedidoItem pertence a um Pedido

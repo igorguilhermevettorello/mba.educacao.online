@@ -6,12 +6,7 @@ namespace MBA.Educacao.Online.Vendas.Data.Context
 {
     public class PedidoContext : DbContext, IUnitOfWork
     {
-        // private readonly IMediator _mediator;
-
-        public PedidoContext(DbContextOptions<PedidoContext> options, IMediator mediator) : base(options)
-        {
-            // _mediator = mediator;
-        }
+        public PedidoContext(DbContextOptions<PedidoContext> options) : base(options) { }
 
         public DbSet<Pedido> Pedidos { get; set; }
 

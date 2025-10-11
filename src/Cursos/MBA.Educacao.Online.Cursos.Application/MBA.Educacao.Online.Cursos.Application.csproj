@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="15.0.1" />
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="13.0.0" />
     <PackageReference Include="MediatR" Version="13.0.0" />
     <PackageReference Include="FluentValidation" Version="12.0.0" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.8.1" />
@@ -16,12 +17,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Core\MBA.Educacao.Online.Core.Domain\MBA.Educacao.Online.Core.Domain.csproj" />
     <ProjectReference Include="..\MBA.Educacao.Online.Cursos.Domain\MBA.Educacao.Online.Cursos.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="AutoMapper">
-      <HintPath>..\..\..\..\..\..\.nuget\packages\automapper\15.0.1\lib\net8.0\AutoMapper.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MBA.Educacao.Online.Core.Data.Migrations
 {
     [DbContext(typeof(IdentityDbContext))]
-    [Migration("20251010192218_IdentityInitialMigration")]
+    [Migration("20251011185859_IdentityInitialMigration")]
     partial class IdentityInitialMigration
     {
         /// <inheritdoc />

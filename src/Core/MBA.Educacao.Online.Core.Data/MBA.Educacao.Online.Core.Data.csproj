@@ -25,4 +25,8 @@
       <ProjectReference Include="..\MBA.Educacao.Online.Core.Domain\MBA.Educacao.Online.Core.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Migrations\" />
+    </ItemGroup>
+
 </Project>

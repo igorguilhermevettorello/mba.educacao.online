@@ -1,6 +1,4 @@
-﻿
-
-using MBA.Educacao.Online.Vendas.Domain.Models;
+﻿using MBA.Educacao.Online.Vendas.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -11,7 +9,7 @@ namespace MBA.Educacao.Online.Vendas.Data.Mappings
         public void Configure(EntityTypeBuilder<Pedido> builder)
         {
             builder.ToTable("Pedidos");
-
+            
             builder.HasKey(p => p.Id);
 
             builder.Property(p => p.Codigo)
@@ -21,7 +19,7 @@ namespace MBA.Educacao.Online.Vendas.Data.Mappings
                 .IsRequired();
 
             builder.Property(p => p.ValorTotal)
-                .HasColumnType("decimal(15,2)")
+                .HasPrecision(15, 2)
                 .IsRequired();
 
             builder.Property(p => p.DataCadastro)
