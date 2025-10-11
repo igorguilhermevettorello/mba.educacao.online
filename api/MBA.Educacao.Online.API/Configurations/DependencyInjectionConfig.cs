@@ -7,6 +7,7 @@ using MBA.Educacao.Online.Cursos.Data.Repositories;
 using MBA.Educacao.Online.Cursos.Domain.Interfaces.Repositories;
 using MBA.Educacao.Online.Cursos.Domain.Interfaces.Services;
 using MBA.Educacao.Online.Cursos.Domain.Services;
+using MBA.Educacao.Online.Vendas.Data.Context;
 
 namespace MBA.Educacao.Online.API.Configurations
 {
@@ -24,6 +25,7 @@ namespace MBA.Educacao.Online.API.Configurations
         {
             service.AddScoped<IdentityDbContext>();
             service.AddScoped<CursoContext>();
+            service.AddScoped<PedidoContext>();
             // service.AddScoped<INotificador, Notificador>();
             // service.Configure<JwtSettings>(configuration.GetSection("Jwt"));
             // service.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

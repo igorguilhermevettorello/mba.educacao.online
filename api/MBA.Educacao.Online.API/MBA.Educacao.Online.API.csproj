@@ -10,7 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="15.0.1" />
     <PackageReference Include="elmah.io" Version="5.3.60" />
     <PackageReference Include="Elmah.Io.AspNetCore" Version="5.3.88" />
     <PackageReference Include="Elmah.Io.Extensions.Logging" Version="5.3.67" />
@@ -31,6 +30,9 @@
     <ProjectReference Include="..\..\src\Cursos\MBA.Educacao.Online.Cursos.Application\MBA.Educacao.Online.Cursos.Application.csproj" />
     <ProjectReference Include="..\..\src\Cursos\MBA.Educacao.Online.Cursos.Data\MBA.Educacao.Online.Cursos.Data.csproj" />
     <ProjectReference Include="..\..\src\Cursos\MBA.Educacao.Online.Cursos.Domain\MBA.Educacao.Online.Cursos.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Vendas\MBA.Educacao.Online.Vendas.Application\MBA.Educacao.Online.Vendas.Application.csproj" />
+    <ProjectReference Include="..\..\src\Vendas\MBA.Educacao.Online.Vendas.Data\MBA.Educacao.Online.Vendas.Data.csproj" />
+    <ProjectReference Include="..\..\src\Vendas\MBA.Educacao.Online.Vendas.Domain\MBA.Educacao.Online.Vendas.Domain.csproj" />
   </ItemGroup>
 
 </Project>

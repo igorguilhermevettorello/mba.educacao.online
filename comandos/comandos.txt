@@ -7,6 +7,8 @@ dotnet ef migrations add InitialMigrations \
   --context CursoContext \
   --output-dir ./Migrations
 
+dotnet ef migrations add InitialMigrations --project ./src/Cursos/MBA.Educacao.Online.Cursos.Data/MBA.Educacao.Online.Cursos.Data.csproj --startup-project ./api/MBA.Educacao.Online.API/MBA.Educacao.Online.API.csproj --context CursoContext --output-dir ./Migrations
+
 ## Aplicar Migration do Bounded Context Cursos
 dotnet ef database update \
   --project ./src/Cursos/MBA.Educacao.Online.Cursos.Data/MBA.Educacao.Online.Cursos.Data.csproj \
@@ -20,6 +22,9 @@ dotnet ef migrations add IdentityInitialMigration \
   --startup-project ./api/MBA.Educacao.Online.API/MBA.Educacao.Online.API.csproj \
   --context IdentityDbContext \
   --output-dir ./Migrations
+
+dotnet ef migrations add IdentityInitialMigration --project ./src/Core/MBA.Educacao.Online.Core.Data/MBA.Educacao.Online.Core.Data.csproj --startup-project ./api/MBA.Educacao.Online.API/MBA.Educacao.Online.API.csproj --context IdentityDbContext --output-dir ./Migrations
+
 
 ## Aplicar Migration do Identity
 dotnet ef database update \
@@ -40,3 +45,24 @@ dotnet ef migrations remove \
   --project ./src/Core/MBA.Educacao.Online.Core.Data/MBA.Educacao.Online.Core.Data.csproj \
   --startup-project ./api/MBA.Educacao.Online.API/MBA.Educacao.Online.API.csproj \
   --context IdentityDbContext
+
+## Criar Migration do Bounded Context Vendas
+dotnet ef migrations add InitialMigrations \
+  --project ./src/Vendas/MBA.Educacao.Online.Vendas.Data/MBA.Educacao.Online.Vendas.Data.csproj \
+  --startup-project ./api/MBA.Educacao.Online.API/MBA.Educacao.Online.API.csproj \
+  --context PedidoContext \
+  --output-dir ./Migrations
+
+dotnet ef migrations add InitialMigrations --project ./src/Vendas/MBA.Educacao.Online.Vendas.Data/MBA.Educacao.Online.Vendas.Data.csproj --startup-project ./api/MBA.Educacao.Online.API/MBA.Educacao.Online.API.csproj --context PedidoContext --output-dir ./Migrations
+
+## Aplicar Migration do Bounded Context Vendas
+dotnet ef database update \
+  --project ./src/Vendas/MBA.Educacao.Online.Vendas.Data/MBA.Educacao.Online.Vendas.Data.csproj \
+  --startup-project ./api/MBA.Educacao.Online.API/MBA.Educacao.Online.API.csproj \
+  --context PedidoContext
+
+# Para Vendas:
+dotnet ef migrations remove \
+  --project ./src/Vendas/MBA.Educacao.Online.Vendas.Data/MBA.Educacao.Online.Vendas.Data.csproj \
+  --startup-project ./api/MBA.Educacao.Online.API/MBA.Educacao.Online.API.csproj \
+  --context PedidoContext

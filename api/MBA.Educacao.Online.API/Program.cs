@@ -1,4 +1,5 @@
 using MBA.Educacao.Online.API.Configurations;
+using MBA.Educacao.Online.Cursos.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,10 +19,8 @@ builder.Services.AddIdentityConfig(builder.Configuration);
 // Configuração de Dependency Injection
 builder.Services.AddDependencyInjectionConfig(builder.Configuration);
 
-// Configuração de MediatR
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
-
-// builder.Services.AddAutoMapper(typeof(AutomapperConfig));
+// Configuração de Application Layer (MediatR, FluentValidation, AutoMapper)
+builder.Services.AddApplication();
 
 var app = builder.Build();
 
