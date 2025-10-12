@@ -8,6 +8,12 @@ namespace MBA.Educacao.Online.Vendas.Application.Commands
         public Guid CursoId { get; set; }
         public decimal Valor { get; set; }
 
+        public AdicionarCursoPedidoItemCommand(Guid cursoId, decimal valor)
+        { 
+            CursoId = cursoId;
+            Valor = valor;
+        }
+
         public override bool IsValid()
         {
             ValidationResult = new AdicionarCursoPedidoItemCommandValidator().Validate(this);

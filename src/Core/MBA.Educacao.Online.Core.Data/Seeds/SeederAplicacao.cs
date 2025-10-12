@@ -41,5 +41,34 @@ namespace MBA.Educacao.Online.Core.Data.Seeds
                 var _ = ex.Message;
             }
         }
+        public static async Task EnsureSeedApplication(UserManager<IdentityUser> userManager, IdentityDbContext contextIdentity)
+        {
+            var emailAdmin = "administrador@educacao.com.br";
+            if (await userManager.FindByEmailAsync(emailAdmin) == null)
+            {
+                var user = new IdentityUser
+                {
+                    UserName = "Administrador",
+                    Email = emailAdmin,
+                    NormalizedUserName = "Administrador",
+                    NormalizedEmail = emailAdmin,
+                    EmailConfirmed = true,
+                    SecurityStamp = Guid.NewGuid().ToString(),
+                    ConcurrencyStamp = Guid.NewGuid().ToString(),
+                    PhoneNumberConfirmed = false,
+                    TwoFactorEnabled = false,
+                    LockoutEnabled = true,
+                    AccessFailedCount = 0
+                };
+
+                var result = await userManager.CreateAsync(user, "Admin@123");
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(user, TipoUsuario.Administrador.ToString().ToUpper());
+                }
+
+                await contextIdentity.SaveChangesAsync();
+            }
+        }
     }
 }

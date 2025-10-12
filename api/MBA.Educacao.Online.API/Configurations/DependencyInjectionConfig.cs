@@ -12,6 +12,8 @@ using MBA.Educacao.Online.Cursos.Domain.Interfaces.Repositories;
 using MBA.Educacao.Online.Cursos.Domain.Interfaces.Services;
 using MBA.Educacao.Online.Cursos.Domain.Services;
 using MBA.Educacao.Online.Vendas.Data.Context;
+using MBA.Educacao.Online.Vendas.Data.Repositories;
+using MBA.Educacao.Online.Vendas.Domain.Interfaces.Repositories;
 
 namespace MBA.Educacao.Online.API.Configurations
 {
@@ -45,6 +47,7 @@ namespace MBA.Educacao.Online.API.Configurations
         private static void RegisterRepositories(IServiceCollection service)
         {
             service.AddScoped<ICursoRepository, CursoRepository>();
+            service.AddScoped<IPedidoRepository, PedidoRepository>();
             // service.AddScoped<ICategoriaRepository, CategoriaRepository>();
             // service.AddScoped<IClienteRepository, ClienteRepository>();
             // service.AddScoped<IProdutoRepository, ProdutoRepository>();

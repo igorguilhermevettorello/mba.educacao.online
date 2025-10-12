@@ -6,9 +6,7 @@ namespace MBA.Educacao.Online.Core.Domain.Enums
     {
         [Description("Administrador")]
         Administrador,
-        [Description("Vendedor")]
-        Vendedor,
-        [Description("Cliente")]
-        Cliente
+        [Description("Aluno")]
+        Aluno
     }
 }

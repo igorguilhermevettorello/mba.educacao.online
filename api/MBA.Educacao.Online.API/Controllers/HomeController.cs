@@ -1,7 +1,9 @@
 using MBA.Educacao.Online.API.Controllers.Base;
 using MBA.Educacao.Online.API.DTOs;
 using MBA.Educacao.Online.Core.Domain.Interfaces.Identity;
+using MBA.Educacao.Online.Core.Domain.Interfaces.Mediator;
 using MBA.Educacao.Online.Core.Domain.Interfaces.Notifications;
+using MBA.Educacao.Online.Vendas.Application.Commands;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MBA.Educacao.Online.API.Controllers
@@ -10,15 +12,22 @@ namespace MBA.Educacao.Online.API.Controllers
     [Route("api")]
     public class HomeController : MainController
     {
-        public HomeController(INotificador notificador, IUser appUser) : base(notificador, appUser)
+
+        private readonly IMediatorHandler _mediatorHandler;
+
+        public HomeController(IMediatorHandler mediatorHandler, INotificador notificador, IUser appUser) : base(notificador, appUser)
         {
+            _mediatorHandler = mediatorHandler;
         }
 
         [HttpPost("registrar")]
         [ProducesResponseType(typeof(RegistrarDto), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult Registrar([FromBody] RegistrarDto registrarDto)
+        public async Task<ActionResult> Registrar([FromBody] RegistrarDto registrarDto)
         {
+            var command = new AdicionarCursoPedidoItemCommand(Guid.NewGuid(), 100);
+            var teste = await _mediatorHandler.EnviarComando(command);
+
             if (!ModelState.IsValid)
                 return CustomResponse(ModelState);
 
