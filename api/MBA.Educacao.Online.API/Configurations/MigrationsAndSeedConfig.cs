@@ -1,4 +1,6 @@
-using MBA.Educacao.Online.Core.Data.Seeds;
+using MBA.Educacao.Online.Core.Data.Context;
+using MBA.Educacao.Online.Cursos.Data.Context;
+using MBA.Educacao.Online.Vendas.Data.Context;
 
 namespace MBA.Educacao.Online.API.Configurations
 {
@@ -10,8 +12,9 @@ namespace MBA.Educacao.Online.API.Configurations
             using var scope = services.GetRequiredService<IServiceScopeFactory>().CreateScope();
             var env = scope.ServiceProvider.GetRequiredService<IWebHostEnvironment>();
             string environmentName = env.EnvironmentName;
-            SeederAplicacao.SeedData(services, environmentName).Wait();
+            IdentityMigrationExec.Exec(services).Wait();
+            CursoMigrationExec.Exec(services, environmentName).Wait();
+            PedidoMigrationExec.Exec(services).Wait();
         }
-    
     }
 }

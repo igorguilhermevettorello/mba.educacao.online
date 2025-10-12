@@ -22,6 +22,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\Vendas\MBA.Educacao.Online.Vendas.Data\MBA.Educacao.Online.Vendas.Data.csproj" />
       <ProjectReference Include="..\MBA.Educacao.Online.Core.Domain\MBA.Educacao.Online.Core.Domain.csproj" />
     </ItemGroup>
 

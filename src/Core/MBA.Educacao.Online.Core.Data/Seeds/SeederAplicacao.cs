@@ -1,37 +1,40 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MBA.Educacao.Online.Core.Data.Context;
+using MBA.Educacao.Online.Core.Domain.Enums;
+using MBA.Educacao.Online.Core.Domain.Extensions;
+using Microsoft.AspNetCore.Identity;
 
 namespace MBA.Educacao.Online.Core.Data.Seeds
 {
     public static class SeederAplicacao
     {
-        public static async Task SeedData(IServiceProvider serviceProvider, string env)
-        {
-            await EnsureSeedData(serviceProvider, env);
-        }
-
-        public static async Task EnsureSeedData(IServiceProvider serviceProvider, string env)
+        public static async Task EnsureSeedRoles(IdentityDbContext contextIdentity)
         {
             try
             {
-                //using var scope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope();
-                //var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                //var contextIdentity = scope.ServiceProvider.GetRequiredService<IdentityDbContext>();
-                //var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+                // Verifica se já existem roles criadas
+                if (contextIdentity.Roles.Any())
+                    return;
 
-                //if (env.Equals("Development") || env.Equals("Docker") || env.Equals("Staging"))
-                //{
-                //    await context.Database.MigrateAsync();
-                //    await contextIdentity.Database.MigrateAsync();
+                // Obtém todos os valores do enum TipoUsuario
+                var tiposUsuario = Enum.GetValues(typeof(TipoUsuario)).Cast<TipoUsuario>();
 
-                //    await EnsureSeedRoles(contextIdentity);
-                //    await EnsureSeedApplication(userManager, context, contextIdentity);
-                //}
+                foreach (var tipoUsuario in tiposUsuario)
+                {
+                    var roleName = tipoUsuario.GetDescription();
+                    var normalizedRoleName = roleName.ToUpperInvariant();
+                    if (!contextIdentity.Roles.Any(r => r.NormalizedName == normalizedRoleName))
+                    {
+                        await contextIdentity.Roles.AddAsync(new IdentityRole
+                        {
+                            Id = Guid.NewGuid().ToString(),
+                            Name = roleName,
+                            NormalizedName = normalizedRoleName,
+                            ConcurrencyStamp = Guid.NewGuid().ToString()
+                        });
+                    }
+                }
+
+                await contextIdentity.SaveChangesAsync();
             }
             catch (Exception ex)
             {

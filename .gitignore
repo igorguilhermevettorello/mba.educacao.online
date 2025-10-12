@@ -38,9 +38,12 @@ TestResults/
 
 # Database
 *.db
+*.db-shm
+*.db-wal
 *.sqlite
 *.mdf
 *.ldf
+sqlite/
 
 # Npm / frontend
 node_modules/

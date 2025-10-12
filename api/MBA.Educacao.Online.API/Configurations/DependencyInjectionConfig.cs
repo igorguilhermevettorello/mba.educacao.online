@@ -1,6 +1,10 @@
+using MBA.Educacao.Online.API.Extensions;
 using MBA.Educacao.Online.Core.Data.Context;
+using MBA.Educacao.Online.Core.Domain.Interfaces.Identity;
 using MBA.Educacao.Online.Core.Domain.Interfaces.Mediator;
+using MBA.Educacao.Online.Core.Domain.Interfaces.Notifications;
 using MBA.Educacao.Online.Core.Domain.Mediator;
+using MBA.Educacao.Online.Core.Domain.Notifications;
 using MBA.Educacao.Online.Cursos.Application.Services.Cursos;
 using MBA.Educacao.Online.Cursos.Data.Context;
 using MBA.Educacao.Online.Cursos.Data.Repositories;
@@ -26,9 +30,9 @@ namespace MBA.Educacao.Online.API.Configurations
             service.AddScoped<IdentityDbContext>();
             service.AddScoped<CursoContext>();
             service.AddScoped<PedidoContext>();
-            // service.AddScoped<INotificador, Notificador>();
+            service.AddScoped<INotificador, Notificador>();
             // service.Configure<JwtSettings>(configuration.GetSection("Jwt"));
-            // service.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            service.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             // service.AddControllers()
             //    .AddJsonOptions(options =>
             //    {
@@ -59,7 +63,7 @@ namespace MBA.Educacao.Online.API.Configurations
             // service.AddScoped<IProdutoService, ProdutoService>();
             // service.AddScoped<IVendedorService, VendedorService>();
             // service.AddScoped<IAccountService, AccountService>();
-            // service.AddScoped<IUser, AspNetUser>();
+            service.AddScoped<IUser, AspNetUser>();
             // service.AddScoped<IFavoritoService, FavoritoService>();
             // service.AddScoped<IClienteService, ClienteService>();
         }
