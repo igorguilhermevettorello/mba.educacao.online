@@ -1,3 +1,4 @@
+using MBA.Educacao.Online.Alunos.Data.Context;
 using MBA.Educacao.Online.Core.Data.Context;
 using MBA.Educacao.Online.Cursos.Data.Context;
 using MBA.Educacao.Online.Vendas.Data.Context;
@@ -13,6 +14,7 @@ namespace MBA.Educacao.Online.API.Configurations
             var env = scope.ServiceProvider.GetRequiredService<IWebHostEnvironment>();
             string environmentName = env.EnvironmentName;
             IdentityMigrationExec.Exec(services).Wait();
+            AlunoMigrationExec.Exec(services, environmentName).Wait();
             CursoMigrationExec.Exec(services, environmentName).Wait();
             PedidoMigrationExec.Exec(services).Wait();
         }

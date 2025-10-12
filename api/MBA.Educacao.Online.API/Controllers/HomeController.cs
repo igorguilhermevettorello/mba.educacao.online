@@ -1,5 +1,7 @@
 using MBA.Educacao.Online.API.Controllers.Base;
 using MBA.Educacao.Online.API.DTOs;
+using MBA.Educacao.Online.Core.Application.Commands.Identity;
+using MBA.Educacao.Online.Core.Application.Models;
 using MBA.Educacao.Online.Core.Domain.Interfaces.Identity;
 using MBA.Educacao.Online.Core.Domain.Interfaces.Mediator;
 using MBA.Educacao.Online.Core.Domain.Interfaces.Notifications;
@@ -21,24 +23,30 @@ namespace MBA.Educacao.Online.API.Controllers
         }
 
         [HttpPost("registrar")]
-        [ProducesResponseType(typeof(RegistrarDto), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(Result<Guid>), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> Registrar([FromBody] RegistrarDto registrarDto)
         {
-            var command = new AdicionarCursoPedidoItemCommand(Guid.NewGuid(), 100);
-            var teste = await _mediatorHandler.EnviarComando(command);
-
             if (!ModelState.IsValid)
                 return CustomResponse(ModelState);
 
-            var resultado = new
-            {
-                Mensagem = "Registro recebido com sucesso",
-                Nome = registrarDto.Nome,
-                Email = registrarDto.Email
-            };
+            var command = new CriarUsuarioIdentityCommand(
+                registrarDto.Nome,
+                registrarDto.Email,
+                registrarDto.Senha,
+                registrarDto.Confirmar
+            );
 
-            return CustomResponse(resultado);
+            var resultado = await _mediatorHandler.EnviarComando(command);
+
+            if (!resultado)
+            {
+                // Os erros já foram adicionados ao notificador pelo Handler
+                return CustomResponse();
+            }
+
+            var response = Result.Ok(command.UsuarioId.Value, "Usuário criado com sucesso");
+            return CustomResponse(response);
         }
 
         [HttpPost("login")]

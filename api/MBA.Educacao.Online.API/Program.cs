@@ -1,4 +1,6 @@
 using MBA.Educacao.Online.API.Configurations;
+using MBA.Educacao.Online.Core.Application;
+using MBA.Educacao.Online.Alunos.Application;
 using MBA.Educacao.Online.Cursos.Application;
 using MBA.Educacao.Online.Vendas.Application;
 
@@ -16,11 +18,14 @@ builder.AddDatabaseSelector();
 
 // Configuração de Identity
 builder.Services.AddIdentityConfig(builder.Configuration);
+builder.Services.AddApiConfig(builder.Configuration);
 
 // Configuração de Dependency Injection
 builder.Services.AddDependencyInjectionConfig(builder.Configuration);
 
 // Configuração de Application Layer (MediatR, FluentValidation, AutoMapper)
+builder.Services.AddCoreApplication();
+builder.Services.AddAlunosApplication();
 builder.Services.AddApplication();
 builder.Services.AddVendasApplication();
 

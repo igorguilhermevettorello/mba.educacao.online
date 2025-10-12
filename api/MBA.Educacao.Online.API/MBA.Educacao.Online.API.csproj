@@ -25,8 +25,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Core\MBA.Educacao.Online.Core.Application\MBA.Educacao.Online.Core.Application.csproj" />
     <ProjectReference Include="..\..\src\Core\MBA.Educacao.Online.Core.Data\MBA.Educacao.Online.Core.Data.csproj" />
     <ProjectReference Include="..\..\src\Core\MBA.Educacao.Online.Core.Domain\MBA.Educacao.Online.Core.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Alunos\MBA.Educacao.Online.Alunos.Application\MBA.Educacao.Online.Alunos.Application.csproj" />
+    <ProjectReference Include="..\..\src\Alunos\MBA.Educacao.Online.Alunos.Data\MBA.Educacao.Online.Alunos.Data.csproj" />
+    <ProjectReference Include="..\..\src\Alunos\MBA.Educacao.Online.Alunos.Domain\MBA.Educacao.Online.Alunos.Domain.csproj" />
     <ProjectReference Include="..\..\src\Cursos\MBA.Educacao.Online.Cursos.Application\MBA.Educacao.Online.Cursos.Application.csproj" />
     <ProjectReference Include="..\..\src\Cursos\MBA.Educacao.Online.Cursos.Data\MBA.Educacao.Online.Cursos.Data.csproj" />
     <ProjectReference Include="..\..\src\Cursos\MBA.Educacao.Online.Cursos.Domain\MBA.Educacao.Online.Cursos.Domain.csproj" />

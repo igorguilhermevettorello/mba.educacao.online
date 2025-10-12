@@ -1,3 +1,6 @@
+using MBA.Educacao.Online.Alunos.Data.Context;
+using MBA.Educacao.Online.Alunos.Data.Repositories;
+using MBA.Educacao.Online.Alunos.Domain.Interfaces.Repositories;
 using MBA.Educacao.Online.API.Extensions;
 using MBA.Educacao.Online.Core.Data.Context;
 using MBA.Educacao.Online.Core.Domain.Interfaces.Identity;
@@ -32,6 +35,7 @@ namespace MBA.Educacao.Online.API.Configurations
             service.AddScoped<IdentityDbContext>();
             service.AddScoped<CursoContext>();
             service.AddScoped<PedidoContext>();
+            service.AddScoped<AlunoContext>();
             service.AddScoped<INotificador, Notificador>();
             // service.Configure<JwtSettings>(configuration.GetSection("Jwt"));
             service.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -48,6 +52,7 @@ namespace MBA.Educacao.Online.API.Configurations
         {
             service.AddScoped<ICursoRepository, CursoRepository>();
             service.AddScoped<IPedidoRepository, PedidoRepository>();
+            service.AddScoped<IAlunoRepository, AlunoRepository>();
             // service.AddScoped<ICategoriaRepository, CategoriaRepository>();
             // service.AddScoped<IClienteRepository, ClienteRepository>();
             // service.AddScoped<IProdutoRepository, ProdutoRepository>();
