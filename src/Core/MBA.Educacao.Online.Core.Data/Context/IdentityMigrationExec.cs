@@ -35,6 +35,9 @@ namespace MBA.Educacao.Online.Core.Data.Context
                 {
                     var dbPath = dataSourceMatch.Groups[1].Value;
                     var directory = Path.GetDirectoryName(dbPath);
+
+                    //var teste = Path.GetFullPath(directory);
+                    var teste1 = Path.GetFullPath(dbPath);
                     
                     if (!string.IsNullOrEmpty(directory) && !Path.IsPathRooted(dbPath))
                     {

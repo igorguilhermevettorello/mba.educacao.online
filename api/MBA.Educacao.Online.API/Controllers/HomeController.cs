@@ -50,21 +50,24 @@ namespace MBA.Educacao.Online.API.Controllers
         }
 
         [HttpPost("login")]
-        [ProducesResponseType(typeof(LoginDto), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(Result<LoginResult>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult Login([FromBody] LoginDto loginDto)
+        public async Task<ActionResult> Login([FromBody] LoginDto loginDto)
         {
             if (!ModelState.IsValid)
                 return CustomResponse(ModelState);
 
+            var command = new LoginCommand(loginDto.Email, loginDto.Senha);
+            var resultado = await _mediatorHandler.EnviarComando(command);
 
-            var resultado = new
+            if (resultado == null || !resultado.Success)
             {
-                Mensagem = "Login recebido com sucesso",
-                Email = loginDto.Email
-            };
+                // Os erros já foram adicionados ao notificador pelo Handler
+                return CustomResponse();
+            }
 
-            return CustomResponse(resultado);
+            var response = Result.Ok(resultado, "Login realizado com sucesso");
+            return CustomResponse(response);
         }
     }
 }

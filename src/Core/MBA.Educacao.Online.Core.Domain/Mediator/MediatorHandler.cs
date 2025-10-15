@@ -22,5 +22,10 @@ namespace MBA.Educacao.Online.Core.Domain.Mediator
         {
             return await _mediator.Send(comando);
         }
+
+        public async Task<TResponse> EnviarComando<TResponse>(IRequest<TResponse> comando)
+        {
+            return await _mediator.Send(comando);
+        }
     }
 }
