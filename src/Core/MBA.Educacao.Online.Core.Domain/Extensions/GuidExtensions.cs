@@ -35,6 +35,16 @@ namespace MBA.Educacao.Online.Core.Domain.Extensions
         {
             return guid1.Normalize().Equals(guid2.Normalize());
         }
+        
+        /// <summary>
+        /// Converte um GUID para string em formato minúsculo (lowercase)
+        /// </summary>
+        /// <param name="guid">O GUID a ser convertido</param>
+        /// <returns>String representando o GUID em formato minúsculo</returns>
+        public static string ToLowercaseString(this Guid guid)
+        {
+            return guid.ToString("D").ToLowerInvariant();
+        }
     }
 }
 

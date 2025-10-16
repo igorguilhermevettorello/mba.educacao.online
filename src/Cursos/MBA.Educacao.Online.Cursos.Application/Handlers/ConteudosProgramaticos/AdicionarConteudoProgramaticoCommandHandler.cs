@@ -20,7 +20,7 @@ namespace MBA.Educacao.Online.Cursos.Application.Handlers.ConteudosProgramaticos
 
         public async Task<bool> Handle(AdicionarConteudoProgramaticoCommand request, CancellationToken cancellationToken)
         {
-            var curso = _cursoRepository.BuscarPorId(request.CursoId);
+            var curso = await _cursoRepository.BuscarPorIdAsync(request.CursoId);
                 
             // var curso = new Curso(request.Titulo, request.Descricao, NivelCurso.Avancado);
             //var curso = new Domain.Entities.Curso(request.Titulo, request.Descricao, NivelCurso.Avancado);

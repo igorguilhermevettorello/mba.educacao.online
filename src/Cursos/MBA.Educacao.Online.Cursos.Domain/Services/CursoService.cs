@@ -19,7 +19,7 @@ namespace MBA.Educacao.Online.Cursos.Domain.Services
         
         public async Task<bool> VerificarAulas(Guid cursoId, Aula aula)
         {
-            var curso = _cursoRepository.BuscarPorId(cursoId);
+            var curso = await _cursoRepository.BuscarPorIdAsync(cursoId);
             
             var teste = curso.Aulas.FirstOrDefault(p => p.Descricao.Equals(aula.Descricao));
             

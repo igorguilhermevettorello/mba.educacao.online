@@ -31,9 +31,28 @@ namespace MBA.Educacao.Online.Cursos.Data.Repositories
             _context.Cursos.Remove(curso);
         }
 
-        public Curso BuscarPorId(Guid id)
+        public async Task<Curso> BuscarPorIdAsync(Guid id)
         {
-            return _context.Cursos.AsNoTracking().FirstOrDefault(c => c.Id == id);
+            return await _context.Cursos
+                .Include(c => c.Aulas)
+                .Include(c => c.ConteudoProgramatico)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(c => c.Id == id);
+        }
+
+        public async Task<IEnumerable<Curso>> ObterTodosAsync()
+        {
+            return await _context.Cursos
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Curso>> ObterAtivosAsync()
+        {
+            return await _context.Cursos
+                .Where(c => c.Ativo)
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public void IDisposable()

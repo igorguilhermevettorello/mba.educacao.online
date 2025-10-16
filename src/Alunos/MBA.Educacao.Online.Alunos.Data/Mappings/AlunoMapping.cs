@@ -1,6 +1,8 @@
 using MBA.Educacao.Online.Alunos.Domain.Entities;
+using MBA.Educacao.Online.Core.Domain.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MBA.Educacao.Online.Alunos.Data.Mappings
 {
@@ -11,6 +13,13 @@ namespace MBA.Educacao.Online.Alunos.Data.Mappings
             builder.ToTable("Alunos");
 
             builder.HasKey(a => a.Id);
+            
+            // Configura o Id para ser armazenado em minúsculas no SQLite usando GuidExtensions
+            builder.Property(a => a.Id)
+                .HasConversion(new ValueConverter<Guid, string>(
+                    guid => guid.ToLowercaseString(),
+                    str => Guid.Parse(str)
+                ));
             
             builder.Property(a => a.Nome)
                 .IsRequired()

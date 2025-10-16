@@ -1,6 +1,7 @@
 using MBA.Educacao.Online.Alunos.Application.Commands;
 using MBA.Educacao.Online.Alunos.Domain.Entities;
 using MBA.Educacao.Online.Alunos.Domain.Interfaces.Repositories;
+using MBA.Educacao.Online.Core.Domain.Extensions;
 using MBA.Educacao.Online.Core.Domain.Interfaces.Notifications;
 using MBA.Educacao.Online.Core.Domain.Notifications;
 using MediatR;
@@ -46,7 +47,7 @@ namespace MBA.Educacao.Online.Alunos.Application.Handlers
             }
 
             // Cria a entidade Aluno
-            var aluno = new Aluno(request.UsuarioId, request.Nome, request.Email);
+            var aluno = new Aluno(GuidExtensions.Normalize(request.UsuarioId), request.Nome, request.Email);
 
             _alunoRepository.Adicionar(aluno);
             return await _alunoRepository.UnitOfWork.Commit();

@@ -17,7 +17,7 @@ namespace MBA.Educacao.Online.Cursos.Application.Handlers.Cursos
 
         public async Task<bool> Handle(AtivarCursoCommand request, CancellationToken cancellationToken)
         {
-            var curso = _cursoRepository.BuscarPorId(request.CursoId);
+            var curso = await _cursoRepository.BuscarPorIdAsync(request.CursoId);
 
             if (curso != null) 
             {

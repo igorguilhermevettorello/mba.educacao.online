@@ -8,7 +8,9 @@ namespace MBA.Educacao.Online.Cursos.Domain.Interfaces.Repositories
         void Adicionar(Curso curso);
         void Alterar(Curso curso);
         void Remover(Curso curso);
-        Curso BuscarPorId(Guid id);
+        Task<Curso> BuscarPorIdAsync(Guid id);
+        Task<IEnumerable<Curso>> ObterTodosAsync();
+        Task<IEnumerable<Curso>> ObterAtivosAsync();
         void IDisposable();
     }
 }

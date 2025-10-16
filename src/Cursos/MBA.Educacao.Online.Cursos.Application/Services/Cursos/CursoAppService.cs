@@ -24,7 +24,7 @@ namespace MBA.Educacao.Online.Cursos.Application.Services.Cursos
         
         public async Task<CursoListarDto> ObterPorId(Guid id)
         {
-            var curso = _cursoRepository.BuscarPorId(id);
+            var curso = await _cursoRepository.BuscarPorIdAsync(id);
             var _curso = _mapper.Map<CursoListarDto>(curso);
             return _curso;
         }

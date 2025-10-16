@@ -15,7 +15,7 @@ namespace MBA.Educacao.Online.Cursos.Domain.Events
         
         public async Task Handle(CursoAvisarAlunosEvent notification, CancellationToken cancellationToken)
         {
-            var curso = _cursoRepository.BuscarPorId(notification.AggregateId);
+            var curso = await _cursoRepository.BuscarPorIdAsync(notification.AggregateId);
         }
     }
 }
