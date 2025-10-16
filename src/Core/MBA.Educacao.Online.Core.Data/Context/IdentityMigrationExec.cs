@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System.IO;
+using System.Linq;
 
 namespace MBA.Educacao.Online.Core.Data.Context
 {
@@ -13,14 +15,15 @@ namespace MBA.Educacao.Online.Core.Data.Context
             var identityDbContext = scope.ServiceProvider.GetRequiredService<IdentityDbContext>();
             var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
 
-            EnsureDatabaseDirectoryExists(identityDbContext);
+            // Garante que o diretório e arquivo do banco de dados existem
+            EnsureDatabaseFileExists(identityDbContext);
             
             await identityDbContext.Database.MigrateAsync();
             await SeederAplicacao.EnsureSeedRoles(identityDbContext);
             await SeederAplicacao.EnsureSeedApplication(userManager, identityDbContext);
         }
 
-        private static void EnsureDatabaseDirectoryExists(IdentityDbContext context)
+        private static void EnsureDatabaseFileExists(IdentityDbContext context)
         {
             var connectionString = context.Database.GetConnectionString();
             if (!string.IsNullOrEmpty(connectionString))
@@ -34,23 +37,47 @@ namespace MBA.Educacao.Online.Core.Data.Context
                 if (dataSourceMatch.Success)
                 {
                     var dbPath = dataSourceMatch.Groups[1].Value;
-                    var directory = Path.GetDirectoryName(dbPath);
-
-                    //var teste = Path.GetFullPath(directory);
-                    var teste1 = Path.GetFullPath(dbPath);
                     
-                    if (!string.IsNullOrEmpty(directory) && !Path.IsPathRooted(dbPath))
+                    // Se for caminho relativo, resolve a partir da raiz do projeto
+                    if (!Path.IsPathRooted(dbPath))
                     {
-                        // Para caminhos relativos, resolve baseado no diretório de trabalho atual
-                        directory = Path.GetFullPath(directory);
+                        var projectRoot = GetProjectRoot();
+                        dbPath = Path.Combine(projectRoot, dbPath);
+                        dbPath = Path.GetFullPath(dbPath);
+                        
+                        // Atualiza a connection string com o caminho absoluto
+                        var newConnectionString = connectionString.Replace(dataSourceMatch.Groups[1].Value, dbPath);
+                        context.Database.SetConnectionString(newConnectionString);
                     }
                     
+                    var directory = Path.GetDirectoryName(dbPath);
+                    
+                    // Cria o diretório se não existir
                     if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
                     {
                         Directory.CreateDirectory(directory);
                     }
+                    
+                    // Cria o arquivo do banco de dados se não existir
+                    if (!File.Exists(dbPath))
+                    {
+                        File.Create(dbPath).Dispose();
+                    }
                 }
             }
+        }
+
+        private static string GetProjectRoot()
+        {
+            var directory = new DirectoryInfo(AppContext.BaseDirectory);
+            
+            // Navega para cima até encontrar o arquivo .sln (raiz do projeto)
+            while (directory != null && !directory.GetFiles("*.sln").Any())
+            {
+                directory = directory.Parent;
+            }
+            
+            return directory?.FullName ?? AppContext.BaseDirectory;
         }
     }
 }

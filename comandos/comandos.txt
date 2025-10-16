@@ -89,3 +89,7 @@ dotnet ef migrations remove \
   --project ./src/Alunos/MBA.Educacao.Online.Alunos.Data/MBA.Educacao.Online.Alunos.Data.csproj \
   --startup-project ./api/MBA.Educacao.Online.API/MBA.Educacao.Online.API.csproj \
   --context AlunoContext
+
+############################################
+find ~/ -type f -name "dev.db"
+find . -type d \( -name "bin" -o -name "obj" \) -exec rm -rf {} +
