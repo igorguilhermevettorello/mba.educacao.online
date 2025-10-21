@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace MBA.Educacao.Online.API.Controllers
 {
     [Authorize(Roles = nameof(TipoUsuario.Administrador))]
+    // [Authorize]
     [ApiController]
     [Route("api/cursos")]
     public class CursosController : MainController
@@ -27,6 +28,8 @@ namespace MBA.Educacao.Online.API.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(Result<Guid>), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<ActionResult> Criar([FromBody] CriarCursoDto criarCursoDto)
         {
             if (!ModelState.IsValid)
@@ -52,6 +55,8 @@ namespace MBA.Educacao.Online.API.Controllers
         [HttpPut("{id:guid}")]
         [ProducesResponseType(typeof(Result), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> Atualizar(Guid id, [FromBody] AtualizarCursoDto atualizarCursoDto)
         {
@@ -77,6 +82,8 @@ namespace MBA.Educacao.Online.API.Controllers
 
         [HttpGet("{id:guid}")]
         [ProducesResponseType(typeof(Result<CursoDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> ObterPorId(Guid id)
         {
@@ -107,6 +114,8 @@ namespace MBA.Educacao.Online.API.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(Result<IEnumerable<CursoDto>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<ActionResult> Listar([FromQuery] bool apenasAtivos = false)
         {
             var command = new ListarCursosCommand(apenasAtivos);
@@ -131,6 +140,8 @@ namespace MBA.Educacao.Online.API.Controllers
         [HttpDelete("{id:guid}")]
         [ProducesResponseType(typeof(Result), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> Deletar(Guid id)
         {
@@ -147,6 +158,8 @@ namespace MBA.Educacao.Online.API.Controllers
         [HttpPut("{id:guid}/ativar")]
         [ProducesResponseType(typeof(Result), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> Ativar(Guid id)
         {
@@ -163,6 +176,8 @@ namespace MBA.Educacao.Online.API.Controllers
         [HttpPut("{id:guid}/inativar")]
         [ProducesResponseType(typeof(Result), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> Inativar(Guid id)
         {

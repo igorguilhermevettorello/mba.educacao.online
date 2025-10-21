@@ -5,6 +5,7 @@ using MBA.Educacao.Online.Core.Domain.Interfaces.Notifications;
 using MBA.Educacao.Online.Core.Domain.Notifications;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace MBA.Educacao.Online.Core.Application.Handlers.Identity
 {
@@ -29,7 +30,6 @@ namespace MBA.Educacao.Online.Core.Application.Handlers.Identity
 
         public async Task<LoginResult> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
-            // Validação do comando
             if (!request.IsValid())
             {
                 foreach (var erro in request.ValidationResult.Errors)
@@ -67,14 +67,29 @@ namespace MBA.Educacao.Online.Core.Application.Handlers.Identity
                 return LoginResult.Falha();
             }
 
-            // Gerar token JWT
+            // Buscar roles do usuário
+            var roles = await _userManager.GetRolesAsync(usuario);
+
+            // Gerar token JWT com roles
             var usuarioId = Guid.Parse(usuario.Id);
-            var token = _jwtTokenService.GerarToken(usuarioId, usuario.Email, usuario.UserName);
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, usuarioId.ToString()),
+                new Claim(ClaimTypes.Email, usuario.Email ?? string.Empty),
+                new Claim(ClaimTypes.Name, usuario.UserName ?? string.Empty),
+                new Claim("jti", Guid.NewGuid().ToString()),
+                new Claim("sub", usuarioId.ToString()),
+                new Claim("email", usuario.Email ?? string.Empty)
+            };
 
-            // Retornar resultado de sucesso
-            var resultado = LoginResult.Sucesso(token, usuario.Email, usuario.UserName, usuarioId);
-            request.SetResult(resultado);
+            // Adicionar roles aos claims
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
 
+            var token = _jwtTokenService.GerarToken(claims);
+            var resultado = LoginResult.Sucesso(token, usuario.Email ?? string.Empty, usuario.UserName ?? string.Empty, usuarioId);
             return resultado;
         }
     }

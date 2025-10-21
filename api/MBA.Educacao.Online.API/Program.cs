@@ -11,13 +11,14 @@ builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerConfig();
 
 // Configuração de Database (SQLite para Development, SQL Server para Production)
 builder.AddDatabaseSelector();
 
 // Configuração de Identity
 builder.Services.AddIdentityConfig(builder.Configuration);
+builder.Services.AddAuthConfig(builder.Configuration);
 builder.Services.AddApiConfig(builder.Configuration);
 
 // Configuração de Dependency Injection
@@ -42,6 +43,9 @@ app.UseMigrationsAndSeedsConfig();
 
 app.UseHttpsRedirection();
 
+app.UseCors("CorsPolicy");
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

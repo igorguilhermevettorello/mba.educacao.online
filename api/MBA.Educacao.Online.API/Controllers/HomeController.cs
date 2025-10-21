@@ -59,15 +59,13 @@ namespace MBA.Educacao.Online.API.Controllers
 
             var command = new LoginCommand(loginDto.Email, loginDto.Senha);
             var resultado = await _mediatorHandler.EnviarComando(command);
-
             if (resultado == null || !resultado.Success)
             {
-                // Os erros já foram adicionados ao notificador pelo Handler
                 return CustomResponse();
             }
 
-            var response = Result.Ok(resultado, "Login realizado com sucesso");
-            return CustomResponse(response);
+            //var response = Result.Ok(resultado, "Login realizado com sucesso");
+            return CustomResponse(resultado);
         }
     }
 }

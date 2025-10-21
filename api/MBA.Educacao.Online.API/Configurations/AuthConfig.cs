@@ -1,4 +1,5 @@
 
+using System.Security.Claims;
 using System.Text;
 using MBA.Educacao.Online.API.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
