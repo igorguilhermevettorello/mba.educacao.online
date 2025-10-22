@@ -12,6 +12,7 @@ namespace MBA.Educacao.Online.API.DTOs
         public decimal Valor { get; set; }
         public DateTime DataCriacao { get; set; }
         public bool Ativo { get; set; }
+        public ConteudoProgramaticoDto? ConteudoProgramatico { get; set; }
     }
 }
 

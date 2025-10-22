@@ -34,6 +34,46 @@ namespace MBA.Educacao.Online.Cursos.Application.Validators
             RuleFor(x => x.Nivel)
                 .IsInEnum()
                 .WithMessage("Nível do curso deve ser válido");
+
+            RuleFor(x => x.Valor)
+                .GreaterThan(0)
+                .WithMessage("Valor do curso deve ser maior que zero");
+
+            // Validação opcional do ConteudoProgramatico
+            When(x => x.ConteudoProgramatico != null, () =>
+            {
+                RuleFor(x => x.ConteudoProgramatico.Ementa)
+                    .NotEmpty()
+                    .WithMessage("Ementa do conteúdo programático é obrigatória")
+                    .MaximumLength(2000)
+                    .WithMessage("Ementa deve ter no máximo 2000 caracteres")
+                    .MinimumLength(10)
+                    .WithMessage("Ementa deve ter no mínimo 10 caracteres");
+
+                RuleFor(x => x.ConteudoProgramatico.Objetivo)
+                    .NotEmpty()
+                    .WithMessage("Objetivo do conteúdo programático é obrigatório")
+                    .MaximumLength(1000)
+                    .WithMessage("Objetivo deve ter no máximo 1000 caracteres")
+                    .MinimumLength(10)
+                    .WithMessage("Objetivo deve ter no mínimo 10 caracteres");
+
+                RuleFor(x => x.ConteudoProgramatico.Bibliografia)
+                    .NotEmpty()
+                    .WithMessage("Bibliografia do conteúdo programático é obrigatória")
+                    .MaximumLength(2000)
+                    .WithMessage("Bibliografia deve ter no máximo 2000 caracteres")
+                    .MinimumLength(10)
+                    .WithMessage("Bibliografia deve ter no mínimo 10 caracteres");
+
+                RuleFor(x => x.ConteudoProgramatico.MaterialUrl)
+                    .NotEmpty()
+                    .WithMessage("URL do material do conteúdo programático é obrigatória")
+                    .MaximumLength(500)
+                    .WithMessage("URL do material deve ter no máximo 500 caracteres")
+                    .Must(url => Uri.TryCreate(url, UriKind.Absolute, out _))
+                    .WithMessage("URL do material não é válida");
+            });
         }
     }
 }

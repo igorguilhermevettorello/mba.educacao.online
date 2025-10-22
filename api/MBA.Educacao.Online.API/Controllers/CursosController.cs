@@ -1,3 +1,4 @@
+using AutoMapper;
 using MBA.Educacao.Online.API.Controllers.Base;
 using MBA.Educacao.Online.API.DTOs;
 using MBA.Educacao.Online.Core.Application.Models;
@@ -12,17 +13,18 @@ using Microsoft.AspNetCore.Mvc;
 namespace MBA.Educacao.Online.API.Controllers
 {
     [Authorize(Roles = nameof(TipoUsuario.Administrador))]
-    // [Authorize]
     [ApiController]
     [Route("api/cursos")]
     public class CursosController : MainController
     {
         private readonly IMediatorHandler _mediatorHandler;
+        private readonly IMapper _mapper;
 
-        public CursosController(IMediatorHandler mediatorHandler, INotificador notificador, IUser appUser) 
+        public CursosController(IMediatorHandler mediatorHandler, IMapper mapper, INotificador notificador, IUser appUser) 
             : base(notificador, appUser)
         {
             _mediatorHandler = mediatorHandler;
+            _mapper = mapper;
         }
 
         [HttpPost]
@@ -35,12 +37,26 @@ namespace MBA.Educacao.Online.API.Controllers
             if (!ModelState.IsValid)
                 return CustomResponse(ModelState);
 
+            ConteudoProgramaticoCommand? conteudoProgramaticoCommand = null;
+
+            if (criarCursoDto.ConteudoProgramatico != null)
+            {
+                conteudoProgramaticoCommand = new ConteudoProgramaticoCommand
+                {
+                    Ementa = criarCursoDto.ConteudoProgramatico.Ementa,
+                    Objetivo = criarCursoDto.ConteudoProgramatico.Objetivo,
+                    Bibliografia = criarCursoDto.ConteudoProgramatico.Bibliografia,
+                    MaterialUrl = criarCursoDto.ConteudoProgramatico.MaterialUrl
+                };
+            }
+
             var command = new CriarCursoCommand(
                 criarCursoDto.Titulo,
                 criarCursoDto.Descricao,
                 criarCursoDto.Instrutor,
                 criarCursoDto.Nivel,
-                criarCursoDto.Valor
+                criarCursoDto.Valor,
+                conteudoProgramaticoCommand
             );
 
             var resultado = await _mediatorHandler.EnviarComando(command);
@@ -63,12 +79,26 @@ namespace MBA.Educacao.Online.API.Controllers
             if (!ModelState.IsValid)
                 return CustomResponse(ModelState);
 
+            ConteudoProgramaticoCommand? conteudoProgramaticoCommand = null;
+
+            if (atualizarCursoDto.ConteudoProgramatico != null)
+            {
+                conteudoProgramaticoCommand = new ConteudoProgramaticoCommand
+                {
+                    Ementa = atualizarCursoDto.ConteudoProgramatico.Ementa,
+                    Objetivo = atualizarCursoDto.ConteudoProgramatico.Objetivo,
+                    Bibliografia = atualizarCursoDto.ConteudoProgramatico.Bibliografia,
+                    MaterialUrl = atualizarCursoDto.ConteudoProgramatico.MaterialUrl
+                };
+            }
+
             var command = new AtualizarCursoCommand
             {
                 Id = id,
                 Titulo = atualizarCursoDto.Titulo,
                 Descricao = atualizarCursoDto.Descricao,
-                Nivel = atualizarCursoDto.Nivel
+                Nivel = atualizarCursoDto.Nivel,
+                ConteudoProgramatico = conteudoProgramaticoCommand
             };
 
             var resultado = await _mediatorHandler.EnviarComando(command);
@@ -96,17 +126,7 @@ namespace MBA.Educacao.Online.API.Controllers
                 return CustomResponse();
             }
 
-            var cursoDto = new CursoDto
-            {
-                Id = curso.Id,
-                Titulo = curso.Titulo,
-                Descricao = curso.Descricao,
-                Instrutor = curso.Instrutor,
-                Nivel = curso.Nivel,
-                Valor = curso.Valor,
-                DataCriacao = curso.DataCriacao,
-                Ativo = curso.Ativo
-            };
+            var cursoDto = _mapper.Map<CursoDto>(curso);
 
             var response = Result.Ok(cursoDto, "Curso obtido com sucesso");
             return CustomResponse(response);
@@ -121,19 +141,9 @@ namespace MBA.Educacao.Online.API.Controllers
             var command = new ListarCursosCommand(apenasAtivos);
             var cursos = await _mediatorHandler.EnviarComando(command);
 
-            var cursosDto = cursos.Select(c => new CursoDto
-            {
-                Id = c.Id,
-                Titulo = c.Titulo,
-                Descricao = c.Descricao,
-                Instrutor = c.Instrutor,
-                Nivel = c.Nivel,
-                Valor = c.Valor,
-                DataCriacao = c.DataCriacao,
-                Ativo = c.Ativo
-            }).ToList();
+            var cursosDto = _mapper.Map<IEnumerable<CursoDto>>(cursos);
 
-            var response = Result.Ok<IEnumerable<CursoDto>>(cursosDto, "Cursos obtidos com sucesso");
+            var response = Result.Ok(cursosDto, "Cursos obtidos com sucesso");
             return CustomResponse(response);
         }
 

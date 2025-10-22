@@ -10,6 +10,7 @@ namespace MBA.Educacao.Online.Cursos.Application.Commands.Cursos
         public string Titulo { get; set; }
         public string Descricao { get; set; }
         public NivelCurso Nivel { get; set; }
+        public ConteudoProgramaticoCommand? ConteudoProgramatico { get; set; }
 
         public override bool IsValid()
         {

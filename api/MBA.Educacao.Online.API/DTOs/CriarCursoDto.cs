@@ -23,6 +23,9 @@ namespace MBA.Educacao.Online.API.DTOs
         [Required(ErrorMessage = "O valor é obrigatório")]
         [Range(0.01, double.MaxValue, ErrorMessage = "O valor deve ser maior que zero")]
         public decimal Valor { get; set; }
+
+        [Required(ErrorMessage = "A chave Conteúdo Programático é obrigatória")]
+        public ConteudoProgramaticoDto ConteudoProgramatico { get; set; }
     }
 }
 

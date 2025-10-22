@@ -6,22 +6,16 @@ using MBA.Educacao.Online.Vendas.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllers();
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerConfig();
 
-// Configuração de Database (SQLite para Development, SQL Server para Production)
+// Configuração do AutoMapper
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.AddDatabaseSelector();
-
-// Configuração de Identity
 builder.Services.AddIdentityConfig(builder.Configuration);
 builder.Services.AddAuthConfig(builder.Configuration);
 builder.Services.AddApiConfig(builder.Configuration);
-
-// Configuração de Dependency Injection
 builder.Services.AddDependencyInjectionConfig(builder.Configuration);
 
 // Configuração de Application Layer (MediatR, FluentValidation, AutoMapper)

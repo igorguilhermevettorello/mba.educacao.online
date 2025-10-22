@@ -15,6 +15,9 @@ namespace MBA.Educacao.Online.API.DTOs
 
         [Required(ErrorMessage = "O nível do curso é obrigatório")]
         public NivelCurso Nivel { get; set; }
+
+        [Required(ErrorMessage = "A chave Conteúdo Programático é obrigatória")]
+        public ConteudoProgramaticoDto ConteudoProgramatico { get; set; }
     }
 }
 
