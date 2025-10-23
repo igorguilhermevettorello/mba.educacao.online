@@ -1,15 +1,15 @@
-using MBA.Educacao.Online.Core.Application.Models;
+using MBA.Educacao.Online.Core.Application.DTOs;
 using MBA.Educacao.Online.Core.Application.Validators.Identity;
 using FluentValidation.Results;
 using MediatR;
 
 namespace MBA.Educacao.Online.Core.Application.Commands.Identity
 {
-    public class LoginCommand : IRequest<LoginResult>
+    public class LoginCommand : IRequest<LoginResultDto>
     {
         public string Email { get; set; }
         public string Senha { get; set; }
-        public LoginResult Result { get; private set; }
+        public LoginResultDto Result { get; private set; }
         public ValidationResult ValidationResult { get; set; }
 
         public LoginCommand(string email, string senha)
@@ -18,7 +18,7 @@ namespace MBA.Educacao.Online.Core.Application.Commands.Identity
             Senha = senha;
         }
 
-        public void SetResult(LoginResult result)
+        public void SetResult(LoginResultDto result)
         {
             Result = result;
         }

@@ -1,7 +1,7 @@
 using AutoMapper;
 using MBA.Educacao.Online.API.Controllers.Base;
 using MBA.Educacao.Online.API.DTOs;
-using MBA.Educacao.Online.Core.Application.Models;
+using MBA.Educacao.Online.Core.Application.DTOs;
 using MBA.Educacao.Online.Core.Domain.Enums;
 using MBA.Educacao.Online.Core.Domain.Interfaces.Identity;
 using MBA.Educacao.Online.Core.Domain.Interfaces.Mediator;
@@ -28,7 +28,7 @@ namespace MBA.Educacao.Online.API.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(Result<Guid>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ResultDto<Guid>), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -50,12 +50,12 @@ namespace MBA.Educacao.Online.API.Controllers
             if (!resultado)
                 return CustomResponse();
 
-            var response = Result.Ok(command.AggregateId, "Aula criada com sucesso");
+            var response = ResultDto.Ok(command.AggregateId, "Aula criada com sucesso");
             return CreatedAtAction(nameof(ObterPorId), new { id = command.AggregateId }, response);
         }
 
         [HttpPut("{id:guid}")]
-        [ProducesResponseType(typeof(Result), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResultDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -79,12 +79,12 @@ namespace MBA.Educacao.Online.API.Controllers
             if (!resultado)
                 return CustomResponse();
 
-            var response = Result.Ok("Aula atualizada com sucesso");
+            var response = ResultDto.Ok("Aula atualizada com sucesso");
             return CustomResponse(response);
         }
 
         [HttpGet("{id:guid}")]
-        [ProducesResponseType(typeof(Result<AulaDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResultDto<AulaDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -100,12 +100,12 @@ namespace MBA.Educacao.Online.API.Controllers
             }
 
             var aulaDto = _mapper.Map<AulaDto>(aula);
-            var response = Result.Ok(aulaDto, "Aula obtida com sucesso");
+            var response = ResultDto.Ok(aulaDto, "Aula obtida com sucesso");
             return CustomResponse(response);
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(Result<IEnumerable<AulaDto>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResultDto<IEnumerable<AulaDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<ActionResult> Listar([FromQuery] Guid? cursoId = null, [FromQuery] bool apenasAtivas = false)
@@ -113,12 +113,12 @@ namespace MBA.Educacao.Online.API.Controllers
             var command = new ListarAulasCommand(cursoId, apenasAtivas);
             var aulas = await _mediatorHandler.EnviarComando(command);
             var aulasDto = _mapper.Map<IEnumerable<AulaDto>>(aulas);
-            var response = Result.Ok(aulasDto, "Aulas obtidas com sucesso");
+            var response = ResultDto.Ok(aulasDto, "Aulas obtidas com sucesso");
             return CustomResponse(response);
         }
 
         [HttpDelete("{id:guid}")]
-        [ProducesResponseType(typeof(Result), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResultDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -131,12 +131,12 @@ namespace MBA.Educacao.Online.API.Controllers
             if (!resultado)
                 return CustomResponse();
 
-            var response = Result.Ok("Aula deletada com sucesso");
+            var response = ResultDto.Ok("Aula deletada com sucesso");
             return CustomResponse(response);
         }
 
         [HttpPut("{id:guid}/ativar")]
-        [ProducesResponseType(typeof(Result), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResultDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -149,12 +149,12 @@ namespace MBA.Educacao.Online.API.Controllers
             if (!resultado)
                 return CustomResponse();
 
-            var response = Result.Ok("Aula ativada com sucesso");
+            var response = ResultDto.Ok("Aula ativada com sucesso");
             return CustomResponse(response);
         }
 
         [HttpPut("{id:guid}/inativar")]
-        [ProducesResponseType(typeof(Result), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResultDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -167,7 +167,7 @@ namespace MBA.Educacao.Online.API.Controllers
             if (!resultado)
                 return CustomResponse();
 
-            var response = Result.Ok("Aula inativada com sucesso");
+            var response = ResultDto.Ok("Aula inativada com sucesso");
             return CustomResponse(response);
         }
     }

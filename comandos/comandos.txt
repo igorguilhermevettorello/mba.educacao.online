@@ -93,3 +93,5 @@ dotnet ef migrations remove \
 ############################################
 find ~/ -type f -name "dev.db"
 find . -type d \( -name "bin" -o -name "obj" \) -exec rm -rf {} +
+############################################
+

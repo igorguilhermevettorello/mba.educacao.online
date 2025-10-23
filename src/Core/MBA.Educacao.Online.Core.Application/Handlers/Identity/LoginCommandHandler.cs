@@ -1,5 +1,5 @@
 using MBA.Educacao.Online.Core.Application.Commands.Identity;
-using MBA.Educacao.Online.Core.Application.Models;
+using MBA.Educacao.Online.Core.Application.DTOs;
 using MBA.Educacao.Online.Core.Domain.Interfaces.Identity;
 using MBA.Educacao.Online.Core.Domain.Interfaces.Notifications;
 using MBA.Educacao.Online.Core.Domain.Notifications;
@@ -9,7 +9,7 @@ using System.Security.Claims;
 
 namespace MBA.Educacao.Online.Core.Application.Handlers.Identity
 {
-    public class LoginCommandHandler : IRequestHandler<LoginCommand, LoginResult>
+    public class LoginCommandHandler : IRequestHandler<LoginCommand, LoginResultDto>
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
@@ -28,7 +28,7 @@ namespace MBA.Educacao.Online.Core.Application.Handlers.Identity
             _notificador = notificador;
         }
 
-        public async Task<LoginResult> Handle(LoginCommand request, CancellationToken cancellationToken)
+        public async Task<LoginResultDto> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
             if (!request.IsValid())
             {
@@ -40,7 +40,7 @@ namespace MBA.Educacao.Online.Core.Application.Handlers.Identity
                         Mensagem = erro.ErrorMessage
                     });
                 }
-                return LoginResult.Falha();
+                return LoginResultDto.Falha();
             }
 
             // Buscar usuário por email
@@ -52,7 +52,7 @@ namespace MBA.Educacao.Online.Core.Application.Handlers.Identity
                     Campo = "Login",
                     Mensagem = "E-mail ou senha inválidos"
                 });
-                return LoginResult.Falha();
+                return LoginResultDto.Falha();
             }
 
             // Verificar senha
@@ -64,7 +64,7 @@ namespace MBA.Educacao.Online.Core.Application.Handlers.Identity
                     Campo = "Login",
                     Mensagem = "E-mail ou senha inválidos"
                 });
-                return LoginResult.Falha();
+                return LoginResultDto.Falha();
             }
 
             // Buscar roles do usuário
@@ -89,7 +89,7 @@ namespace MBA.Educacao.Online.Core.Application.Handlers.Identity
             }
 
             var token = _jwtTokenService.GerarToken(claims);
-            var resultado = LoginResult.Sucesso(token, usuario.Email ?? string.Empty, usuario.UserName ?? string.Empty, usuarioId);
+            var resultado = LoginResultDto.Sucesso(token, usuario.Email ?? string.Empty, usuario.UserName ?? string.Empty, usuarioId);
             return resultado;
         }
     }

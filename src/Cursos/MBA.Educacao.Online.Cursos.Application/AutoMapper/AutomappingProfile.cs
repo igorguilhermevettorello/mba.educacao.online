@@ -8,12 +8,8 @@ namespace MBA.Educacao.Online.Cursos.Application.AutoMapper
     {
         public AutomappingProfile()
         {
-            // Mapeamento bidirecional entre Curso e CursoCriarDto
             CreateMap<Curso, CursoCriarDto>().ReverseMap();
-            
-            // Mapeamento de Curso para CursoListarDto
             CreateMap<Curso, CursoListarDto>();
-
         }
     }
 }

@@ -71,7 +71,6 @@ namespace MBA.Educacao.Online.Core.Application.Handlers.Identity
                 return false;
             }
 
-            // Define o UsuarioId no command para poder ser retornado
             request.SetUsuarioId(Guid.Parse(usuario.Id));
 
             // Dispara o evento para que o BC de Alunos possa criar o registro

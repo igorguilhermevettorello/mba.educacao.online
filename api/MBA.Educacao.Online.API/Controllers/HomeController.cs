@@ -1,7 +1,7 @@
 using MBA.Educacao.Online.API.Controllers.Base;
 using MBA.Educacao.Online.API.DTOs;
 using MBA.Educacao.Online.Core.Application.Commands.Identity;
-using MBA.Educacao.Online.Core.Application.Models;
+using MBA.Educacao.Online.Core.Application.DTOs;
 using MBA.Educacao.Online.Core.Domain.Interfaces.Identity;
 using MBA.Educacao.Online.Core.Domain.Interfaces.Mediator;
 using MBA.Educacao.Online.Core.Domain.Interfaces.Notifications;
@@ -23,7 +23,7 @@ namespace MBA.Educacao.Online.API.Controllers
         }
 
         [HttpPost("registrar")]
-        [ProducesResponseType(typeof(Result<Guid>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ResultDto<Guid>), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> Registrar([FromBody] RegistrarDto registrarDto)
         {
@@ -45,12 +45,12 @@ namespace MBA.Educacao.Online.API.Controllers
                 return CustomResponse();
             }
 
-            var response = Result.Ok(command.UsuarioId.Value, "Usuário criado com sucesso");
+            var response = ResultDto.Ok(command.UsuarioId.Value, "Usuário criado com sucesso");
             return CustomResponse(response);
         }
 
         [HttpPost("login")]
-        [ProducesResponseType(typeof(Result<LoginResult>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResultDto<LoginResultDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> Login([FromBody] LoginDto loginDto)
         {
