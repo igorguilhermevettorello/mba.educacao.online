@@ -6,7 +6,7 @@ using MBA.Educacao.Online.Core.Domain.Enums;
 using MBA.Educacao.Online.Core.Domain.Interfaces.Identity;
 using MBA.Educacao.Online.Core.Domain.Interfaces.Mediator;
 using MBA.Educacao.Online.Core.Domain.Interfaces.Notifications;
-using MBA.Educacao.Online.Cursos.Application.Commands.Cursos;
+using MBA.Educacao.Online.Cursos.Application.Commands.Aulas;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,13 +14,13 @@ namespace MBA.Educacao.Online.API.Controllers
 {
     [Authorize(Roles = nameof(TipoUsuario.Administrador))]
     [ApiController]
-    [Route("api/cursos")]
-    public class CursosController : MainController
+    [Route("api/aulas")]
+    public class AulasController : MainController
     {
         private readonly IMediatorHandler _mediatorHandler;
         private readonly IMapper _mapper;
 
-        public CursosController(IMediatorHandler mediatorHandler, IMapper mapper, INotificador notificador, IUser appUser) 
+        public AulasController(IMediatorHandler mediatorHandler, IMapper mapper, INotificador notificador, IUser appUser)
             : base(notificador, appUser)
         {
             _mediatorHandler = mediatorHandler;
@@ -32,31 +32,17 @@ namespace MBA.Educacao.Online.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<ActionResult> Criar([FromBody] CriarCursoDto criarCursoDto)
+        public async Task<ActionResult> Criar([FromBody] CriarAulaDto criarAulaDto)
         {
             if (!ModelState.IsValid)
                 return CustomResponse(ModelState);
 
-            ConteudoProgramaticoCommand? conteudoProgramaticoCommand = null;
-
-            if (criarCursoDto.ConteudoProgramatico != null)
-            {
-                conteudoProgramaticoCommand = new ConteudoProgramaticoCommand
-                {
-                    Ementa = criarCursoDto.ConteudoProgramatico.Ementa,
-                    Objetivo = criarCursoDto.ConteudoProgramatico.Objetivo,
-                    Bibliografia = criarCursoDto.ConteudoProgramatico.Bibliografia,
-                    MaterialUrl = criarCursoDto.ConteudoProgramatico.MaterialUrl
-                };
-            }
-
-            var command = new CriarCursoCommand(
-                criarCursoDto.Titulo,
-                criarCursoDto.Descricao,
-                criarCursoDto.Instrutor,
-                criarCursoDto.Nivel,
-                criarCursoDto.Valor,
-                conteudoProgramaticoCommand
+            var command = new CriarAulaCommand(
+                criarAulaDto.CursoId,
+                criarAulaDto.Titulo,
+                criarAulaDto.Descricao,
+                criarAulaDto.DuracaoMinutos,
+                criarAulaDto.Ordem
             );
 
             var resultado = await _mediatorHandler.EnviarComando(command);
@@ -64,7 +50,7 @@ namespace MBA.Educacao.Online.API.Controllers
             if (!resultado)
                 return CustomResponse();
 
-            var response = Result.Ok(command.AggregateId, "Curso criado com sucesso");
+            var response = Result.Ok(command.AggregateId, "Aula criada com sucesso");
             return CreatedAtAction(nameof(ObterPorId), new { id = command.AggregateId }, response);
         }
 
@@ -74,31 +60,18 @@ namespace MBA.Educacao.Online.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult> Atualizar(Guid id, [FromBody] AtualizarCursoDto atualizarCursoDto)
+        public async Task<ActionResult> Atualizar(Guid id, [FromBody] AtualizarAulaDto atualizarAulaDto)
         {
             if (!ModelState.IsValid)
                 return CustomResponse(ModelState);
 
-            ConteudoProgramaticoCommand? conteudoProgramaticoCommand = null;
-
-            if (atualizarCursoDto.ConteudoProgramatico != null)
-            {
-                conteudoProgramaticoCommand = new ConteudoProgramaticoCommand
-                {
-                    Ementa = atualizarCursoDto.ConteudoProgramatico.Ementa,
-                    Objetivo = atualizarCursoDto.ConteudoProgramatico.Objetivo,
-                    Bibliografia = atualizarCursoDto.ConteudoProgramatico.Bibliografia,
-                    MaterialUrl = atualizarCursoDto.ConteudoProgramatico.MaterialUrl
-                };
-            }
-
-            var command = new AtualizarCursoCommand
+            var command = new AtualizarAulaCommand
             {
                 Id = id,
-                Titulo = atualizarCursoDto.Titulo,
-                Descricao = atualizarCursoDto.Descricao,
-                Nivel = atualizarCursoDto.Nivel,
-                ConteudoProgramatico = conteudoProgramaticoCommand
+                Titulo = atualizarAulaDto.Titulo,
+                Descricao = atualizarAulaDto.Descricao,
+                DuracaoMinutos = atualizarAulaDto.DuracaoMinutos,
+                Ordem = atualizarAulaDto.Ordem
             };
 
             var resultado = await _mediatorHandler.EnviarComando(command);
@@ -106,40 +79,41 @@ namespace MBA.Educacao.Online.API.Controllers
             if (!resultado)
                 return CustomResponse();
 
-            var response = Result.Ok("Curso atualizado com sucesso");
+            var response = Result.Ok("Aula atualizada com sucesso");
             return CustomResponse(response);
         }
 
         [HttpGet("{id:guid}")]
-        [ProducesResponseType(typeof(Result<CursoDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Result<AulaDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> ObterPorId(Guid id)
         {
-            var command = new ObterCursoPorIdCommand(id);
-            var curso = await _mediatorHandler.EnviarComando(command);
-            if (curso == null)
+            var command = new ObterAulaPorIdCommand(id);
+            var aula = await _mediatorHandler.EnviarComando(command);
+            
+            if (aula == null)
             {
-                NotificarErro("Curso", "Curso não encontrado");
+                NotificarErro("Aula", "Aula não encontrada");
                 return NotFound();
             }
 
-            var cursoDto = _mapper.Map<CursoDto>(curso);
-            var response = Result.Ok(cursoDto, "Curso obtido com sucesso");
+            var aulaDto = _mapper.Map<AulaDto>(aula);
+            var response = Result.Ok(aulaDto, "Aula obtida com sucesso");
             return CustomResponse(response);
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(Result<IEnumerable<CursoDto>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Result<IEnumerable<AulaDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<ActionResult> Listar([FromQuery] bool apenasAtivos = false)
+        public async Task<ActionResult> Listar([FromQuery] Guid? cursoId = null, [FromQuery] bool apenasAtivas = false)
         {
-            var command = new ListarCursosCommand(apenasAtivos);
-            var cursos = await _mediatorHandler.EnviarComando(command);
-            var cursosDto = _mapper.Map<IEnumerable<CursoDto>>(cursos);
-            var response = Result.Ok(cursosDto, "Cursos obtidos com sucesso");
+            var command = new ListarAulasCommand(cursoId, apenasAtivas);
+            var aulas = await _mediatorHandler.EnviarComando(command);
+            var aulasDto = _mapper.Map<IEnumerable<AulaDto>>(aulas);
+            var response = Result.Ok(aulasDto, "Aulas obtidas com sucesso");
             return CustomResponse(response);
         }
 
@@ -151,13 +125,13 @@ namespace MBA.Educacao.Online.API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> Deletar(Guid id)
         {
-            var command = new DeletarCursoCommand(id);
+            var command = new DeletarAulaCommand(id);
             var resultado = await _mediatorHandler.EnviarComando(command);
 
             if (!resultado)
                 return CustomResponse();
 
-            var response = Result.Ok("Curso deletado com sucesso");
+            var response = Result.Ok("Aula deletada com sucesso");
             return CustomResponse(response);
         }
 
@@ -169,13 +143,13 @@ namespace MBA.Educacao.Online.API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> Ativar(Guid id)
         {
-            var command = new AtivarCursoCommand { CursoId = id };
+            var command = new AtivarAulaCommand { AulaId = id };
             var resultado = await _mediatorHandler.EnviarComando(command);
 
             if (!resultado)
                 return CustomResponse();
 
-            var response = Result.Ok("Curso ativado com sucesso");
+            var response = Result.Ok("Aula ativada com sucesso");
             return CustomResponse(response);
         }
 
@@ -187,13 +161,13 @@ namespace MBA.Educacao.Online.API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> Inativar(Guid id)
         {
-            var command = new InativarCursoCommand(id);
+            var command = new InativarAulaCommand(id);
             var resultado = await _mediatorHandler.EnviarComando(command);
 
             if (!resultado)
                 return CustomResponse();
 
-            var response = Result.Ok("Curso inativado com sucesso");
+            var response = Result.Ok("Aula inativada com sucesso");
             return CustomResponse(response);
         }
     }

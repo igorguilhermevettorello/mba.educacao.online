@@ -14,6 +14,9 @@ namespace MBA.Educacao.Online.API.Mappings
 
             // Mapeamento de ConteudoProgramatico para ConteudoProgramaticoDto
             CreateMap<ConteudoProgramatico, ConteudoProgramaticoDto>();
+
+            // Mapeamento de Aula para AulaDto
+            CreateMap<Aula, AulaDto>();
         }
     }
 }

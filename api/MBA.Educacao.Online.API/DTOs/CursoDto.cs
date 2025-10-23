@@ -13,6 +13,7 @@ namespace MBA.Educacao.Online.API.DTOs
         public DateTime DataCriacao { get; set; }
         public bool Ativo { get; set; }
         public ConteudoProgramaticoDto? ConteudoProgramatico { get; set; }
+        public IEnumerable<AulaDto> Aulas { get; set; } = new List<AulaDto>();
     }
 }
 

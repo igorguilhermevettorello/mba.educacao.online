@@ -51,6 +51,7 @@ namespace MBA.Educacao.Online.API.Configurations
         private static void RegisterRepositories(IServiceCollection service)
         {
             service.AddScoped<ICursoRepository, CursoRepository>();
+            service.AddScoped<IAulaRepository, AulaRepository>();
             service.AddScoped<IPedidoRepository, PedidoRepository>();
             service.AddScoped<IAlunoRepository, AlunoRepository>();
             // service.AddScoped<ICategoriaRepository, CategoriaRepository>();

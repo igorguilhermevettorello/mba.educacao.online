@@ -78,5 +78,13 @@ namespace MBA.Educacao.Online.Cursos.Domain.Entities
         {
             Ativa = true;
         }
+
+        public void AssociarCurso(Guid cursoId)
+        {
+            if (cursoId == Guid.Empty)
+                throw new ArgumentException("ID do curso é inválido", nameof(cursoId));
+
+            CursoId = cursoId;
+        }
     }
 }

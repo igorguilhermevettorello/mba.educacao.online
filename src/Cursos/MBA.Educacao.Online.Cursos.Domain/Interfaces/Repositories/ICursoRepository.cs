@@ -11,7 +11,6 @@ namespace MBA.Educacao.Online.Cursos.Domain.Interfaces.Repositories
         Task<Curso> BuscarPorIdAsync(Guid id);
         Task<IEnumerable<Curso>> ObterTodosAsync();
         Task<IEnumerable<Curso>> ObterAtivosAsync();
-        void IDisposable();
     }
 }
 

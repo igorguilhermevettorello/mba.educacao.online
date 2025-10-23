@@ -54,11 +54,6 @@ namespace MBA.Educacao.Online.Cursos.Data.Repositories
                 .AsNoTracking()
                 .ToListAsync();
         }
-
-        public void IDisposable()
-        {
-            _context?.Dispose();
-        }
         
         public void Dispose()
         {
