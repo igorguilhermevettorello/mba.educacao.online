@@ -53,6 +53,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Vendas.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Vendas.Application", "src\Vendas\MBA.Educacao.Online.Vendas.Application\MBA.Educacao.Online.Vendas.Application.csproj", "{5F26EFC1-D153-44E0-A0B9-E29B2D40F6B3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MBA.Educacao.Online.Pagamentos.AntiCorruption", "src\Pagamentos\MBA.Educacao.Online.Pagamentos.AntiCorruption\MBA.Educacao.Online.Pagamentos.AntiCorruption.csproj", "{5F08700C-D6BE-4584-B853-CE275FD7D222}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -131,6 +133,10 @@ Global
 		{5F26EFC1-D153-44E0-A0B9-E29B2D40F6B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F26EFC1-D153-44E0-A0B9-E29B2D40F6B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F26EFC1-D153-44E0-A0B9-E29B2D40F6B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F08700C-D6BE-4584-B853-CE275FD7D222}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F08700C-D6BE-4584-B853-CE275FD7D222}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F08700C-D6BE-4584-B853-CE275FD7D222}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F08700C-D6BE-4584-B853-CE275FD7D222}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -159,6 +165,7 @@ Global
 		{6DDC2CEF-5E05-4491-B245-ADCE41CB2CAF} = {CD9223C4-8010-40E0-8A01-6C720D3EE169}
 		{9F4590A6-A778-405E-8A93-E698A8424E1A} = {CD9223C4-8010-40E0-8A01-6C720D3EE169}
 		{5F26EFC1-D153-44E0-A0B9-E29B2D40F6B3} = {CD9223C4-8010-40E0-8A01-6C720D3EE169}
+		{5F08700C-D6BE-4584-B853-CE275FD7D222} = {701EB9E9-0F40-4C3B-BE30-97F8A4B98E63}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {38ADCE19-E311-4B09-A1B9-11011B9C85C7}
