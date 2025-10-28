@@ -90,6 +90,27 @@ dotnet ef migrations remove \
   --startup-project ./api/MBA.Educacao.Online.API/MBA.Educacao.Online.API.csproj \
   --context AlunoContext
 
+## Criar Migration do Bounded Context Pagamentos
+dotnet ef migrations add InitialMigrations \
+  --project ./src/Pagamentos/MBA.Educacao.Online.Pagamentos.Data/MBA.Educacao.Online.Pagamentos.Data.csproj \
+  --startup-project ./api/MBA.Educacao.Online.API/MBA.Educacao.Online.API.csproj \
+  --context PagamentoContext \
+  --output-dir ./Migrations
+
+dotnet ef migrations add InitialMigrations --project ./src/Pagamentos/MBA.Educacao.Online.Pagamentos.Data/MBA.Educacao.Online.Pagamentos.Data.csproj --startup-project ./api/MBA.Educacao.Online.API/MBA.Educacao.Online.API.csproj --context PagamentoContext --output-dir ./Migrations
+
+## Aplicar Migration do Bounded Context Pagamentos
+dotnet ef database update \
+  --project ./src/Pagamentos/MBA.Educacao.Online.Pagamentos.Data/MBA.Educacao.Online.Pagamentos.Data.csproj \
+  --startup-project ./api/MBA.Educacao.Online.API/MBA.Educacao.Online.API.csproj \
+  --context PagamentoContext
+
+# Para Pagamentos:
+dotnet ef migrations remove \
+  --project ./src/Pagamentos/MBA.Educacao.Online.Pagamentos.Data/MBA.Educacao.Online.Pagamentos.Data.csproj \
+  --startup-project ./api/MBA.Educacao.Online.API/MBA.Educacao.Online.API.csproj \
+  --context PagamentoContext
+
 ############################################
 find ~/ -type f -name "dev.db"
 find . -type d \( -name "bin" -o -name "obj" \) -exec rm -rf {} +

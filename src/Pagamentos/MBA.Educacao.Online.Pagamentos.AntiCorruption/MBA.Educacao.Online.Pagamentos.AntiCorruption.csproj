@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\MBA.Educacao.Online.Pagamentos.Domain\MBA.Educacao.Online.Pagamentos.Domain.csproj" />
+    </ItemGroup>
+
 </Project>

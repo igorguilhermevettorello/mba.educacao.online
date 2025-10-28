@@ -1,6 +1,7 @@
 using MBA.Educacao.Online.Alunos.Data.Context;
 using MBA.Educacao.Online.Core.Data.Context;
 using MBA.Educacao.Online.Cursos.Data.Context;
+using MBA.Educacao.Online.Pagamentos.Data.Context;
 using MBA.Educacao.Online.Vendas.Data.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -45,6 +46,11 @@ namespace MBA.Educacao.Online.API.Configurations
                     options.EnableSensitiveDataLogging(builder.Environment.IsDevelopment())
                         .UseSqlite(connectionString)
                 );
+
+                builder.Services.AddDbContext<PagamentoContext>(options =>
+                    options.EnableSensitiveDataLogging(builder.Environment.IsDevelopment())
+                        .UseSqlite(connectionString)
+                );
             }
             else
             {
@@ -61,6 +67,10 @@ namespace MBA.Educacao.Online.API.Configurations
                 );
 
                 builder.Services.AddDbContext<AlunoContext>(options =>
+                    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+                );
+
+                builder.Services.AddDbContext<PagamentoContext>(options =>
                     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
                 );
             }

@@ -1,6 +1,7 @@
 using MBA.Educacao.Online.Alunos.Data.Context;
 using MBA.Educacao.Online.Core.Data.Context;
 using MBA.Educacao.Online.Cursos.Data.Context;
+using MBA.Educacao.Online.Pagamentos.Data.Context;
 using MBA.Educacao.Online.Vendas.Data.Context;
 
 namespace MBA.Educacao.Online.API.Configurations
@@ -17,6 +18,7 @@ namespace MBA.Educacao.Online.API.Configurations
             AlunoMigrationExec.Exec(services, environmentName).Wait();
             CursoMigrationExec.Exec(services, environmentName).Wait();
             PedidoMigrationExec.Exec(services).Wait();
+            PagamentoMigrationExec.Exec(services).Wait();
         }
     }
 }
