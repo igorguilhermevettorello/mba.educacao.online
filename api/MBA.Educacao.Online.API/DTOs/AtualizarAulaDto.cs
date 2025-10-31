@@ -19,6 +19,7 @@ namespace MBA.Educacao.Online.API.DTOs
         [Required(ErrorMessage = "A ordem da aula é obrigatória")]
         [Range(1, int.MaxValue, ErrorMessage = "A ordem deve ser maior que zero")]
         public int Ordem { get; set; }
+
     }
 }
 
