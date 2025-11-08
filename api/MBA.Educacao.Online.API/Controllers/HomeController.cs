@@ -5,7 +5,6 @@ using MBA.Educacao.Online.Core.Application.DTOs;
 using MBA.Educacao.Online.Core.Domain.Interfaces.Identity;
 using MBA.Educacao.Online.Core.Domain.Interfaces.Mediator;
 using MBA.Educacao.Online.Core.Domain.Interfaces.Notifications;
-using MBA.Educacao.Online.Vendas.Application.Commands;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MBA.Educacao.Online.API.Controllers
@@ -38,14 +37,10 @@ namespace MBA.Educacao.Online.API.Controllers
             );
 
             var resultado = await _mediatorHandler.EnviarComando(command);
-
             if (!resultado)
-            {
-                // Os erros já foram adicionados ao notificador pelo Handler
                 return CustomResponse();
-            }
-
-            var response = ResultDto.Ok(command.UsuarioId.Value, "Usuário criado com sucesso");
+            
+            var response = ResultDto.Ok(command.AggregateId, "Usuário criado com sucesso");
             return CustomResponse(response);
         }
 
@@ -60,11 +55,8 @@ namespace MBA.Educacao.Online.API.Controllers
             var command = new LoginCommand(loginDto.Email, loginDto.Senha);
             var resultado = await _mediatorHandler.EnviarComando(command);
             if (resultado == null || !resultado.Success)
-            {
                 return CustomResponse();
-            }
-
-            //var response = Result.Ok(resultado, "Login realizado com sucesso");
+            
             return CustomResponse(resultado);
         }
     }

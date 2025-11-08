@@ -1,5 +1,6 @@
 using MBA.Educacao.Online.Core.Application.Commands.Identity;
 using MBA.Educacao.Online.Core.Application.Events.Identity;
+using MBA.Educacao.Online.Core.Domain.Enums;
 using MBA.Educacao.Online.Core.Domain.Interfaces.Notifications;
 using MBA.Educacao.Online.Core.Domain.Notifications;
 using MediatR;
@@ -57,7 +58,6 @@ namespace MBA.Educacao.Online.Core.Application.Handlers.Identity
             };
 
             var resultado = await _userManager.CreateAsync(usuario, request.Senha);
-
             if (!resultado.Succeeded)
             {
                 foreach (var erro in resultado.Errors)
@@ -71,9 +71,22 @@ namespace MBA.Educacao.Online.Core.Application.Handlers.Identity
                 return false;
             }
 
-            request.SetUsuarioId(Guid.Parse(usuario.Id));
+            // Atribui a role "Aluno" ao usuário criado
+            var roleResult = await _userManager.AddToRoleAsync(usuario, TipoUsuario.Aluno.ToString().ToUpper());
+            if (!roleResult.Succeeded)
+            {
+                foreach (var erro in roleResult.Errors)
+                {
+                    _notificador.Handle(new Notificacao
+                    {
+                        Campo = "Role",
+                        Mensagem = $"Erro ao atribuir role: {erro.Description}"
+                    });
+                }
+                return false;
+            }
 
-            // Dispara o evento para que o BC de Alunos possa criar o registro
+            request.SetUsuarioId(Guid.Parse(usuario.Id));
             await _mediator.Publish(new UsuarioCriadoEvent(
                 Guid.Parse(usuario.Id),
                 request.Nome,

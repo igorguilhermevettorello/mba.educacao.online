@@ -15,9 +15,9 @@ namespace MBA.Educacao.Online.Vendas.Data.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.20");
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.21");
 
-            modelBuilder.Entity("MBA.Educacao.Online.Vendas.Domain.Models.Pedido", b =>
+            modelBuilder.Entity("MBA.Educacao.Online.Vendas.Domain.Entities.Pedido", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -44,7 +44,7 @@ namespace MBA.Educacao.Online.Vendas.Data.Migrations
                     b.ToTable("Pedidos", (string)null);
                 });
 
-            modelBuilder.Entity("MBA.Educacao.Online.Vendas.Domain.Models.PedidoItem", b =>
+            modelBuilder.Entity("MBA.Educacao.Online.Vendas.Domain.Entities.PedidoItem", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -56,6 +56,9 @@ namespace MBA.Educacao.Online.Vendas.Data.Migrations
                     b.Property<string>("CursoNome")
                         .IsRequired()
                         .HasColumnType("varchar(200)");
+
+                    b.Property<Guid?>("MatriculaId")
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("PedidoId")
                         .HasColumnType("TEXT");
@@ -71,9 +74,9 @@ namespace MBA.Educacao.Online.Vendas.Data.Migrations
                     b.ToTable("PedidoItens", (string)null);
                 });
 
-            modelBuilder.Entity("MBA.Educacao.Online.Vendas.Domain.Models.PedidoItem", b =>
+            modelBuilder.Entity("MBA.Educacao.Online.Vendas.Domain.Entities.PedidoItem", b =>
                 {
-                    b.HasOne("MBA.Educacao.Online.Vendas.Domain.Models.Pedido", "Pedido")
+                    b.HasOne("MBA.Educacao.Online.Vendas.Domain.Entities.Pedido", "Pedido")
                         .WithMany("PedidoItens")
                         .HasForeignKey("PedidoId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -82,7 +85,7 @@ namespace MBA.Educacao.Online.Vendas.Data.Migrations
                     b.Navigation("Pedido");
                 });
 
-            modelBuilder.Entity("MBA.Educacao.Online.Vendas.Domain.Models.Pedido", b =>
+            modelBuilder.Entity("MBA.Educacao.Online.Vendas.Domain.Entities.Pedido", b =>
                 {
                     b.Navigation("PedidoItens");
                 });

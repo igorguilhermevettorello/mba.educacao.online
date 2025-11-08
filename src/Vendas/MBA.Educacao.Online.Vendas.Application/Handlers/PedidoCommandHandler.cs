@@ -1,7 +1,7 @@
 ﻿using MBA.Educacao.Online.Core.Domain.Messages;
 using MBA.Educacao.Online.Vendas.Application.Commands;
 using MBA.Educacao.Online.Vendas.Domain.Interfaces.Repositories;
-using MBA.Educacao.Online.Vendas.Domain.Models;
+using MBA.Educacao.Online.Vendas.Domain.Entities;
 using MediatR;
 
 namespace MBA.Educacao.Online.Vendas.Application.Handlers

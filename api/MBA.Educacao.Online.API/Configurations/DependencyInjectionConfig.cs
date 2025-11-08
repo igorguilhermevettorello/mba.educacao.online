@@ -14,6 +14,13 @@ using MBA.Educacao.Online.Cursos.Data.Repositories;
 using MBA.Educacao.Online.Cursos.Domain.Interfaces.Repositories;
 using MBA.Educacao.Online.Cursos.Domain.Interfaces.Services;
 using MBA.Educacao.Online.Cursos.Domain.Services;
+using MBA.Educacao.Online.Pagamentos.AntiCorruption;
+using MBA.Educacao.Online.Pagamentos.Data.Context;
+using MBA.Educacao.Online.Pagamentos.Data.Repositories;
+using MBA.Educacao.Online.Pagamentos.Domain.Interfaces.Payments;
+using MBA.Educacao.Online.Pagamentos.Domain.Interfaces.Repositories;
+using MBA.Educacao.Online.Pagamentos.Domain.Interfaces.Services;
+using MBA.Educacao.Online.Pagamentos.Domain.Services;
 using MBA.Educacao.Online.Vendas.Data.Context;
 using MBA.Educacao.Online.Vendas.Data.Repositories;
 using MBA.Educacao.Online.Vendas.Domain.Interfaces.Repositories;
@@ -36,6 +43,7 @@ namespace MBA.Educacao.Online.API.Configurations
             service.AddScoped<CursoContext>();
             service.AddScoped<PedidoContext>();
             service.AddScoped<AlunoContext>();
+            service.AddScoped<PagamentoContext>();
             service.AddScoped<INotificador, Notificador>();
             // service.Configure<JwtSettings>(configuration.GetSection("Jwt"));
             service.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -54,6 +62,7 @@ namespace MBA.Educacao.Online.API.Configurations
             service.AddScoped<IAulaRepository, AulaRepository>();
             service.AddScoped<IPedidoRepository, PedidoRepository>();
             service.AddScoped<IAlunoRepository, AlunoRepository>();
+            service.AddScoped<IPagamentoRepository, PagamentoRepository>();
             // service.AddScoped<ICategoriaRepository, CategoriaRepository>();
             // service.AddScoped<IClienteRepository, ClienteRepository>();
             // service.AddScoped<IProdutoRepository, ProdutoRepository>();
@@ -67,6 +76,10 @@ namespace MBA.Educacao.Online.API.Configurations
             service.AddScoped<IMediatorHandler, MediatorHandler>();
             service.AddScoped<ICursoAppService, CursoAppService>();
             service.AddScoped<ICursoService, CursoService>();
+            service.AddScoped<IPagamentoService, PagamentoService>();
+            service.AddScoped<IPagamentoCartaoCreditoFacade, PagamentoCartaoCreditoFacade>();
+            service.AddScoped<IPayPalGateway, PayPalGateway>();
+            service.AddScoped<MBA.Educacao.Online.Pagamentos.Domain.Interfaces.Payments.IConfigurationManager, MBA.Educacao.Online.Pagamentos.AntiCorruption.ConfigurationManager>();
 
             // service.AddScoped<ICategoriaService, CategoriaService>();
             // service.AddScoped<IProdutoService, ProdutoService>();

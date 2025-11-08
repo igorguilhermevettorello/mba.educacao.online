@@ -2,6 +2,8 @@ using MBA.Educacao.Online.API.Configurations;
 using MBA.Educacao.Online.Core.Application;
 using MBA.Educacao.Online.Alunos.Application;
 using MBA.Educacao.Online.Cursos.Application;
+using MBA.Educacao.Online.Pagamentos.Domain;
+using MBA.Educacao.Online.Pagamentos.Application;
 using MBA.Educacao.Online.Vendas.Application;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +24,8 @@ builder.Services.AddDependencyInjectionConfig(builder.Configuration);
 builder.Services.AddCoreApplication();
 builder.Services.AddAlunosApplication();
 builder.Services.AddApplication();
+builder.Services.AddPagamentosApplication(); // Registra serviços do Domain
+builder.Services.AddPagamentosApplicationHandlers(); // Registra handlers do Application
 builder.Services.AddVendasApplication();
 
 var app = builder.Build();

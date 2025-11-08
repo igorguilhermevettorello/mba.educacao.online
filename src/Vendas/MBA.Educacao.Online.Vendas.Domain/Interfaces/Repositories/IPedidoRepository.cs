@@ -1,5 +1,5 @@
 ﻿using MBA.Educacao.Online.Core.Domain.Interfaces.Repositories;
-using MBA.Educacao.Online.Vendas.Domain.Models;
+using MBA.Educacao.Online.Vendas.Domain.Entities;
 
 namespace MBA.Educacao.Online.Vendas.Domain.Interfaces.Repositories
 {
@@ -9,7 +9,8 @@ namespace MBA.Educacao.Online.Vendas.Domain.Interfaces.Repositories
         void Alterar(Pedido pedido);
         void AdicionarItem(PedidoItem item);
         void RemoverItem(PedidoItem item);
-        Task<Pedido> ObterPedidoRascunhoPorAlunoId(Guid alunoId);
-        void IDisposable();
+        Task<Pedido?> ObterPorId(Guid pedidoId);
+        Task<Pedido?> ObterPorIdComTracking(Guid pedidoId);
+        Task<Pedido?> ObterPedidoRascunhoPorAlunoId(Guid alunoId);
     }
 }

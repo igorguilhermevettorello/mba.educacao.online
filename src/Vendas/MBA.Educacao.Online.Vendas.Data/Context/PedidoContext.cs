@@ -1,12 +1,29 @@
-﻿using MBA.Educacao.Online.Core.Domain.Interfaces.Repositories;
-using MBA.Educacao.Online.Vendas.Domain.Models;
-using MediatR;
+﻿using MBA.Educacao.Online.Core.Domain.Interfaces.Mediator;
+using MBA.Educacao.Online.Core.Domain.Interfaces.Repositories;
+using MBA.Educacao.Online.Pagamentos.Data;
+using MBA.Educacao.Online.Vendas.Data.Extensions;
+using MBA.Educacao.Online.Vendas.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+
 namespace MBA.Educacao.Online.Vendas.Data.Context
 {
     public class PedidoContext : DbContext, IUnitOfWork
     {
-        public PedidoContext(DbContextOptions<PedidoContext> options) : base(options) { }
+        private readonly ILogger<PedidoContext>? _logger;
+        private readonly IMediatorHandler _mediatorHandler;
+
+        public PedidoContext(DbContextOptions<PedidoContext> options, IMediatorHandler mediatorHandler) : base(options) 
+        {
+            _mediatorHandler = mediatorHandler ?? throw new ArgumentNullException(nameof(mediatorHandler));
+        }
+
+        public PedidoContext(DbContextOptions<PedidoContext> options, IMediatorHandler mediatorHandler, ILogger<PedidoContext> logger) 
+            : base(options) 
+        {
+            _logger = logger;
+            _mediatorHandler = mediatorHandler ?? throw new ArgumentNullException(nameof(mediatorHandler));
+        }
 
         public DbSet<Pedido> Pedidos { get; set; }
 
@@ -31,7 +48,7 @@ namespace MBA.Educacao.Online.Vendas.Data.Context
         public async Task<bool> Commit()
         {
             var success = (await base.SaveChangesAsync()) > 0;
-            // if (success) await _mediator.PublicarEventos(this);
+            if (success) await _mediatorHandler.PublicarEventos(this);
             return success;
         }
     }

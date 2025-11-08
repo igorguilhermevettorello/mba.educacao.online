@@ -1,5 +1,4 @@
 using MBA.Educacao.Online.Core.Domain.Models;
-using MBA.Educacao.Online.Cursos.Domain.ValueObjects;
 
 namespace MBA.Educacao.Online.Cursos.Domain.Entities
 {
@@ -16,17 +15,10 @@ namespace MBA.Educacao.Online.Cursos.Domain.Entities
         private Aula() { }
         public Aula(string titulo, string descricao, int duracaoMinutos, int ordem)
         {
-            if (string.IsNullOrWhiteSpace(titulo))
-                throw new ArgumentException("Título da aula é obrigatório", nameof(titulo));
-
-            if (string.IsNullOrWhiteSpace(descricao))
-                throw new ArgumentException("Descrição da aula é obrigatória", nameof(descricao));
-
-            if (duracaoMinutos <= 0)
-                throw new ArgumentException("Duração deve ser maior que zero", nameof(duracaoMinutos));
-
-            if (ordem <= 0)
-                throw new ArgumentException("Ordem deve ser maior que zero", nameof(ordem));
+            ValidarTitulo(titulo);
+            ValidarDescricao(descricao);
+            ValidarDuracao(duracaoMinutos);
+            ValidarOrdem(ordem);
             
             Id = Guid.NewGuid();
             Titulo = titulo;
@@ -39,34 +31,39 @@ namespace MBA.Educacao.Online.Cursos.Domain.Entities
         
         public void AtualizarTitulo(string novoTitulo)
         {
-            if (string.IsNullOrWhiteSpace(novoTitulo))
-                throw new ArgumentException("Título da aula é obrigatório", nameof(novoTitulo));
-
+            ValidarTitulo(novoTitulo);
             Titulo = novoTitulo;
         }
 
         public void AtualizarDescricao(string novaDescricao)
         {
-            if (string.IsNullOrWhiteSpace(novaDescricao))
-                throw new ArgumentException("Descrição da aula é obrigatória", nameof(novaDescricao));
-
+            ValidarDescricao(novaDescricao);
             Descricao = novaDescricao;
         }
 
         public void AtualizarDuracao(int novaDuracao)
         {
-            if (novaDuracao <= 0)
-                throw new ArgumentException("Duração deve ser maior que zero", nameof(novaDuracao));
-
+            ValidarDuracao(novaDuracao);
             DuracaoMinutos = novaDuracao;
         }
 
         public void AtualizarOrdem(int novaOrdem)
         {
-            if (novaOrdem <= 0)
-                throw new ArgumentException("Ordem deve ser maior que zero", nameof(novaOrdem));
-
+            ValidarOrdem(novaOrdem);
             Ordem = novaOrdem;
+        }
+
+        public void AtualizarInformacoes(string titulo, string descricao, int duracaoMinutos, int ordem)
+        {
+            ValidarTitulo(titulo);
+            ValidarDescricao(descricao);
+            ValidarDuracao(duracaoMinutos);
+            ValidarOrdem(ordem);
+
+            Titulo = titulo;
+            Descricao = descricao;
+            DuracaoMinutos = duracaoMinutos;
+            Ordem = ordem;
         }
 
         public void Inativar()
@@ -84,7 +81,58 @@ namespace MBA.Educacao.Online.Cursos.Domain.Entities
             if (cursoId == Guid.Empty)
                 throw new ArgumentException("ID do curso é inválido", nameof(cursoId));
 
+            if (CursoId != Guid.Empty && CursoId != cursoId)
+                throw new InvalidOperationException("Aula já está associada a outro curso");
+
             CursoId = cursoId;
+        }
+
+        public bool EstaConcluida(int progressoPercentual)
+        {
+            return progressoPercentual >= 100;
+        }
+
+        // Métodos de validação privados
+        private static void ValidarTitulo(string titulo)
+        {
+            if (string.IsNullOrWhiteSpace(titulo))
+                throw new ArgumentException("Título da aula é obrigatório", nameof(titulo));
+
+            if (titulo.Length < 3)
+                throw new ArgumentException("Título da aula deve ter no mínimo 3 caracteres", nameof(titulo));
+
+            if (titulo.Length > 200)
+                throw new ArgumentException("Título da aula deve ter no máximo 200 caracteres", nameof(titulo));
+        }
+
+        private static void ValidarDescricao(string descricao)
+        {
+            if (string.IsNullOrWhiteSpace(descricao))
+                throw new ArgumentException("Descrição da aula é obrigatória", nameof(descricao));
+
+            if (descricao.Length < 10)
+                throw new ArgumentException("Descrição da aula deve ter no mínimo 10 caracteres", nameof(descricao));
+
+            if (descricao.Length > 1000)
+                throw new ArgumentException("Descrição da aula deve ter no máximo 1000 caracteres", nameof(descricao));
+        }
+
+        private static void ValidarDuracao(int duracaoMinutos)
+        {
+            if (duracaoMinutos <= 0)
+                throw new ArgumentException("Duração deve ser maior que zero", nameof(duracaoMinutos));
+
+            if (duracaoMinutos > 600) // 10 horas
+                throw new ArgumentException("Duração da aula não pode exceder 600 minutos (10 horas)", nameof(duracaoMinutos));
+        }
+
+        private static void ValidarOrdem(int ordem)
+        {
+            if (ordem <= 0)
+                throw new ArgumentException("Ordem deve ser maior que zero", nameof(ordem));
+
+            if (ordem > 9999)
+                throw new ArgumentException("Ordem não pode exceder 9999", nameof(ordem));
         }
     }
 }

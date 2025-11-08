@@ -2,7 +2,7 @@ using MBA.Educacao.Online.Alunos.Application.Commands;
 using MBA.Educacao.Online.Core.Application.Events.Identity;
 using MediatR;
 
-namespace MBA.Educacao.Online.Alunos.Application.EventHandlers
+namespace MBA.Educacao.Online.Alunos.Application.Handlers.Events
 {
     public class UsuarioCriadoEventHandler : INotificationHandler<UsuarioCriadoEvent>
     {
@@ -15,7 +15,6 @@ namespace MBA.Educacao.Online.Alunos.Application.EventHandlers
 
         public async Task Handle(UsuarioCriadoEvent notification, CancellationToken cancellationToken)
         {
-            // Quando um usuário é criado no Identity, cria o registro correspondente na tabela de Alunos
             var command = new CriarAlunoCommand(
                 notification.UsuarioId,
                 notification.Nome,

@@ -1,4 +1,4 @@
-﻿using MBA.Educacao.Online.Vendas.Domain.Models;
+﻿using MBA.Educacao.Online.Vendas.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

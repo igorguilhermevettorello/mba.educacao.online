@@ -1,4 +1,4 @@
-namespace MBA.Educacao.Online.Core.Domain.Messages.CommonMessages.IntegrationEvents
+﻿namespace MBA.Educacao.Online.Core.Domain.Messages.CommonMessages.IntegrationEvents
 {
     public class PagamentoRealizadoEvent : IntegrationEvent
     {

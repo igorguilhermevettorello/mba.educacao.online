@@ -130,6 +130,18 @@ namespace MBA.Educacao.Online.API.Controllers
             return CustomResponse(response);
         }
 
+        [AllowAnonymous]
+        [HttpGet("ativos")]
+        [ProducesResponseType(typeof(ResultDto<IEnumerable<CursoDto>>), StatusCodes.Status200OK)]
+        public async Task<ActionResult> ListarCursosAtivos()
+        {
+            var command = new ListarCursosCommand(apenasAtivos: true);
+            var cursos = await _mediatorHandler.EnviarComando(command);
+            var cursosDto = _mapper.Map<IEnumerable<CursoDto>>(cursos);
+            var response = ResultDto.Ok(cursosDto, "Cursos ativos obtidos com sucesso");
+            return CustomResponse(response);
+        }
+
         [HttpGet]
         [ProducesResponseType(typeof(ResultDto<IEnumerable<CursoDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

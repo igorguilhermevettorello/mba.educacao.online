@@ -10,6 +10,7 @@ namespace MBA.Educacao.Online.Core.Application.Events.Identity
 
         public UsuarioCriadoEvent(Guid usuarioId, string nome, string email)
         {
+            AggregateId = usuarioId;
             UsuarioId = usuarioId;
             Nome = nome;
             Email = email;

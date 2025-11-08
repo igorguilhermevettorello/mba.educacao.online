@@ -1,4 +1,4 @@
-namespace MBA.Educacao.Online.Pagamentos.Domain.Models
+namespace MBA.Educacao.Online.Pagamentos.Domain.Entities
 {
     public class Pedido
     {

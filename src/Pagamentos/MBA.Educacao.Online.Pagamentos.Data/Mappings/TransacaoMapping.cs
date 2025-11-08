@@ -1,4 +1,4 @@
-using MBA.Educacao.Online.Pagamentos.Domain.Models;
+using MBA.Educacao.Online.Pagamentos.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -28,6 +28,9 @@ namespace MBA.Educacao.Online.Pagamentos.Data.Mappings
             builder.Property(t => t.StatusTransacao)
                 .IsRequired()
                 .HasConversion<int>();
+
+            builder.Property(t => t.DataTransacao)
+                .IsRequired();
 
             // Relacionamento 1:1 com Pagamento
             builder.HasOne(t => t.Pagamento)

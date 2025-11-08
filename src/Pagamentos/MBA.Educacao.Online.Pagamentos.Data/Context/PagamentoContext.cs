@@ -1,6 +1,6 @@
 ﻿using MBA.Educacao.Online.Core.Domain.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
-using MBA.Educacao.Online.Pagamentos.Domain.Models;
+using MBA.Educacao.Online.Pagamentos.Domain.Entities;
 
 namespace MBA.Educacao.Online.Pagamentos.Data.Context
 {

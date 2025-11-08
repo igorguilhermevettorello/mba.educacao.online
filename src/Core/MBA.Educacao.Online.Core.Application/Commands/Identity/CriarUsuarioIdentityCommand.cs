@@ -9,8 +9,6 @@ namespace MBA.Educacao.Online.Core.Application.Commands.Identity
         public string Email { get; set; }
         public string Senha { get; set; }
         public string ConfirmacaoSenha { get; set; }
-        public Guid? UsuarioId { get; private set; }
-
         public CriarUsuarioIdentityCommand(string nome, string email, string senha, string confirmacaoSenha)
         {
             Nome = nome;
@@ -18,12 +16,10 @@ namespace MBA.Educacao.Online.Core.Application.Commands.Identity
             Senha = senha;
             ConfirmacaoSenha = confirmacaoSenha;
         }
-
         public void SetUsuarioId(Guid usuarioId)
         {
-            UsuarioId = usuarioId;
+            AggregateId = usuarioId;
         }
-
         public override bool IsValid()
         {
             ValidationResult = new CriarUsuarioIdentityCommandValidator().Validate(this);

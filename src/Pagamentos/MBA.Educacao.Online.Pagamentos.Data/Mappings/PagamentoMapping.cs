@@ -1,4 +1,4 @@
-using MBA.Educacao.Online.Pagamentos.Domain.Models;
+using MBA.Educacao.Online.Pagamentos.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

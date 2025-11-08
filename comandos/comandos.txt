@@ -54,6 +54,7 @@ dotnet ef migrations add InitialMigrations \
   --output-dir ./Migrations
 
 dotnet ef migrations add InitialMigrations --project ./src/Vendas/MBA.Educacao.Online.Vendas.Data/MBA.Educacao.Online.Vendas.Data.csproj --startup-project ./api/MBA.Educacao.Online.API/MBA.Educacao.Online.API.csproj --context PedidoContext --output-dir ./Migrations
+dotnet ef migrations add AddMatriculaId --project ./src/Vendas/MBA.Educacao.Online.Vendas.Data/MBA.Educacao.Online.Vendas.Data.csproj --startup-project ./api/MBA.Educacao.Online.API/MBA.Educacao.Online.API.csproj --context PedidoContext --output-dir ./Migrations
 
 ## Aplicar Migration do Bounded Context Vendas
 dotnet ef database update \
@@ -98,6 +99,7 @@ dotnet ef migrations add InitialMigrations \
   --output-dir ./Migrations
 
 dotnet ef migrations add InitialMigrations --project ./src/Pagamentos/MBA.Educacao.Online.Pagamentos.Data/MBA.Educacao.Online.Pagamentos.Data.csproj --startup-project ./api/MBA.Educacao.Online.API/MBA.Educacao.Online.API.csproj --context PagamentoContext --output-dir ./Migrations
+dotnet ef migrations add AddDataTransacao --project ./src/Pagamentos/MBA.Educacao.Online.Pagamentos.Data/MBA.Educacao.Online.Pagamentos.Data.csproj --startup-project ./api/MBA.Educacao.Online.API/MBA.Educacao.Online.API.csproj --context PagamentoContext --output-dir ./Migrations
 
 ## Aplicar Migration do Bounded Context Pagamentos
 dotnet ef database update \

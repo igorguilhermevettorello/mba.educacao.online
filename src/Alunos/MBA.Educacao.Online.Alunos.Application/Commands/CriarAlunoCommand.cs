@@ -11,11 +11,11 @@ namespace MBA.Educacao.Online.Alunos.Application.Commands
 
         public CriarAlunoCommand(Guid usuarioId, string nome, string email)
         {
+            AggregateId = usuarioId;
             UsuarioId = usuarioId;
             Nome = nome;
             Email = email;
         }
-
         public override bool IsValid()
         {
             ValidationResult = new CriarAlunoCommandValidator().Validate(this);

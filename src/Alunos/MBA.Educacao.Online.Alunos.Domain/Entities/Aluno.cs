@@ -25,6 +25,10 @@ namespace MBA.Educacao.Online.Alunos.Domain.Entities
 
         public Aluno(Guid usuarioId, string nome, string email)
         {
+            ValidarUsuarioId(usuarioId);
+            ValidarNome(nome);
+            ValidarEmail(email);
+
             Id = usuarioId;
             Nome = nome;
             Email = email;
@@ -44,10 +48,16 @@ namespace MBA.Educacao.Online.Alunos.Domain.Entities
 
         public void AtualizarNome(string nome)
         {
+            ValidarNome(nome);
             Nome = nome;
         }
 
-        // Métodos para gerenciar matrículas
+        public void AtualizarEmail(string email)
+        {
+            ValidarEmail(email);
+            Email = email;
+        }
+
         public void AdicionarMatricula(Guid cursoId, DateTime dataValidade)
         {
             if (EstaMatriculadoNoCurso(cursoId))
@@ -71,7 +81,6 @@ namespace MBA.Educacao.Online.Alunos.Domain.Entities
             return _matriculas.Any(m => m.CursoId == cursoId && m.Ativo);
         }
 
-        // Métodos para gerenciar certificados
         public void AdicionarCertificado(Guid cursoId, string codigo)
         {
             if (!EstaMatriculadoNoCurso(cursoId))
@@ -81,7 +90,6 @@ namespace MBA.Educacao.Online.Alunos.Domain.Entities
             _certificados.Add(certificado);
         }
 
-        // Métodos para gerenciar aprendizado através das matrículas
         public void IniciarAprendizado(Guid cursoId, Guid? aulaId = null)
         {
             var matricula = _matriculas.FirstOrDefault(m => m.CursoId == cursoId && m.Ativo);
@@ -125,6 +133,55 @@ namespace MBA.Educacao.Online.Alunos.Domain.Entities
                 return false;
 
             return matricula.EstaConcluida();
+        }
+
+        public Matricula ObterMatriculaPorCurso(Guid cursoId)
+        {
+            var matricula = _matriculas.FirstOrDefault(m => m.CursoId == cursoId && m.Ativo);
+            if (matricula == null)
+                throw new InvalidOperationException($"Matrícula ativa não encontrada para o curso {cursoId}");
+
+            return matricula;
+        }
+
+        public int ObterTotalMatriculasAtivas()
+        {
+            return _matriculas.Count(m => m.Ativo);
+        }
+
+        public int ObterTotalCertificados()
+        {
+            return _certificados.Count(c => c.Ativo);
+        }
+
+        private static void ValidarUsuarioId(Guid usuarioId)
+        {
+            if (usuarioId == Guid.Empty)
+                throw new ArgumentException("ID do usuário é inválido", nameof(usuarioId));
+        }
+
+        private static void ValidarNome(string nome)
+        {
+            if (string.IsNullOrWhiteSpace(nome))
+                throw new ArgumentException("Nome do aluno é obrigatório", nameof(nome));
+
+            if (nome.Length < 3)
+                throw new ArgumentException("Nome do aluno deve ter no mínimo 3 caracteres", nameof(nome));
+
+            if (nome.Length > 100)
+                throw new ArgumentException("Nome do aluno deve ter no máximo 100 caracteres", nameof(nome));
+        }
+
+        private static void ValidarEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+                throw new ArgumentException("Email do aluno é obrigatório", nameof(email));
+
+            if (email.Length > 200)
+                throw new ArgumentException("Email do aluno deve ter no máximo 200 caracteres", nameof(email));
+
+            if (!email.Contains("@") || !email.Contains("."))
+                throw new ArgumentException("Email inválido", nameof(email));
         }
     }
 }

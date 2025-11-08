@@ -36,7 +36,10 @@
     <ProjectReference Include="..\..\src\Cursos\MBA.Educacao.Online.Cursos.Application\MBA.Educacao.Online.Cursos.Application.csproj" />
     <ProjectReference Include="..\..\src\Cursos\MBA.Educacao.Online.Cursos.Data\MBA.Educacao.Online.Cursos.Data.csproj" />
     <ProjectReference Include="..\..\src\Cursos\MBA.Educacao.Online.Cursos.Domain\MBA.Educacao.Online.Cursos.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Pagamentos\MBA.Educacao.Online.Pagamentos.AntiCorruption\MBA.Educacao.Online.Pagamentos.AntiCorruption.csproj" />
+    <ProjectReference Include="..\..\src\Pagamentos\MBA.Educacao.Online.Pagamentos.Application\MBA.Educacao.Online.Pagamentos.Application.csproj" />
     <ProjectReference Include="..\..\src\Pagamentos\MBA.Educacao.Online.Pagamentos.Data\MBA.Educacao.Online.Pagamentos.Data.csproj" />
+    <ProjectReference Include="..\..\src\Pagamentos\MBA.Educacao.Online.Pagamentos.Domain\MBA.Educacao.Online.Pagamentos.Domain.csproj" />
     <ProjectReference Include="..\..\src\Vendas\MBA.Educacao.Online.Vendas.Application\MBA.Educacao.Online.Vendas.Application.csproj" />
     <ProjectReference Include="..\..\src\Vendas\MBA.Educacao.Online.Vendas.Data\MBA.Educacao.Online.Vendas.Data.csproj" />
     <ProjectReference Include="..\..\src\Vendas\MBA.Educacao.Online.Vendas.Domain\MBA.Educacao.Online.Vendas.Domain.csproj" />

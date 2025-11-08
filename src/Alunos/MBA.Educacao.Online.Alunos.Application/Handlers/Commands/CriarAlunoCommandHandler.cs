@@ -6,7 +6,7 @@ using MBA.Educacao.Online.Core.Domain.Interfaces.Notifications;
 using MBA.Educacao.Online.Core.Domain.Notifications;
 using MediatR;
 
-namespace MBA.Educacao.Online.Alunos.Application.Handlers
+namespace MBA.Educacao.Online.Alunos.Application.Handlers.Commands
 {
     public class CriarAlunoCommandHandler : IRequestHandler<CriarAlunoCommand, bool>
     {
@@ -47,7 +47,7 @@ namespace MBA.Educacao.Online.Alunos.Application.Handlers
             }
 
             // Cria a entidade Aluno
-            var aluno = new Aluno(GuidExtensions.Normalize(request.UsuarioId), request.Nome, request.Email);
+            var aluno = new Aluno(request.UsuarioId.Normalize(), request.Nome, request.Email);
 
             _alunoRepository.Adicionar(aluno);
             return await _alunoRepository.UnitOfWork.Commit();

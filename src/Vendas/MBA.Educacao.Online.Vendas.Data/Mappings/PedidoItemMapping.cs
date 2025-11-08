@@ -1,4 +1,4 @@
-﻿using MBA.Educacao.Online.Vendas.Domain.Models;
+﻿using MBA.Educacao.Online.Vendas.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -25,6 +25,9 @@ namespace MBA.Educacao.Online.Vendas.Data.Mappings
             builder.Property(i => i.Valor)
                 .HasPrecision(15, 2)
                 .IsRequired();
+
+            builder.Property(i => i.MatriculaId)
+                .IsRequired(false);
 
             // Relacionamento N:1 -> PedidoItem pertence a um Pedido
             builder.HasOne(i => i.Pedido)

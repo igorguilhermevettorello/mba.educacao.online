@@ -43,6 +43,8 @@ namespace MBA.Educacao.Online.Cursos.Data.Repositories
         public async Task<IEnumerable<Curso>> ObterTodosAsync()
         {
             return await _context.Cursos
+                .Include(c => c.Aulas)
+                .Include(c => c.ConteudoProgramatico)
                 .AsNoTracking()
                 .ToListAsync();
         }
@@ -50,6 +52,8 @@ namespace MBA.Educacao.Online.Cursos.Data.Repositories
         public async Task<IEnumerable<Curso>> ObterAtivosAsync()
         {
             return await _context.Cursos
+                .Include(c => c.Aulas)
+                .Include(c => c.ConteudoProgramatico)
                 .Where(c => c.Ativo)
                 .AsNoTracking()
                 .ToListAsync();

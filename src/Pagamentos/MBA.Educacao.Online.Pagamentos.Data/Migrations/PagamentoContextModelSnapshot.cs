@@ -17,7 +17,7 @@ namespace MBA.Educacao.Online.Pagamentos.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.21");
 
-            modelBuilder.Entity("MBA.Educacao.Online.Pagamentos.Domain.Models.Pagamento", b =>
+            modelBuilder.Entity("MBA.Educacao.Online.Pagamentos.Domain.Entities.Pagamento", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -55,10 +55,13 @@ namespace MBA.Educacao.Online.Pagamentos.Data.Migrations
                     b.ToTable("Pagamentos", (string)null);
                 });
 
-            modelBuilder.Entity("MBA.Educacao.Online.Pagamentos.Domain.Models.Transacao", b =>
+            modelBuilder.Entity("MBA.Educacao.Online.Pagamentos.Domain.Entities.Transacao", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DataTransacao")
                         .HasColumnType("TEXT");
 
                     b.Property<Guid>("PagamentoId")
@@ -82,18 +85,18 @@ namespace MBA.Educacao.Online.Pagamentos.Data.Migrations
                     b.ToTable("Transacoes", (string)null);
                 });
 
-            modelBuilder.Entity("MBA.Educacao.Online.Pagamentos.Domain.Models.Transacao", b =>
+            modelBuilder.Entity("MBA.Educacao.Online.Pagamentos.Domain.Entities.Transacao", b =>
                 {
-                    b.HasOne("MBA.Educacao.Online.Pagamentos.Domain.Models.Pagamento", "Pagamento")
+                    b.HasOne("MBA.Educacao.Online.Pagamentos.Domain.Entities.Pagamento", "Pagamento")
                         .WithOne("Transacao")
-                        .HasForeignKey("MBA.Educacao.Online.Pagamentos.Domain.Models.Transacao", "PagamentoId")
+                        .HasForeignKey("MBA.Educacao.Online.Pagamentos.Domain.Entities.Transacao", "PagamentoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Pagamento");
                 });
 
-            modelBuilder.Entity("MBA.Educacao.Online.Pagamentos.Domain.Models.Pagamento", b =>
+            modelBuilder.Entity("MBA.Educacao.Online.Pagamentos.Domain.Entities.Pagamento", b =>
                 {
                     b.Navigation("Transacao")
                         .IsRequired();

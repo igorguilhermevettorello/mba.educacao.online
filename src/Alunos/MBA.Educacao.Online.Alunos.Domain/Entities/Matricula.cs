@@ -18,6 +18,9 @@ namespace MBA.Educacao.Online.Alunos.Domain.Entities
 
         public Matricula(Guid cursoId, DateTime dataValidade)
         {
+            ValidarCursoId(cursoId);
+            ValidarDataValidade(dataValidade);
+
             CursoId = cursoId;
             DataMatricula = DateTime.Now;
             DataValidade = dataValidade;
@@ -26,19 +29,26 @@ namespace MBA.Educacao.Online.Alunos.Domain.Entities
 
         public void Cancelar()
         {
+            if (!Ativo)
+                throw new InvalidOperationException("Matrícula já está cancelada");
+
             Ativo = false;
         }
 
         public void Reativar()
         {
+            if (Ativo)
+                throw new InvalidOperationException("Matrícula já está ativa");
+
+            if (EstaVencida())
+                throw new InvalidOperationException("Não é possível reativar matrícula vencida. Estenda a validade primeiro");
+
             Ativo = true;
         }
 
         public void EstenderValidade(DateTime novaDataValidade)
         {
-            if (novaDataValidade <= DataValidade)
-                throw new ArgumentException("Nova data de validade deve ser posterior à data atual");
-
+            ValidarExtensaoValidade(novaDataValidade);
             DataValidade = novaDataValidade;
         }
 
@@ -67,7 +77,6 @@ namespace MBA.Educacao.Online.Alunos.Domain.Entities
 
             var novoHistorico = historico.AtualizarProgresso(percentual);
             
-            // Remove o histórico antigo e adiciona o novo
             _historicosAprendizado.Remove(historico);
             _historicosAprendizado.Add(novoHistorico);
         }
@@ -82,7 +91,6 @@ namespace MBA.Educacao.Online.Alunos.Domain.Entities
 
             var historicoConcluido = historico.Concluir();
             
-            // Remove o histórico antigo e adiciona o concluído
             _historicosAprendizado.Remove(historico);
             _historicosAprendizado.Add(historicoConcluido);
         }
@@ -99,6 +107,49 @@ namespace MBA.Educacao.Online.Alunos.Domain.Entities
         {
             return _historicosAprendizado.Any() && 
                    _historicosAprendizado.All(h => h.EstaConcluido());
+        }
+
+        public int ObterTotalHistoricos()
+        {
+            return _historicosAprendizado.Count;
+        }
+
+        public TimeSpan ObterTempoDecorrido()
+        {
+            return DateTime.Now - DataMatricula;
+        }
+
+        public int ObterDiasRestantes()
+        {
+            var dias = (DataValidade - DateTime.Now).Days;
+            return dias > 0 ? dias : 0;
+        }
+
+        // Métodos de validação privados
+        private static void ValidarCursoId(Guid cursoId)
+        {
+            if (cursoId == Guid.Empty)
+                throw new ArgumentException("ID do curso é inválido", nameof(cursoId));
+        }
+
+        private static void ValidarDataValidade(DateTime dataValidade)
+        {
+            if (dataValidade <= DateTime.Now)
+                throw new ArgumentException("Data de validade deve ser futura", nameof(dataValidade));
+
+            var diferencaDias = (dataValidade - DateTime.Now).Days;
+            if (diferencaDias > 3650) // 10 anos
+                throw new ArgumentException("Data de validade não pode exceder 10 anos", nameof(dataValidade));
+        }
+
+        private void ValidarExtensaoValidade(DateTime novaDataValidade)
+        {
+            if (novaDataValidade <= DataValidade)
+                throw new ArgumentException("Nova data de validade deve ser posterior à data atual", nameof(novaDataValidade));
+
+            var diferencaDias = (novaDataValidade - DateTime.Now).Days;
+            if (diferencaDias > 3650) // 10 anos
+                throw new ArgumentException("Data de validade não pode exceder 10 anos", nameof(novaDataValidade));
         }
     }
 }

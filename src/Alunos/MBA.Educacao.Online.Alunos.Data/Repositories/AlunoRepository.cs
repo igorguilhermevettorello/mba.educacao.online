@@ -14,9 +14,9 @@ namespace MBA.Educacao.Online.Alunos.Data.Repositories
         {
             _context = context;
         }
-        
+
         public IUnitOfWork UnitOfWork => _context;
-        
+
         public void Adicionar(Aluno aluno)
         {
             _context.Alunos.Add(aluno);
@@ -34,7 +34,10 @@ namespace MBA.Educacao.Online.Alunos.Data.Repositories
 
         public Aluno? BuscarPorId(Guid id)
         {
-            return _context.Alunos.AsNoTracking().FirstOrDefault(a => a.Id == id);
+            return _context.Alunos
+                .Include(a => a.Matriculas)
+                .Include(a => a.Certificados)
+                .FirstOrDefault(a => a.Id == id);
         }
 
         public Aluno? BuscarPorUsuarioId(Guid usuarioId)

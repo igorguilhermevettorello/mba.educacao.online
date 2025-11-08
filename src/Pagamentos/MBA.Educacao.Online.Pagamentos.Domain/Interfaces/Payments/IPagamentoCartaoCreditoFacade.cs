@@ -1,4 +1,4 @@
-using MBA.Educacao.Online.Pagamentos.Domain.Models;
+using MBA.Educacao.Online.Pagamentos.Domain.Entities;
 
 namespace MBA.Educacao.Online.Pagamentos.Domain.Interfaces.Payments
 {
