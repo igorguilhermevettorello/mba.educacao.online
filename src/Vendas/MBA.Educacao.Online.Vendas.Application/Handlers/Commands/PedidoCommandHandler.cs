@@ -4,7 +4,7 @@ using MBA.Educacao.Online.Vendas.Domain.Interfaces.Repositories;
 using MBA.Educacao.Online.Vendas.Domain.Entities;
 using MediatR;
 
-namespace MBA.Educacao.Online.Vendas.Application.Handlers
+namespace MBA.Educacao.Online.Vendas.Application.Handlers.Commands
 {
     public class PedidoCommandHandler : IRequestHandler<AdicionarCursoPedidoItemCommand, bool>
     {
@@ -27,11 +27,7 @@ namespace MBA.Educacao.Online.Vendas.Application.Handlers
                 _pedidoRepository.Adicionar(pedido);
             }
 
-            //throw new NotImplementedException();
-
-            return await _pedidoRepository.UnitOfWork.Commit();
-
-            
+            return await _pedidoRepository.UnitOfWork.Commit();            
         }
 
         private bool ValidarComando(Command request)

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace MBA.Educacao.Online.API.DTOs
+namespace MBA.Educacao.Online.API.DTOs.Pedido
 {
     public class PagamentoMatriculaDto
     {

@@ -36,9 +36,7 @@ namespace MBA.Educacao.Online.Vendas.Data.Context
             public Task PublicarEvento<T>(T evento) where T : Event
             {
                 return Task.CompletedTask;
-            }
-
-            
+            }   
         }
     }
 }

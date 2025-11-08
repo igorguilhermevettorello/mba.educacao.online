@@ -19,7 +19,6 @@ namespace MBA.Educacao.Online.API.Configurations
                         .WithOrigins("*")
                         .AllowAnyHeader()
                         .AllowAnyMethod();
-                    //.AllowCredentials();
                 });
             });
 

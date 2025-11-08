@@ -1,5 +1,4 @@
 using AutoMapper;
-using MBA.Educacao.Online.Core.Domain.Interfaces.Repositories;
 using MBA.Educacao.Online.Cursos.Domain.DTOs.Cursos;
 using MBA.Educacao.Online.Cursos.Domain.Entities;
 using MBA.Educacao.Online.Cursos.Domain.Interfaces.Repositories;

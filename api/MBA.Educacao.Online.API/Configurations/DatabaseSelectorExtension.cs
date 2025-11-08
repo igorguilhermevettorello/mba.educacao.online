@@ -13,12 +13,10 @@ namespace MBA.Educacao.Online.API.Configurations
         {
             if (builder.Environment.IsDevelopment())
             {
-                // Constrói o caminho do banco de dados relativo ao diretório raiz da solução
                 var solutionDirectory = Directory.GetParent(builder.Environment.ContentRootPath)?.Parent?.FullName;
                 var sqliteDirectory = Path.Combine(solutionDirectory ?? builder.Environment.ContentRootPath, "sqlite");
                 var databasePath = Path.Combine(sqliteDirectory, "dev.db");
                 
-                // Garante que o diretório sqlite existe
                 if (!Directory.Exists(sqliteDirectory))
                 {
                     Directory.CreateDirectory(sqliteDirectory);

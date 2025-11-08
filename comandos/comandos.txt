@@ -75,9 +75,10 @@ dotnet ef migrations add InitialMigrations \
   --context AlunoContext \
   --output-dir ./Migrations
 
-dotnet ef migrations add InitialMigrations --project ./src/Alunos/MBA.Educacao.Online.Alunos.Data/MBA.Educacao.Online.Alunos.Data.csproj --startup-project ./api/MBA.Educacao.Online.API/MBA.Educacao.Online.API.csproj --context AlunoContext --output-dir ./Migrations  
+dotnet ef migrations add InitialMigrations --project ./src/Alunos/MBA.Educacao.Online.Alunos.Data/MBA.Educacao.Online.Alunos.Data.csproj --startup-project ./api/MBA.Educacao.Online.API/MBA.Educacao.Online.API.csproj --context AlunoContext --output-dir ./Migrations
 
 dotnet ef migrations add InitialMigrations --project ./src/Alunos/MBA.Educacao.Online.Alunos.Data/MBA.Educacao.Online.Alunos.Data.csproj --startup-project ./api/MBA.Educacao.Online.API/MBA.Educacao.Online.API.csproj --context AlunoContext --output-dir ./Migrations
+dotnet ef migrations add AjustarChaves --project ./src/Alunos/MBA.Educacao.Online.Alunos.Data/MBA.Educacao.Online.Alunos.Data.csproj --startup-project ./api/MBA.Educacao.Online.API/MBA.Educacao.Online.API.csproj --context AlunoContext --output-dir ./Migrations
 
 ## Aplicar Migration do Bounded Context Alunos
 dotnet ef database update \
@@ -90,6 +91,9 @@ dotnet ef migrations remove \
   --project ./src/Alunos/MBA.Educacao.Online.Alunos.Data/MBA.Educacao.Online.Alunos.Data.csproj \
   --startup-project ./api/MBA.Educacao.Online.API/MBA.Educacao.Online.API.csproj \
   --context AlunoContext
+
+dotnet ef migrations remove --project ./src/Alunos/MBA.Educacao.Online.Alunos.Data/MBA.Educacao.Online.Alunos.Data.csproj --startup-project ./api/MBA.Educacao.Online.API/MBA.Educacao.Online.API.csproj --context AlunoContext
+
 
 ## Criar Migration do Bounded Context Pagamentos
 dotnet ef migrations add InitialMigrations \

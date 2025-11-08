@@ -40,6 +40,15 @@ namespace MBA.Educacao.Online.Alunos.Data.Repositories
                 .FirstOrDefault(a => a.Id == id);
         }
 
+        public Aluno? BuscarPorIdNoTracking(Guid id)
+        {
+            return _context.Alunos
+                .AsNoTracking()
+                .Include(a => a.Matriculas)
+                .Include(a => a.Certificados)
+                .FirstOrDefault(a => a.Id == id);
+        }
+
         public Aluno? BuscarPorUsuarioId(Guid usuarioId)
         {
             return _context.Alunos.AsNoTracking().FirstOrDefault(a => a.Id == usuarioId);

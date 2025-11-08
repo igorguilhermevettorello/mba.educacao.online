@@ -6,6 +6,7 @@ namespace MBA.Educacao.Online.Alunos.Domain.Entities
     {
         private readonly List<HistoricoAprendizado> _historicosAprendizado = new();
 
+        public Guid AlunoId { get; private set; }
         public Guid CursoId { get; private set; }
         public DateTime DataMatricula { get; private set; }
         public DateTime DataValidade { get; private set; }
@@ -16,6 +17,7 @@ namespace MBA.Educacao.Online.Alunos.Domain.Entities
 
         protected Matricula() { }
 
+        // Construtor original para manter compatibilidade quando criado através do agregado Aluno
         public Matricula(Guid cursoId, DateTime dataValidade)
         {
             ValidarCursoId(cursoId);
@@ -25,6 +27,13 @@ namespace MBA.Educacao.Online.Alunos.Domain.Entities
             DataMatricula = DateTime.Now;
             DataValidade = dataValidade;
             Ativo = true;
+        }
+
+        // Construtor para criação direta com AlunoId
+        public Matricula(Guid alunoId, Guid cursoId, DateTime dataValidade) : this(cursoId, dataValidade)
+        {
+            ValidarAlunoId(alunoId);
+            AlunoId = alunoId;
         }
 
         public void Cancelar()
@@ -76,7 +85,7 @@ namespace MBA.Educacao.Online.Alunos.Domain.Entities
                 throw new InvalidOperationException("Histórico de aprendizado não encontrado");
 
             var novoHistorico = historico.AtualizarProgresso(percentual);
-            
+
             _historicosAprendizado.Remove(historico);
             _historicosAprendizado.Add(novoHistorico);
         }
@@ -90,7 +99,7 @@ namespace MBA.Educacao.Online.Alunos.Domain.Entities
                 throw new InvalidOperationException("Histórico de aprendizado não encontrado");
 
             var historicoConcluido = historico.Concluir();
-            
+
             _historicosAprendizado.Remove(historico);
             _historicosAprendizado.Add(historicoConcluido);
         }
@@ -105,7 +114,7 @@ namespace MBA.Educacao.Online.Alunos.Domain.Entities
 
         public bool EstaConcluida()
         {
-            return _historicosAprendizado.Any() && 
+            return _historicosAprendizado.Any() &&
                    _historicosAprendizado.All(h => h.EstaConcluido());
         }
 
@@ -126,6 +135,12 @@ namespace MBA.Educacao.Online.Alunos.Domain.Entities
         }
 
         // Métodos de validação privados
+        private static void ValidarAlunoId(Guid alunoId)
+        {
+            if (alunoId == Guid.Empty)
+                throw new ArgumentException("ID do aluno é inválido", nameof(alunoId));
+        }
+
         private static void ValidarCursoId(Guid cursoId)
         {
             if (cursoId == Guid.Empty)

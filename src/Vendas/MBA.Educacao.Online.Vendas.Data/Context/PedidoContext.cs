@@ -1,5 +1,6 @@
 ﻿using MBA.Educacao.Online.Core.Domain.Interfaces.Mediator;
 using MBA.Educacao.Online.Core.Domain.Interfaces.Repositories;
+using MBA.Educacao.Online.Core.Domain.Messages;
 using MBA.Educacao.Online.Pagamentos.Data;
 using MBA.Educacao.Online.Vendas.Data.Extensions;
 using MBA.Educacao.Online.Vendas.Domain.Entities;
@@ -40,7 +41,7 @@ namespace MBA.Educacao.Online.Vendas.Data.Context
             }
 
             // Ignorar propriedades de domínio que não devem ser persistidas
-            modelBuilder.Ignore<Core.Domain.Messages.Event>();
+            modelBuilder.Ignore<Event>();
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(PedidoContext).Assembly);
         }

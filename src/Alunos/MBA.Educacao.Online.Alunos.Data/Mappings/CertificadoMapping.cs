@@ -1,6 +1,8 @@
 using MBA.Educacao.Online.Alunos.Domain.Entities;
+using MBA.Educacao.Online.Core.Domain.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MBA.Educacao.Online.Alunos.Data.Mappings
 {
@@ -12,9 +14,12 @@ namespace MBA.Educacao.Online.Alunos.Data.Mappings
 
             builder.HasKey(c => c.Id);
 
-            // Adiciona a FK para Aluno
+            // Configura o AlunoId para ser armazenado em minúsculas no SQLite usando GuidExtensions
             builder.Property<Guid>("AlunoId")
-                .IsRequired();
+                .IsRequired()
+                .HasConversion(new ValueConverter<Guid, string>(
+                    guid => guid.ToLowercaseString(),
+                    str => Guid.Parse(str)));
 
             builder.Property(c => c.CursoId)
                 .IsRequired();

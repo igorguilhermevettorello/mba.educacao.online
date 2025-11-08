@@ -121,7 +121,7 @@ namespace MBA.Educacao.Online.Alunos.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsMany("MBA.Educacao.Online.Alunos.Domain.Entities.HistoricoAprendizado", "HistoricosAprendizado", b1 =>
+                    b.OwnsMany("MBA.Educacao.Online.Alunos.Domain.Entities.Matricula.HistoricosAprendizado#MBA.Educacao.Online.Alunos.Domain.Entities.HistoricoAprendizado", "HistoricosAprendizado", b1 =>
                         {
                             b1.Property<Guid>("Id")
                                 .ValueGeneratedOnAdd()

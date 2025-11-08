@@ -87,61 +87,6 @@ namespace MBA.Educacao.Online.Vendas.Application.Handlers.Commands
                 return false;
             }
 
-            //// Atualiza o PedidoId no comando para retornar ao controller
-            //request.PedidoId = pedido.Id;
-
-            //// Prepara os dados para processar o pagamento
-            //var listaCursos = new ListaCursosPedidoDto
-            //{
-            //    PedidoId = pedido.Id,
-            //    Itens = pedido.PedidoItens.Select(i => new Item
-            //    {
-            //        Id = i.CursoId,
-            //        Descricao = i.CursoNome.GetHashCode(),
-            //        Valor = i.Valor
-            //    }).ToList()
-            //};
-
-            //var pagamentoPedido = new PagamentoPedido
-            //{
-            //    PedidoId = pedido.Id,
-            //    AlunoId = request.AlunoId,
-            //    Total = pedido.ValorTotal,
-            //    ListaCursos = listaCursos,
-            //    NomeCartao = request.NomeCartao,
-            //    NumeroCartao = request.NumeroCartao,
-            //    ExpiracaoCartao = request.ExpiracaoCartao,
-            //    CvvCartao = request.CvvCartao
-            //};
-
-            //// Processa o pagamento e aguarda o resultado
-            //var transacao = await _pagamentoService.RealizarPagamentoPedido(pagamentoPedido);
-
-            //// Verifica se o pagamento foi bem-sucedido
-            //if (!transacao.FoiPago())
-            //{
-            //    _notificador.Handle(new Core.Domain.Notifications.Notificacao
-            //    {
-            //        Campo = "Pagamento",
-            //        Mensagem = "Pagamento recusado. Verifique os dados do cartão e tente novamente."
-            //    });
-            //    return false;
-            //}
-
-            // Se o pagamento foi aprovado, dispara o evento de matrícula confirmada
-            //var matriculaConfirmadaEvent = new MatriculaConfirmadaEvent(
-            //    pedido.Id,
-            //    request.AlunoId,
-            //    pedido.ValorTotal,
-            //    listaCursos,
-            //    request.NomeCartao,
-            //    request.NumeroCartao,
-            //    request.ExpiracaoCartao,
-            //    request.CvvCartao
-            //);
-
-            //await _mediatorHandler.PublicarEvento(matriculaConfirmadaEvent);
-
             return true;
         }
 

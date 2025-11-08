@@ -1,4 +1,4 @@
-namespace MBA.Educacao.Online.API.DTOs
+namespace MBA.Educacao.Online.API.DTOs.Aulas
 {
     public class AulaDto
     {

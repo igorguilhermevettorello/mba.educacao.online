@@ -1,7 +1,7 @@
 using MBA.Educacao.Online.Cursos.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace MBA.Educacao.Online.API.DTOs
+namespace MBA.Educacao.Online.API.DTOs.Cursos
 {
     public class CriarCursoDto
     {

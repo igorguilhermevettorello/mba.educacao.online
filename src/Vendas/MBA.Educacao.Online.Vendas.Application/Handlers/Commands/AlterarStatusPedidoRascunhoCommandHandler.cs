@@ -25,7 +25,6 @@ namespace MBA.Educacao.Online.Vendas.Application.Handlers.Commands
             // Valida o comando
             if (!ValidarComando(request)) return false;
 
-            // Busca o pedido com tracking para permitir alterações
             var pedido = await _pedidoRepository.ObterPorIdComTracking(request.PedidoId);
 
             if (pedido == null)
@@ -34,7 +33,6 @@ namespace MBA.Educacao.Online.Vendas.Application.Handlers.Commands
                 return false;
             }
 
-            // Tenta alterar o status para rascunho
             try
             {
                 pedido.AtualizarStatusRascunho();
@@ -45,10 +43,8 @@ namespace MBA.Educacao.Online.Vendas.Application.Handlers.Commands
                 return false;
             }
 
-            // Atualiza o pedido no repositório
             _pedidoRepository.Alterar(pedido);
 
-            // Salva as alterações
             var resultado = await _pedidoRepository.UnitOfWork.Commit();
 
             if (!resultado)

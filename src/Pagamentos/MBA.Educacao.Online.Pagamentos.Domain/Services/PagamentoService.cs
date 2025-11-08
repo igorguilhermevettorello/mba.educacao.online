@@ -1,7 +1,6 @@
 using MBA.Educacao.Online.Core.Domain.DTOs;
 using MBA.Educacao.Online.Core.Domain.Interfaces.Mediator;
 using MBA.Educacao.Online.Core.Domain.Interfaces.Notifications;
-using MBA.Educacao.Online.Core.Domain.Messages;
 using MBA.Educacao.Online.Core.Domain.Messages.CommonMessages.IntegrationEvents;
 using MBA.Educacao.Online.Core.Domain.Notifications;
 using MBA.Educacao.Online.Pagamentos.Domain.Entities;

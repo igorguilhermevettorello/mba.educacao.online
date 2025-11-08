@@ -1,12 +1,18 @@
-﻿using MBA.Educacao.Online.Core.Domain.Interfaces.Repositories;
-using Microsoft.EntityFrameworkCore;
+﻿using MBA.Educacao.Online.Core.Domain.Interfaces.Mediator;
+using MBA.Educacao.Online.Core.Domain.Interfaces.Repositories;
+using MBA.Educacao.Online.Core.Domain.Messages;
 using MBA.Educacao.Online.Pagamentos.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace MBA.Educacao.Online.Pagamentos.Data.Context
 {
     public class PagamentoContext : DbContext, IUnitOfWork
     {
-        public PagamentoContext(DbContextOptions<PagamentoContext> options) : base(options) { }
+        private readonly IMediatorHandler _mediatorHandler;
+        public PagamentoContext(DbContextOptions<PagamentoContext> options, IMediatorHandler mediatorHandler) : base(options)
+        {
+            _mediatorHandler = mediatorHandler ?? throw new ArgumentNullException(nameof(mediatorHandler));
+        }
         public DbSet<Pagamento> Pagamentos { get; set; }
 
         public DbSet<Transacao> Transacoes { get; set; }
@@ -22,7 +28,7 @@ namespace MBA.Educacao.Online.Pagamentos.Data.Context
             }
 
             // Ignorar propriedades de domínio que não devem ser persistidas
-            modelBuilder.Ignore<Core.Domain.Messages.Event>();
+            modelBuilder.Ignore<Event>();
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(PagamentoContext).Assembly);
         }
@@ -30,7 +36,7 @@ namespace MBA.Educacao.Online.Pagamentos.Data.Context
         public async Task<bool> Commit()
         {
             var success = (await base.SaveChangesAsync()) > 0;
-            // if (success) await _mediator.PublicarEventos(this);
+            if (success) await _mediatorHandler.PublicarEventos(this);
             return success;
         }
     }

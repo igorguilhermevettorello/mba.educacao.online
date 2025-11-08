@@ -16,7 +16,7 @@ namespace MBA.Educacao.Online.API.Configurations
             services.Configure<JwtSettings>(jwtSettingsSection);
 
             var jwtSettings = jwtSettingsSection.Get<JwtSettings>();
-            var key = Encoding.ASCII.GetBytes(jwtSettings.SecretKey);
+            var key = Encoding.ASCII.GetBytes(jwtSettings?.SecretKey);
 
             services.AddAuthentication(x =>
             {
@@ -32,8 +32,8 @@ namespace MBA.Educacao.Online.API.Configurations
                     ValidateAudience = true,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-                    ValidIssuer = jwtSettings.Issuer,
-                    ValidAudience = jwtSettings.Audience,
+                    ValidIssuer = jwtSettings?.Issuer,
+                    ValidAudience = jwtSettings?.Audience,
                     IssuerSigningKey = new SymmetricSecurityKey(key)
                 };
             });

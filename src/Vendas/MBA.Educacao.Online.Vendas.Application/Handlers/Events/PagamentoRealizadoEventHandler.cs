@@ -16,7 +16,7 @@ namespace MBA.Educacao.Online.Vendas.Application.Handlers.Events
 
         public async Task Handle(PagamentoRealizadoEvent message, CancellationToken cancellationToken)
         {
-            await _mediatorHandler.EnviarComando(new EfetuarMatriculaCommand(message.AlunoId));
+            await _mediatorHandler.EnviarComando(new AlterarStatusPedidoPagoCommand(message.PedidoId));
         }
     }
 }

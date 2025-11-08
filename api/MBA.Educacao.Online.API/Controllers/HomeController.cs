@@ -1,5 +1,6 @@
 using MBA.Educacao.Online.API.Controllers.Base;
-using MBA.Educacao.Online.API.DTOs;
+using MBA.Educacao.Online.API.DTOs.Alunos;
+using MBA.Educacao.Online.API.DTOs.Login;
 using MBA.Educacao.Online.Core.Application.Commands.Identity;
 using MBA.Educacao.Online.Core.Application.DTOs;
 using MBA.Educacao.Online.Core.Domain.Interfaces.Identity;

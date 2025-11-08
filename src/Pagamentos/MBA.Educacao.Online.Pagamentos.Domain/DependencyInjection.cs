@@ -8,7 +8,7 @@ namespace MBA.Educacao.Online.Pagamentos.Domain
     {
         public static IServiceCollection AddPagamentosApplication(this IServiceCollection services)
         {
-            // Registrar MediatR - isso vai escanear o assembly e encontrar o PagamentoEventHandler
+            // Registrar MediatR
             services.AddMediatR(cfg => {
                 cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
             });

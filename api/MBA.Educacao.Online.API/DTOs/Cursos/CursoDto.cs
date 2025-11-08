@@ -1,6 +1,7 @@
+using MBA.Educacao.Online.API.DTOs.Aulas;
 using MBA.Educacao.Online.Cursos.Domain.Enums;
 
-namespace MBA.Educacao.Online.API.DTOs
+namespace MBA.Educacao.Online.API.DTOs.Cursos
 {
     public class CursoDto
     {

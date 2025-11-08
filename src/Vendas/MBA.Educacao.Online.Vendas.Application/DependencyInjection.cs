@@ -9,7 +9,7 @@ namespace MBA.Educacao.Online.Vendas.Application
     {
         public static IServiceCollection AddVendasApplication(this IServiceCollection services)
         {
-            // Registrar MediatR - isso registra automaticamente todos os handlers (Commands e Events)
+            // Registrar MediatR
             services.AddMediatR(cfg => {
                 cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
             });

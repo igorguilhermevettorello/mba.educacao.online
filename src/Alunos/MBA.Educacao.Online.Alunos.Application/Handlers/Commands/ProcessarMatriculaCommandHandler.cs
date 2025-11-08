@@ -1,23 +1,32 @@
-﻿using MBA.Educacao.Online.Alunos.Application.Commands;
+using MBA.Educacao.Online.Alunos.Application.Commands;
+using MBA.Educacao.Online.Alunos.Domain.Entities;
 using MBA.Educacao.Online.Alunos.Domain.Interfaces.Repositories;
+using MBA.Educacao.Online.Core.Domain.DTOs;
+using MBA.Educacao.Online.Core.Domain.Interfaces.Mediator;
 using MBA.Educacao.Online.Core.Domain.Interfaces.Notifications;
+using MBA.Educacao.Online.Core.Domain.Messages.CommonMessages.IntegrationEvents;
 using MBA.Educacao.Online.Core.Domain.Notifications;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace MBA.Educacao.Online.Alunos.Application.Handlers.Commands
 {
     public class ProcessarMatriculaCommandHandler : IRequestHandler<ProcessarMatriculaCommand, bool>
     {
         private readonly IAlunoRepository _alunoRepository;
+        private readonly IMatriculaRepository _matriculaRepository;
         private readonly INotificador _notificador;
+        private readonly IMediatorHandler _mediatorHandler;
 
         public ProcessarMatriculaCommandHandler(
             IAlunoRepository alunoRepository,
-            INotificador notificador)
+            IMatriculaRepository matriculaRepository,
+            INotificador notificador,
+            IMediatorHandler mediatorHandler)
         {
             _alunoRepository = alunoRepository;
+            _matriculaRepository = matriculaRepository;
             _notificador = notificador;
+            _mediatorHandler = mediatorHandler;
         }
 
         public async Task<bool> Handle(ProcessarMatriculaCommand request, CancellationToken cancellationToken)
@@ -32,7 +41,7 @@ namespace MBA.Educacao.Online.Alunos.Application.Handlers.Commands
                 return false;
             }
 
-            // Busca o aluno
+            // Busca o aluno (com tracking para adicionar evento)
             var aluno = _alunoRepository.BuscarPorId(request.AlunoId);
             if (aluno == null)
             {
@@ -57,13 +66,15 @@ namespace MBA.Educacao.Online.Alunos.Application.Handlers.Commands
             // Processa cada curso e adiciona a matrícula
             var cursosMatriculados = 0;
             var cursosIgnorados = 0;
+            var matriculasCriadas = new List<Matricula>();
 
             foreach (var curso in request.ListaCursos.Itens)
             {
                 try
                 {
-                    // Verifica se o aluno já está matriculado neste curso
-                    if (aluno.EstaMatriculadoNoCurso(curso.Id))
+                    // Verifica se já existe matrícula para este aluno e curso
+                    var matriculaExistente = _matriculaRepository.BuscarPorAlunoECurso(request.AlunoId, curso.Id);
+                    if (matriculaExistente != null && matriculaExistente.Ativo)
                     {
                         cursosIgnorados++;
                         continue;
@@ -72,8 +83,15 @@ namespace MBA.Educacao.Online.Alunos.Application.Handlers.Commands
                     // Define a data de validade da matrícula (exemplo: 1 ano a partir de hoje)
                     var dataValidade = DateTime.Now.AddYears(1);
 
-                    // Adiciona a matrícula
-                    aluno.AdicionarMatricula(curso.Id, dataValidade);
+                    // Cria a matrícula diretamente com AlunoId, CursoId e DataValidade
+                    var novaMatricula = new Matricula(request.AlunoId, curso.Id, dataValidade);
+
+                    // Adiciona ao repositório
+                    _matriculaRepository.Adicionar(novaMatricula);
+
+                    // Armazena a matrícula criada para posterior publicação de eventos
+                    matriculasCriadas.Add(novaMatricula);
+
                     cursosMatriculados++;
                 }
                 catch (InvalidOperationException ex)
@@ -95,12 +113,26 @@ namespace MBA.Educacao.Online.Alunos.Application.Handlers.Commands
                 return false;
             }
 
-            // Atualiza o aluno no repositório
-            _alunoRepository.Alterar(aluno);
+            // Adiciona o evento ao agregado Aluno antes de salvar
+            if (matriculasCriadas.Any())
+            {
+                var listaMatriculas = matriculasCriadas
+                    .Select(m => new MatriculaItemDto(m.CursoId, m.Id))
+                    .ToList();
 
-            // Salva as alterações
-            var resultado = await _alunoRepository.UnitOfWork.Commit();
+                var atualizarPedidoItemEvent = new AtualizarPedidoItemMatriculaEvent(
+                    request.PedidoId,
+                    listaMatriculas
+                );
 
+                // Adiciona o evento ao agregado Aluno
+                aluno.AdicionarEvento(atualizarPedidoItemEvent);
+
+                // Marca o aluno como alterado para persistir o evento
+                _alunoRepository.Alterar(aluno);
+            }
+
+            var resultado = await _matriculaRepository.UnitOfWork.Commit();
             if (!resultado)
             {
                 Notificar("Matricula", "Erro ao salvar as matrículas no banco de dados");

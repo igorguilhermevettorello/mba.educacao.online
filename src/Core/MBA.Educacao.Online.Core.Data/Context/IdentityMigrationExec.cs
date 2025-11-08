@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System.IO;
-using System.Linq;
 
 namespace MBA.Educacao.Online.Core.Data.Context
 {

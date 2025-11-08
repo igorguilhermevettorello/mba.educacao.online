@@ -9,6 +9,7 @@ namespace MBA.Educacao.Online.Alunos.Domain.Interfaces.Repositories
         void Alterar(Aluno aluno);
         void Remover(Aluno aluno);
         Aluno? BuscarPorId(Guid id);
+        Aluno? BuscarPorIdNoTracking(Guid id);
         Aluno? BuscarPorUsuarioId(Guid usuarioId);
         Aluno? BuscarPorEmail(string email);
     }
