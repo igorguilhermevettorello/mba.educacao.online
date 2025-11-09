@@ -118,6 +118,9 @@ mba.educacao.online/
    - o arquivo `queries.sql` contém algumas consulta para auxiliar no entendimento da estrutura do banco de dados.
    - o arquivo `MBA.Educao.Online.postman_collection.json` contém as chamadas dos endpoints com configurações de variáveis de ambiente
 
+<img width="1451" height="562" alt="image" src="https://github.com/user-attachments/assets/4d5e15a3-aad0-4f68-8c34-662cf1df44be" />
+
+
 ## **7. Instruções de Configuração**
 
 - **JWT para API:** As chaves de configuração do JWT estão no `appsettings.json`.
