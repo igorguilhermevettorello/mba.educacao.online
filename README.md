@@ -34,7 +34,7 @@ O projeto consiste em:
 ## **4. Estrutura do Projeto**
 
 A estrutura do projeto é organizada da seguinte forma:
-
+```
 mba.educacao.online/
 ├── api/                    # Camada de apresentação (Controllers, DTOs)
 ├── src/                    # Código fonte (5 bounded contexts)
@@ -45,8 +45,8 @@ mba.educacao.online/
 │   └── Alunos/             # Bounded Context: Matrículas
 ├── test/                   # Testes automatizados
 ├── comandos/               # Documentação e collections Postman
-└── sqlite/ 
-
+└── sqlite/
+```
 ## **5. Funcionalidades Implementadas**
 
 - **CRUD para Categoria e Produtos:** Permite criar, editar, visualizar e excluir categorias e produtos.
@@ -125,6 +125,6 @@ https://localhost:7053/swagger/index.html
 
 ## **9. Avaliação**
 
-- Este projeto é parte de um curso acadêmico e não aceita contribuições externas. 
+- Este projeto é parte de um curso acadêmico e não aceita contribuições externas.
 - Para feedbacks ou dúvidas utilize o recurso de Issues
 - O arquivo `FEEDBACK.md` é um resumo das avaliações do instrutor e deverá ser modificado apenas por ele.
