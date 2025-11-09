@@ -1,0 +1,3516 @@
+{
+	"info": {
+		"_postman_id": "730d5ae9-e672-403d-b7c5-a5bbfe736ff2",
+		"name": "MBA.Educao.Online",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3808357"
+	},
+	"item": [
+		{
+			"name": "Público",
+			"item": [
+				{
+					"name": "Registrar",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Nome\": \"João Silva\", \r\n    \"Email\": \"joao.silva@example.com\", \r\n    \"Senha\": \"Senha@123\", \r\n    \"Confirmar\": \"Senha@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/registrar",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"registrar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login aluno",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Email\": \"joao.silva@example.com\", \n    \"Senha\": \"Senha@123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login administrador",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Email\": \"administrador@educacao.com.br\", \n    \"Senha\": \"Admin@123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Cursos",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/cursos/ativos",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"cursos",
+								"ativos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cursos",
+			"item": [
+				{
+					"name": "Criar Curso Sem Conteúdo Programático",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 201) {",
+									"    var jsonData = pm.response.json();",
+									"    if (jsonData.data) {",
+									"        pm.collectionVariables.set(\"cursoId\", jsonData.data);",
+									"        console.log(\"Curso ID salvo: \" + jsonData.data);",
+									"    }",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"titulo\": \"Introdução ao C#\",\n  \"descricao\": \"Curso completo de C# para iniciantes, cobrindo desde os fundamentos até conceitos avançados.\",\n  \"instrutor\": \"João Silva\",\n  \"nivel\": 1,\n  \"valor\": 299.90\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/cursos",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"cursos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar Curso COM Conteúdo Programático",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 201) {",
+									"    var jsonData = pm.response.json();",
+									"    if (jsonData.data) {",
+									"        pm.collectionVariables.set(\"cursoId\", jsonData.data);",
+									"        console.log(\"Curso ID salvo: \" + jsonData.data);",
+									"    }",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"titulo\": \"ASP.NET Core Avançado\",\n  \"descricao\": \"Domine o desenvolvimento de APIs RESTful com ASP.NET Core, Clean Architecture e boas práticas.\",\n  \"instrutor\": \"Maria Santos\",\n  \"nivel\": 3,\n  \"valor\": 599.90,\n  \"conteudoProgramatico\": {\n    \"ementa\": \"Módulo 1: Fundamentos do ASP.NET Core\\nMódulo 2: Clean Architecture\\nMódulo 3: Entity Framework Core\\nMódulo 4: Autenticação e Autorização\\nMódulo 5: Testes e Deploy\",\n    \"objetivo\": \"Capacitar o aluno a desenvolver APIs robustas e escaláveis utilizando ASP.NET Core, aplicando princípios de Clean Architecture, SOLID e boas práticas de desenvolvimento.\",\n    \"bibliografia\": \"1. ASP.NET Core in Action - Andrew Lock\\n2. Clean Architecture - Robert C. Martin\\n3. Domain-Driven Design - Eric Evans\\n4. Documentação oficial Microsoft\",\n    \"materialUrl\": \"https://github.com/exemplo/aspnetcore-avancado\"\n  }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/cursos",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"cursos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar Curso Nível Básico",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"titulo\": \"HTML e CSS para Iniciantes\",\n  \"descricao\": \"Aprenda os fundamentos do desenvolvimento web com HTML5 e CSS3.\",\n  \"instrutor\": \"Pedro Oliveira\",\n  \"nivel\": 1,\n  \"valor\": 199.90,\n  \"conteudoProgramatico\": {\n    \"ementa\": \"Módulo 1: HTML Básico\\nMódulo 2: CSS Básico\\nMódulo 3: Flexbox e Grid\\nMódulo 4: Responsividade\\nMódulo 5: Projeto Final\",\n    \"objetivo\": \"Ensinar os fundamentos do desenvolvimento web front-end, capacitando o aluno a criar páginas web responsivas e modernas.\",\n    \"bibliografia\": \"1. HTML and CSS: Design and Build Websites - Jon Duckett\\n2. CSS: The Definitive Guide - Eric Meyer\\n3. MDN Web Docs\",\n    \"materialUrl\": \"https://github.com/exemplo/html-css-iniciantes\"\n  }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/cursos",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"cursos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar Curso Nível Básico - teste",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"titulo\": \"Teste titulo 1\",\n  \"descricao\": \"Teste descricao 1\",\n  \"instrutor\": \"Teste instrutor 1\",\n  \"nivel\": 1,\n  \"valor\": 199.90,\n  \"conteudoProgramatico\": {\n    \"ementa\": \"Teste ementa 1\",\n    \"objetivo\": \"Teste objetivo 1\",\n    \"bibliografia\": \"Teste bibliografia 1\",\n    \"materialUrl\": \"http://teste.com.br\"\n  }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/cursos",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"cursos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Todos os Cursos",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/cursos",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"cursos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Cursos Ativos",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/cursos?apenasAtivos=true",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"cursos"
+							],
+							"query": [
+								{
+									"key": "apenasAtivos",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Curso por ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/cursos/7e81d781-7176-44e1-a39f-0a87a874048d",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"cursos",
+								"7e81d781-7176-44e1-a39f-0a87a874048d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Curso Sem Conteúdo",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"titulo\": \"Introdução ao C# - Edição 2024\",\n  \"descricao\": \"Curso completo e atualizado de C# para iniciantes, cobrindo .NET 8.\",\n  \"nivel\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/cursos/{{cursoId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"cursos",
+								"{{cursoId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Curso COM Conteúdo",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"titulo\": \"ASP.NET Core Avançado - Edição 2024\",\n  \"descricao\": \"Domine o desenvolvimento de APIs RESTful com ASP.NET Core 8, Clean Architecture e boas práticas.\",\n  \"nivel\": 3,\n  \"conteudoProgramatico\": {\n    \"ementa\": \"Módulo 1: Fundamentos do ASP.NET Core 8\\nMódulo 2: Clean Architecture\\nMódulo 3: Entity Framework Core 8\\nMódulo 4: Autenticação JWT\\nMódulo 5: Testes e CI/CD\",\n    \"objetivo\": \"Capacitar o aluno a desenvolver APIs RESTful robustas e escaláveis utilizando ASP.NET Core 8, aplicando princípios de Clean Architecture, SOLID, DDD e boas práticas de desenvolvimento.\",\n    \"bibliografia\": \"1. ASP.NET Core in Action 3rd Edition - Andrew Lock\\n2. Clean Architecture - Robert C. Martin\\n3. Domain-Driven Design - Eric Evans\\n4. Documentação oficial Microsoft .NET 8\",\n    \"materialUrl\": \"https://github.com/exemplo/aspnetcore-avancado-2024\"\n  }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/cursos/7e81d781-7176-44e1-a39f-0a87a874048d",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"cursos",
+								"7e81d781-7176-44e1-a39f-0a87a874048d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Curso COM Conteúdo - teste",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"titulo\": \"Teste update titulo 2\",\n  \"descricao\": \"Teste update descricao 2\",\n  \"instrutor\": \"Teste update instrutor 2\",\n  \"nivel\": 1,\n  \"valor\": 199.90,\n  \"conteudoProgramatico\": {\n    \"ementa\": \"Teste update ementa 2\",\n    \"objetivo\": \"Teste update objetivo 2\",\n    \"bibliografia\": \"Teste update bibliografia 2\",\n    \"materialUrl\": \"http://teste.com.br/teste\"\n  }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/cursos/7e81d781-7176-44e1-a39f-0a87a874048d",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"cursos",
+								"7e81d781-7176-44e1-a39f-0a87a874048d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ativar Curso",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/cursos/7e81d781-7176-44e1-a39f-0a87a874048d/ativar",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"cursos",
+								"7e81d781-7176-44e1-a39f-0a87a874048d",
+								"ativar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inativar Curso",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/cursos/{{cursoId}}/inativar",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"cursos",
+								"{{cursoId}}",
+								"inativar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar Curso",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/cursos/{{cursoId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"cursos",
+								"{{cursoId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Aulas",
+			"item": [
+				{
+					"name": "Criar Aula - teste",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 201', function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test('Resposta contém ID da aula', function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.not.be.null;",
+									"    pm.collectionVariables.set('aula_id', jsonData.data);",
+									"    pm.environment.set('aula_id', jsonData.data);",
+									"});",
+									"",
+									"pm.test('Mensagem de sucesso', function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.eql('Aula criada com sucesso');",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cursoId\": \"7e81d781-7176-44e1-a39f-0a87a874048d\",\n  \"titulo\": \"Teste titulo 1\",\n  \"descricao\": \"Teste descricao 1\",\n  \"duracaoMinutos\": 90,\n  \"ordem\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/aulas",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"aulas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar Segunda Aula - teste",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cursoId\": \"7e81d781-7176-44e1-a39f-0a87a874048d\",\n  \"titulo\": \"Teste titulo 2\",\n  \"descricao\": \"Teste descricao 2\",\n  \"duracaoMinutos\": 120,\n  \"ordem\": 2\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/aulas",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"aulas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar Aula",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 201', function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test('Resposta contém ID da aula', function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.not.be.null;",
+									"    pm.collectionVariables.set('aula_id', jsonData.data);",
+									"    pm.environment.set('aula_id', jsonData.data);",
+									"});",
+									"",
+									"pm.test('Mensagem de sucesso', function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.eql('Aula criada com sucesso');",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cursoId\": \"{{curso_id}}\",\n  \"titulo\": \"Introdução ao ASP.NET Core\",\n  \"descricao\": \"Nesta aula você aprenderá os conceitos básicos do ASP.NET Core e sua arquitetura\",\n  \"duracaoMinutos\": 90,\n  \"ordem\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/aulas",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"aulas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar Segunda Aula",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cursoId\": \"{{curso_id}}\",\n  \"titulo\": \"Clean Architecture na Prática\",\n  \"descricao\": \"Implementando Clean Architecture em projetos .NET Core\",\n  \"duracaoMinutos\": 120,\n  \"ordem\": 2\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/aulas",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"aulas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar Aula - Validação (Sem Título)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 400', function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test('Contém erros de validação', function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.errors).to.not.be.null;",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cursoId\": \"{{curso_id}}\",\n  \"titulo\": \"\",\n  \"descricao\": \"Descrição da aula sem título\",\n  \"duracaoMinutos\": 60,\n  \"ordem\": 3\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/aulas",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"aulas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar Aula - Curso Inexistente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 400', function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cursoId\": \"00000000-0000-0000-0000-000000000000\",\n  \"titulo\": \"Aula com curso inexistente\",\n  \"descricao\": \"Esta aula não deve ser criada\",\n  \"duracaoMinutos\": 60,\n  \"ordem\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/aulas",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"aulas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obter Aula por ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Resposta contém dados da aula', function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.not.be.null;",
+									"    pm.expect(jsonData.data.id).to.eql(pm.collectionVariables.get('aula_id'));",
+									"    pm.expect(jsonData.data.titulo).to.not.be.null;",
+									"    pm.expect(jsonData.data.descricao).to.not.be.null;",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/aulas/{{aula_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"aulas",
+								"{{aula_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obter Aula - ID Inexistente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 404', function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/aulas/00000000-0000-0000-0000-000000000000",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"aulas",
+								"00000000-0000-0000-0000-000000000000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Todas as Aulas",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Resposta contém lista de aulas', function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data).to.be.an('array');",
+									"    pm.expect(jsonData.data.length).to.be.greaterThan(0);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/aulas",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"aulas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Aulas por Curso",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Todas as aulas pertencem ao curso', function () {",
+									"    var jsonData = pm.response.json();",
+									"    var cursoId = pm.collectionVariables.get('curso_id');",
+									"    jsonData.data.forEach(function(aula) {",
+									"        pm.expect(aula.cursoId).to.eql(cursoId);",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/aulas?cursoId=7e81d781-7176-44e1-a39f-0a87a874048d",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"aulas"
+							],
+							"query": [
+								{
+									"key": "cursoId",
+									"value": "7e81d781-7176-44e1-a39f-0a87a874048d"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Apenas Aulas Ativas",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Todas as aulas estão ativas', function () {",
+									"    var jsonData = pm.response.json();",
+									"    jsonData.data.forEach(function(aula) {",
+									"        pm.expect(aula.ativa).to.be.true;",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/aulas?apenasAtivas=true",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"aulas"
+							],
+							"query": [
+								{
+									"key": "apenasAtivas",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Aula",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Mensagem de sucesso', function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.eql('Aula atualizada com sucesso');",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"titulo\": \"Introdução ao ASP.NET Core - Atualizado\",\n  \"descricao\": \"Nesta aula você aprenderá os conceitos básicos e avançados do ASP.NET Core\",\n  \"duracaoMinutos\": 120,\n  \"ordem\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/aulas/{{aula_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"aulas",
+								"{{aula_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Aula - Validação (Duração Inválida)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 400', function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"titulo\": \"Aula com duração inválida\",\n  \"descricao\": \"Descrição da aula\",\n  \"duracaoMinutos\": 0,\n  \"ordem\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/aulas/{{aula_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"aulas",
+								"{{aula_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Aula - ID Inexistente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 400', function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"titulo\": \"Aula inexistente\",\n  \"descricao\": \"Tentando atualizar aula que não existe\",\n  \"duracaoMinutos\": 60,\n  \"ordem\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/aulas/00000000-0000-0000-0000-000000000000",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"aulas",
+								"00000000-0000-0000-0000-000000000000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Inativar Aula",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Mensagem de sucesso', function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.eql('Aula inativada com sucesso');",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/aulas/{{aula_id}}/inativar",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"aulas",
+								"{{aula_id}}",
+								"inativar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verificar Aula Inativada",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Aula está inativa', function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.ativa).to.be.false;",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/aulas/{{aula_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"aulas",
+								"{{aula_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ativar Aula",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Mensagem de sucesso', function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.eql('Aula ativada com sucesso');",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/aulas/{{aula_id}}/ativar",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"aulas",
+								"{{aula_id}}",
+								"ativar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verificar Aula Ativada",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Aula está ativa', function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.data.ativa).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/aulas/{{aula_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"aulas",
+								"{{aula_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar Aula",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 200', function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('Mensagem de sucesso', function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.message).to.eql('Aula deletada com sucesso');",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/aulas/{{aula_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"aulas",
+								"{{aula_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verificar Aula Deletada",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 404', function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/aulas/{{aula_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"aulas",
+								"{{aula_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar Aula - ID Inexistente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code é 400', function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/aulas/00000000-0000-0000-0000-000000000000",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"aulas",
+								"00000000-0000-0000-0000-000000000000"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pedidos",
+			"item": [
+				{
+					"name": "Selecionar curso",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": "Token JWT do aluno"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  /* \"cursoId\": \"645bd5c5-951d-486f-9c99-b319924cb3fc\" */\n  \"cursoId\": \"83641f23-2a44-4971-be33-fe2322d3e568\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/pedidos/adicionar-curso",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"pedidos",
+								"adicionar-curso"
+							]
+						},
+						"description": "Realiza o pagamento da matrícula em um curso. \n\n**Requisitos:**\n- Usuário deve estar autenticado como Aluno\n- Curso deve estar ativo\n- Aluno não pode já estar matriculado no mesmo curso\n\n**Validações:**\n- Número do cartão: 13-19 dígitos\n- CVV: 3-4 dígitos\n- Data de expiração: formato MM/YY\n- Nome no cartão: 3-100 caracteres"
+					},
+					"response": [
+						{
+							"name": "Sucesso - 200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"data\": \"550e8400-e29b-41d4-a716-446655440001\",\n  \"mensagem\": \"Pagamento processado com sucesso. Aguarde a confirmação da matrícula.\",\n  \"sucesso\": true\n}"
+						},
+						{
+							"name": "Erro - Curso não encontrado - 400 Bad Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"campo\": \"CursoId\",\n    \"mensagem\": \"Curso não encontrado\"\n  }\n]"
+						},
+						{
+							"name": "Erro - Validação - 400 Bad Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"00000000-0000-0000-0000-000000000000\",\n  \"nomeCartao\": \"\",\n  \"numeroCartao\": \"123\",\n  \"expiracaoCartao\": \"1325\",\n  \"cvvCartao\": \"12\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"campo\": \"CursoId\",\n    \"mensagem\": \"O ID do curso é inválido\"\n  },\n  {\n    \"campo\": \"NomeCartao\",\n    \"mensagem\": \"O nome no cartão é obrigatório\"\n  },\n  {\n    \"campo\": \"NumeroCartao\",\n    \"mensagem\": \"O número do cartão deve ter no mínimo 13 dígitos\"\n  },\n  {\n    \"campo\": \"ExpiracaoCartao\",\n    \"mensagem\": \"A data de expiração deve estar no formato MM/YY\"\n  },\n  {\n    \"campo\": \"CvvCartao\",\n    \"mensagem\": \"O CVV deve ter 3 ou 4 dígitos\"\n  }\n]"
+						},
+						{
+							"name": "Erro - Não autenticado - 401 Unauthorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"title\": \"Unauthorized\",\n  \"status\": 401\n}"
+						},
+						{
+							"name": "Erro - Permissão negada - 403 Forbidden",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{adminToken}}",
+										"description": "Token JWT do administrador (não permitido)"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"title\": \"Forbidden\",\n  \"status\": 403\n}"
+						}
+					]
+				},
+				{
+					"name": "Efetuar Pagamento",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": "Token JWT do aluno"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/pedidos/pagamento",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"pedidos",
+								"pagamento"
+							]
+						},
+						"description": "Realiza o pagamento da matrícula em um curso. \n\n**Requisitos:**\n- Usuário deve estar autenticado como Aluno\n- Curso deve estar ativo\n- Aluno não pode já estar matriculado no mesmo curso\n\n**Validações:**\n- Número do cartão: 13-19 dígitos\n- CVV: 3-4 dígitos\n- Data de expiração: formato MM/YY\n- Nome no cartão: 3-100 caracteres"
+					},
+					"response": [
+						{
+							"name": "Sucesso - 200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"data\": \"550e8400-e29b-41d4-a716-446655440001\",\n  \"mensagem\": \"Pagamento processado com sucesso. Aguarde a confirmação da matrícula.\",\n  \"sucesso\": true\n}"
+						},
+						{
+							"name": "Erro - Curso não encontrado - 400 Bad Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"campo\": \"CursoId\",\n    \"mensagem\": \"Curso não encontrado\"\n  }\n]"
+						},
+						{
+							"name": "Erro - Validação - 400 Bad Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"00000000-0000-0000-0000-000000000000\",\n  \"nomeCartao\": \"\",\n  \"numeroCartao\": \"123\",\n  \"expiracaoCartao\": \"1325\",\n  \"cvvCartao\": \"12\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"campo\": \"CursoId\",\n    \"mensagem\": \"O ID do curso é inválido\"\n  },\n  {\n    \"campo\": \"NomeCartao\",\n    \"mensagem\": \"O nome no cartão é obrigatório\"\n  },\n  {\n    \"campo\": \"NumeroCartao\",\n    \"mensagem\": \"O número do cartão deve ter no mínimo 13 dígitos\"\n  },\n  {\n    \"campo\": \"ExpiracaoCartao\",\n    \"mensagem\": \"A data de expiração deve estar no formato MM/YY\"\n  },\n  {\n    \"campo\": \"CvvCartao\",\n    \"mensagem\": \"O CVV deve ter 3 ou 4 dígitos\"\n  }\n]"
+						},
+						{
+							"name": "Erro - Não autenticado - 401 Unauthorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"title\": \"Unauthorized\",\n  \"status\": 401\n}"
+						},
+						{
+							"name": "Erro - Permissão negada - 403 Forbidden",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{adminToken}}",
+										"description": "Token JWT do administrador (não permitido)"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"title\": \"Forbidden\",\n  \"status\": 403\n}"
+						}
+					]
+				},
+				{
+					"name": "Meu Pedido",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": "Token JWT do aluno"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/pedidos/meu-pedido",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"pedidos",
+								"meu-pedido"
+							]
+						},
+						"description": "Realiza o pagamento da matrícula em um curso. \n\n**Requisitos:**\n- Usuário deve estar autenticado como Aluno\n- Curso deve estar ativo\n- Aluno não pode já estar matriculado no mesmo curso\n\n**Validações:**\n- Número do cartão: 13-19 dígitos\n- CVV: 3-4 dígitos\n- Data de expiração: formato MM/YY\n- Nome no cartão: 3-100 caracteres"
+					},
+					"response": [
+						{
+							"name": "Sucesso - 200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"data\": \"550e8400-e29b-41d4-a716-446655440001\",\n  \"mensagem\": \"Pagamento processado com sucesso. Aguarde a confirmação da matrícula.\",\n  \"sucesso\": true\n}"
+						},
+						{
+							"name": "Erro - Curso não encontrado - 400 Bad Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"campo\": \"CursoId\",\n    \"mensagem\": \"Curso não encontrado\"\n  }\n]"
+						},
+						{
+							"name": "Erro - Validação - 400 Bad Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"00000000-0000-0000-0000-000000000000\",\n  \"nomeCartao\": \"\",\n  \"numeroCartao\": \"123\",\n  \"expiracaoCartao\": \"1325\",\n  \"cvvCartao\": \"12\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"campo\": \"CursoId\",\n    \"mensagem\": \"O ID do curso é inválido\"\n  },\n  {\n    \"campo\": \"NomeCartao\",\n    \"mensagem\": \"O nome no cartão é obrigatório\"\n  },\n  {\n    \"campo\": \"NumeroCartao\",\n    \"mensagem\": \"O número do cartão deve ter no mínimo 13 dígitos\"\n  },\n  {\n    \"campo\": \"ExpiracaoCartao\",\n    \"mensagem\": \"A data de expiração deve estar no formato MM/YY\"\n  },\n  {\n    \"campo\": \"CvvCartao\",\n    \"mensagem\": \"O CVV deve ter 3 ou 4 dígitos\"\n  }\n]"
+						},
+						{
+							"name": "Erro - Não autenticado - 401 Unauthorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"title\": \"Unauthorized\",\n  \"status\": 401\n}"
+						},
+						{
+							"name": "Erro - Permissão negada - 403 Forbidden",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{adminToken}}",
+										"description": "Token JWT do administrador (não permitido)"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"title\": \"Forbidden\",\n  \"status\": 403\n}"
+						}
+					]
+				},
+				{
+					"name": "Remove Curso do Pedido",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": "Token JWT do aluno"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/pedidos/remover-curso/83641f23-2a44-4971-be33-fe2322d3e568",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"pedidos",
+								"remover-curso",
+								"83641f23-2a44-4971-be33-fe2322d3e568"
+							]
+						},
+						"description": "Realiza o pagamento da matrícula em um curso. \n\n**Requisitos:**\n- Usuário deve estar autenticado como Aluno\n- Curso deve estar ativo\n- Aluno não pode já estar matriculado no mesmo curso\n\n**Validações:**\n- Número do cartão: 13-19 dígitos\n- CVV: 3-4 dígitos\n- Data de expiração: formato MM/YY\n- Nome no cartão: 3-100 caracteres"
+					},
+					"response": [
+						{
+							"name": "Sucesso - 200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"data\": \"550e8400-e29b-41d4-a716-446655440001\",\n  \"mensagem\": \"Pagamento processado com sucesso. Aguarde a confirmação da matrícula.\",\n  \"sucesso\": true\n}"
+						},
+						{
+							"name": "Erro - Curso não encontrado - 400 Bad Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"campo\": \"CursoId\",\n    \"mensagem\": \"Curso não encontrado\"\n  }\n]"
+						},
+						{
+							"name": "Erro - Validação - 400 Bad Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"00000000-0000-0000-0000-000000000000\",\n  \"nomeCartao\": \"\",\n  \"numeroCartao\": \"123\",\n  \"expiracaoCartao\": \"1325\",\n  \"cvvCartao\": \"12\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"campo\": \"CursoId\",\n    \"mensagem\": \"O ID do curso é inválido\"\n  },\n  {\n    \"campo\": \"NomeCartao\",\n    \"mensagem\": \"O nome no cartão é obrigatório\"\n  },\n  {\n    \"campo\": \"NumeroCartao\",\n    \"mensagem\": \"O número do cartão deve ter no mínimo 13 dígitos\"\n  },\n  {\n    \"campo\": \"ExpiracaoCartao\",\n    \"mensagem\": \"A data de expiração deve estar no formato MM/YY\"\n  },\n  {\n    \"campo\": \"CvvCartao\",\n    \"mensagem\": \"O CVV deve ter 3 ou 4 dígitos\"\n  }\n]"
+						},
+						{
+							"name": "Erro - Não autenticado - 401 Unauthorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"title\": \"Unauthorized\",\n  \"status\": 401\n}"
+						},
+						{
+							"name": "Erro - Permissão negada - 403 Forbidden",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{adminToken}}",
+										"description": "Token JWT do administrador (não permitido)"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"title\": \"Forbidden\",\n  \"status\": 403\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Alunos",
+			"item": [
+				{
+					"name": "Meus Cursos - Matriculados",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": "Token JWT do aluno"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/alunos/meus-cursos",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"alunos",
+								"meus-cursos"
+							]
+						},
+						"description": "Realiza o pagamento da matrícula em um curso. \n\n**Requisitos:**\n- Usuário deve estar autenticado como Aluno\n- Curso deve estar ativo\n- Aluno não pode já estar matriculado no mesmo curso\n\n**Validações:**\n- Número do cartão: 13-19 dígitos\n- CVV: 3-4 dígitos\n- Data de expiração: formato MM/YY\n- Nome no cartão: 3-100 caracteres"
+					},
+					"response": [
+						{
+							"name": "Sucesso - 200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"data\": \"550e8400-e29b-41d4-a716-446655440001\",\n  \"mensagem\": \"Pagamento processado com sucesso. Aguarde a confirmação da matrícula.\",\n  \"sucesso\": true\n}"
+						},
+						{
+							"name": "Erro - Curso não encontrado - 400 Bad Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"campo\": \"CursoId\",\n    \"mensagem\": \"Curso não encontrado\"\n  }\n]"
+						},
+						{
+							"name": "Erro - Validação - 400 Bad Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"00000000-0000-0000-0000-000000000000\",\n  \"nomeCartao\": \"\",\n  \"numeroCartao\": \"123\",\n  \"expiracaoCartao\": \"1325\",\n  \"cvvCartao\": \"12\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"campo\": \"CursoId\",\n    \"mensagem\": \"O ID do curso é inválido\"\n  },\n  {\n    \"campo\": \"NomeCartao\",\n    \"mensagem\": \"O nome no cartão é obrigatório\"\n  },\n  {\n    \"campo\": \"NumeroCartao\",\n    \"mensagem\": \"O número do cartão deve ter no mínimo 13 dígitos\"\n  },\n  {\n    \"campo\": \"ExpiracaoCartao\",\n    \"mensagem\": \"A data de expiração deve estar no formato MM/YY\"\n  },\n  {\n    \"campo\": \"CvvCartao\",\n    \"mensagem\": \"O CVV deve ter 3 ou 4 dígitos\"\n  }\n]"
+						},
+						{
+							"name": "Erro - Não autenticado - 401 Unauthorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"title\": \"Unauthorized\",\n  \"status\": 401\n}"
+						},
+						{
+							"name": "Erro - Permissão negada - 403 Forbidden",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{adminToken}}",
+										"description": "Token JWT do administrador (não permitido)"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"title\": \"Forbidden\",\n  \"status\": 403\n}"
+						}
+					]
+				},
+				{
+					"name": "Aulas do Curso",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": "Token JWT do aluno"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/alunos/cursos/645bd5c5-951d-486f-9c99-b319924cb3fc/aulas",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"alunos",
+								"cursos",
+								"645bd5c5-951d-486f-9c99-b319924cb3fc",
+								"aulas"
+							]
+						},
+						"description": "Realiza o pagamento da matrícula em um curso. \n\n**Requisitos:**\n- Usuário deve estar autenticado como Aluno\n- Curso deve estar ativo\n- Aluno não pode já estar matriculado no mesmo curso\n\n**Validações:**\n- Número do cartão: 13-19 dígitos\n- CVV: 3-4 dígitos\n- Data de expiração: formato MM/YY\n- Nome no cartão: 3-100 caracteres"
+					},
+					"response": [
+						{
+							"name": "Sucesso - 200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"data\": \"550e8400-e29b-41d4-a716-446655440001\",\n  \"mensagem\": \"Pagamento processado com sucesso. Aguarde a confirmação da matrícula.\",\n  \"sucesso\": true\n}"
+						},
+						{
+							"name": "Erro - Curso não encontrado - 400 Bad Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"campo\": \"CursoId\",\n    \"mensagem\": \"Curso não encontrado\"\n  }\n]"
+						},
+						{
+							"name": "Erro - Validação - 400 Bad Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"00000000-0000-0000-0000-000000000000\",\n  \"nomeCartao\": \"\",\n  \"numeroCartao\": \"123\",\n  \"expiracaoCartao\": \"1325\",\n  \"cvvCartao\": \"12\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"campo\": \"CursoId\",\n    \"mensagem\": \"O ID do curso é inválido\"\n  },\n  {\n    \"campo\": \"NomeCartao\",\n    \"mensagem\": \"O nome no cartão é obrigatório\"\n  },\n  {\n    \"campo\": \"NumeroCartao\",\n    \"mensagem\": \"O número do cartão deve ter no mínimo 13 dígitos\"\n  },\n  {\n    \"campo\": \"ExpiracaoCartao\",\n    \"mensagem\": \"A data de expiração deve estar no formato MM/YY\"\n  },\n  {\n    \"campo\": \"CvvCartao\",\n    \"mensagem\": \"O CVV deve ter 3 ou 4 dígitos\"\n  }\n]"
+						},
+						{
+							"name": "Erro - Não autenticado - 401 Unauthorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"title\": \"Unauthorized\",\n  \"status\": 401\n}"
+						},
+						{
+							"name": "Erro - Permissão negada - 403 Forbidden",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{adminToken}}",
+										"description": "Token JWT do administrador (não permitido)"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"title\": \"Forbidden\",\n  \"status\": 403\n}"
+						}
+					]
+				},
+				{
+					"name": "Acessar Curso",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": "Token JWT do aluno"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"matriculaId\": \"566c7fe9-bd3c-4abb-a5a1-a4ca902f661c\",\n\t\"cursoId\": \"645bd5c5-951d-486f-9c99-b319924cb3fc\",\n\t\"aulaId\": \"7b1f5681-0af4-4a59-8022-fa2bd263e4e7\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/alunos/aulas/acessar-estudo",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"alunos",
+								"aulas",
+								"acessar-estudo"
+							]
+						},
+						"description": "Realiza o pagamento da matrícula em um curso. \n\n**Requisitos:**\n- Usuário deve estar autenticado como Aluno\n- Curso deve estar ativo\n- Aluno não pode já estar matriculado no mesmo curso\n\n**Validações:**\n- Número do cartão: 13-19 dígitos\n- CVV: 3-4 dígitos\n- Data de expiração: formato MM/YY\n- Nome no cartão: 3-100 caracteres"
+					},
+					"response": [
+						{
+							"name": "Sucesso - 200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"data\": \"550e8400-e29b-41d4-a716-446655440001\",\n  \"mensagem\": \"Pagamento processado com sucesso. Aguarde a confirmação da matrícula.\",\n  \"sucesso\": true\n}"
+						},
+						{
+							"name": "Erro - Curso não encontrado - 400 Bad Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"campo\": \"CursoId\",\n    \"mensagem\": \"Curso não encontrado\"\n  }\n]"
+						},
+						{
+							"name": "Erro - Validação - 400 Bad Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"00000000-0000-0000-0000-000000000000\",\n  \"nomeCartao\": \"\",\n  \"numeroCartao\": \"123\",\n  \"expiracaoCartao\": \"1325\",\n  \"cvvCartao\": \"12\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"campo\": \"CursoId\",\n    \"mensagem\": \"O ID do curso é inválido\"\n  },\n  {\n    \"campo\": \"NomeCartao\",\n    \"mensagem\": \"O nome no cartão é obrigatório\"\n  },\n  {\n    \"campo\": \"NumeroCartao\",\n    \"mensagem\": \"O número do cartão deve ter no mínimo 13 dígitos\"\n  },\n  {\n    \"campo\": \"ExpiracaoCartao\",\n    \"mensagem\": \"A data de expiração deve estar no formato MM/YY\"\n  },\n  {\n    \"campo\": \"CvvCartao\",\n    \"mensagem\": \"O CVV deve ter 3 ou 4 dígitos\"\n  }\n]"
+						},
+						{
+							"name": "Erro - Não autenticado - 401 Unauthorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"title\": \"Unauthorized\",\n  \"status\": 401\n}"
+						},
+						{
+							"name": "Erro - Permissão negada - 403 Forbidden",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{adminToken}}",
+										"description": "Token JWT do administrador (não permitido)"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"title\": \"Forbidden\",\n  \"status\": 403\n}"
+						}
+					]
+				},
+				{
+					"name": "Iniciar Curso",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": "Token JWT do aluno"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"matriculaId\": \"566c7fe9-bd3c-4abb-a5a1-a4ca902f661c\",\n\t\"cursoId\": \"645bd5c5-951d-486f-9c99-b319924cb3fc\",\n\t\"aulaId\": \"7b1f5681-0af4-4a59-8022-fa2bd263e4e7\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/alunos/aulas/iniciar-estudo",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"alunos",
+								"aulas",
+								"iniciar-estudo"
+							]
+						},
+						"description": "Realiza o pagamento da matrícula em um curso. \n\n**Requisitos:**\n- Usuário deve estar autenticado como Aluno\n- Curso deve estar ativo\n- Aluno não pode já estar matriculado no mesmo curso\n\n**Validações:**\n- Número do cartão: 13-19 dígitos\n- CVV: 3-4 dígitos\n- Data de expiração: formato MM/YY\n- Nome no cartão: 3-100 caracteres"
+					},
+					"response": [
+						{
+							"name": "Sucesso - 200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"data\": \"550e8400-e29b-41d4-a716-446655440001\",\n  \"mensagem\": \"Pagamento processado com sucesso. Aguarde a confirmação da matrícula.\",\n  \"sucesso\": true\n}"
+						},
+						{
+							"name": "Erro - Curso não encontrado - 400 Bad Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"campo\": \"CursoId\",\n    \"mensagem\": \"Curso não encontrado\"\n  }\n]"
+						},
+						{
+							"name": "Erro - Validação - 400 Bad Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"00000000-0000-0000-0000-000000000000\",\n  \"nomeCartao\": \"\",\n  \"numeroCartao\": \"123\",\n  \"expiracaoCartao\": \"1325\",\n  \"cvvCartao\": \"12\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"campo\": \"CursoId\",\n    \"mensagem\": \"O ID do curso é inválido\"\n  },\n  {\n    \"campo\": \"NomeCartao\",\n    \"mensagem\": \"O nome no cartão é obrigatório\"\n  },\n  {\n    \"campo\": \"NumeroCartao\",\n    \"mensagem\": \"O número do cartão deve ter no mínimo 13 dígitos\"\n  },\n  {\n    \"campo\": \"ExpiracaoCartao\",\n    \"mensagem\": \"A data de expiração deve estar no formato MM/YY\"\n  },\n  {\n    \"campo\": \"CvvCartao\",\n    \"mensagem\": \"O CVV deve ter 3 ou 4 dígitos\"\n  }\n]"
+						},
+						{
+							"name": "Erro - Não autenticado - 401 Unauthorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"title\": \"Unauthorized\",\n  \"status\": 401\n}"
+						},
+						{
+							"name": "Erro - Permissão negada - 403 Forbidden",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{adminToken}}",
+										"description": "Token JWT do administrador (não permitido)"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"title\": \"Forbidden\",\n  \"status\": 403\n}"
+						}
+					]
+				},
+				{
+					"name": "Finalizar Curso",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": "Token JWT do aluno"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"matriculaId\": \"566c7fe9-bd3c-4abb-a5a1-a4ca902f661c\",\n\t\"cursoId\": \"645bd5c5-951d-486f-9c99-b319924cb3fc\",\n\t\"aulaId\": \"7b1f5681-0af4-4a59-8022-fa2bd263e4e7\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/alunos/aulas/finalizar-estudo",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"alunos",
+								"aulas",
+								"finalizar-estudo"
+							]
+						},
+						"description": "Realiza o pagamento da matrícula em um curso. \n\n**Requisitos:**\n- Usuário deve estar autenticado como Aluno\n- Curso deve estar ativo\n- Aluno não pode já estar matriculado no mesmo curso\n\n**Validações:**\n- Número do cartão: 13-19 dígitos\n- CVV: 3-4 dígitos\n- Data de expiração: formato MM/YY\n- Nome no cartão: 3-100 caracteres"
+					},
+					"response": [
+						{
+							"name": "Sucesso - 200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"data\": \"550e8400-e29b-41d4-a716-446655440001\",\n  \"mensagem\": \"Pagamento processado com sucesso. Aguarde a confirmação da matrícula.\",\n  \"sucesso\": true\n}"
+						},
+						{
+							"name": "Erro - Curso não encontrado - 400 Bad Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"campo\": \"CursoId\",\n    \"mensagem\": \"Curso não encontrado\"\n  }\n]"
+						},
+						{
+							"name": "Erro - Validação - 400 Bad Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"00000000-0000-0000-0000-000000000000\",\n  \"nomeCartao\": \"\",\n  \"numeroCartao\": \"123\",\n  \"expiracaoCartao\": \"1325\",\n  \"cvvCartao\": \"12\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"campo\": \"CursoId\",\n    \"mensagem\": \"O ID do curso é inválido\"\n  },\n  {\n    \"campo\": \"NomeCartao\",\n    \"mensagem\": \"O nome no cartão é obrigatório\"\n  },\n  {\n    \"campo\": \"NumeroCartao\",\n    \"mensagem\": \"O número do cartão deve ter no mínimo 13 dígitos\"\n  },\n  {\n    \"campo\": \"ExpiracaoCartao\",\n    \"mensagem\": \"A data de expiração deve estar no formato MM/YY\"\n  },\n  {\n    \"campo\": \"CvvCartao\",\n    \"mensagem\": \"O CVV deve ter 3 ou 4 dígitos\"\n  }\n]"
+						},
+						{
+							"name": "Erro - Não autenticado - 401 Unauthorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"title\": \"Unauthorized\",\n  \"status\": 401\n}"
+						},
+						{
+							"name": "Erro - Permissão negada - 403 Forbidden",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{adminToken}}",
+										"description": "Token JWT do administrador (não permitido)"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"cursoId\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"nomeCartao\": \"João Silva\",\n  \"numeroCartao\": \"1234567890123456\",\n  \"expiracaoCartao\": \"12/25\",\n  \"cvvCartao\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/pagamentos/matricula",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"pagamentos",
+										"matricula"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"title\": \"Forbidden\",\n  \"status\": 403\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "cursoId",
+			"value": ""
+		},
+		{
+			"key": "aula_id",
+			"value": ""
+		}
+	]
+}

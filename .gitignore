@@ -44,6 +44,7 @@ TestResults/
 # Windows
 Thumbs.db
 
-DESCRICAO_PROJETO.md
-comandos/COBERTURA-TESTES.md
-comandos/FLUXO_PAGAMENTO.md
+auxiliar/comandos.txt
+auxiliar/DESCRICAO_PROJETO.md
+auxiliar/COBERTURA-TESTES.md
+auxiliar/FLUXO_PAGAMENTO.md

@@ -49,10 +49,11 @@ mba.educacao.online/
 ```
 ## **5. Funcionalidades Implementadas**
 
-- **CRUD para Categoria e Produtos:** Permite criar, editar, visualizar e excluir categorias e produtos.
-- **Autenticação e Autorização:** Diferenciação entre vendedores.
-- **API RESTful:** Exposição de endpoints para operações CRUD via API.
+- **CRUD para Cursos e Aulas:** Permite criar, editar, visualizar e excluir categorias e produtos.
+- **Autenticação e Autorização:** Rotina de criação de usuário vinculado com AspNetUser.
+- **API RESTful:** Exposição de endpoints para operações via API.
 - **Documentação da API:** Documentação automática dos endpoints da API utilizando Swagger.
+- **Camada src:** Onde ficam todas as regras de negócio do sistema
 
 ### 5.1. **CQRS (Command Query Responsibility Segregation)**
 - Separação clara entre Commands (escrita) e Queries (leitura)
@@ -112,6 +113,11 @@ mba.educacao.online/
    - `dotnet run`
    - Acesse a aplicação em: http://localhost:5042/swagger/index.html
 
+4. **Auxiliares**
+   - Dentro da pasta auxiliar existem 2 arquivos
+   - o arquivo `queries.sql` contém algumas consulta para auxiliar no entendimento da estrutura do banco de dados.
+   - o arquivo `MBA.Educao.Online.postman_collection.json` contém as chamadas dos endpoints com configurações de variáveis de ambiente
+
 ## **7. Instruções de Configuração**
 
 - **JWT para API:** As chaves de configuração do JWT estão no `appsettings.json`.
@@ -121,7 +127,7 @@ mba.educacao.online/
 
 A documentação da API está disponível através do Swagger. Após iniciar a API, acesse a documentação em:
 
-https://localhost:7053/swagger/index.html
+https://localhost:5042/swagger/index.html
 
 ## **9. Avaliação**
 
