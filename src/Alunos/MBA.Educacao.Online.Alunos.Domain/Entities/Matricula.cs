@@ -11,6 +11,7 @@ namespace MBA.Educacao.Online.Alunos.Domain.Entities
         public DateTime DataMatricula { get; private set; }
         public DateTime DataValidade { get; private set; }
         public bool Ativo { get; private set; }
+        public int ProgressoPercentual { get; private set; }
 
         // Coleção de leitura para históricos
         public IReadOnlyCollection<HistoricoAprendizado> HistoricosAprendizado => _historicosAprendizado.AsReadOnly();
@@ -27,6 +28,7 @@ namespace MBA.Educacao.Online.Alunos.Domain.Entities
             DataMatricula = DateTime.Now;
             DataValidade = dataValidade;
             Ativo = true;
+            ProgressoPercentual = 0;
         }
 
         // Construtor para criação direta com AlunoId
@@ -76,40 +78,59 @@ namespace MBA.Educacao.Online.Alunos.Domain.Entities
             _historicosAprendizado.Add(historico);
         }
 
-        public void AtualizarProgressoAprendizado(decimal percentual, Guid? aulaId = null)
+        public void IniciarEstudoAula(Guid aulaId)
         {
             var historico = _historicosAprendizado
                 .FirstOrDefault(h => h.AulaId == aulaId);
 
             if (historico == null)
-                throw new InvalidOperationException("Histórico de aprendizado não encontrado");
+            {
+                // Se não existe histórico, inicia o aprendizado
+                IniciarAprendizado(aulaId);
+                return;
+            }
 
-            var novoHistorico = historico.AtualizarProgresso(percentual);
-
+            // Se já existe, atualiza para em andamento
+            var historicoAtualizado = historico.IniciarEstudo();
             _historicosAprendizado.Remove(historico);
-            _historicosAprendizado.Add(novoHistorico);
+            _historicosAprendizado.Add(historicoAtualizado);
         }
 
-        public void ConcluirAprendizado(Guid? aulaId = null)
+        public void FinalizarEstudoAula(Guid aulaId, int totalAulasCurso)
         {
             var historico = _historicosAprendizado
                 .FirstOrDefault(h => h.AulaId == aulaId);
 
             if (historico == null)
-                throw new InvalidOperationException("Histórico de aprendizado não encontrado");
+                throw new InvalidOperationException("Histórico de aprendizado não encontrado. Inicie o estudo da aula primeiro.");
 
-            var historicoConcluido = historico.Concluir();
-
+            var historicoFinalizado = historico.FinalizarEstudo();
             _historicosAprendizado.Remove(historico);
-            _historicosAprendizado.Add(historicoConcluido);
+            _historicosAprendizado.Add(historicoFinalizado);
+
+            // Atualiza o progresso geral da matrícula
+            CalcularProgressoGeral(totalAulasCurso);
         }
 
-        public decimal ObterProgressoGeral()
+        public void CalcularProgressoGeral(int totalAulasCurso)
         {
-            if (!_historicosAprendizado.Any())
-                return 0;
+            if (totalAulasCurso <= 0)
+                throw new ArgumentException("Total de aulas do curso deve ser maior que zero", nameof(totalAulasCurso));
 
-            return _historicosAprendizado.Average(h => h.ProgressoPercentual);
+            var aulasConcluidas = _historicosAprendizado.Count(h => h.EstaConcluido());
+
+            if (aulasConcluidas == 0)
+            {
+                ProgressoPercentual = 0;
+                return;
+            }
+
+            ProgressoPercentual = (int)((decimal)aulasConcluidas / totalAulasCurso * 100);
+        }
+
+        public int ObterProgressoGeral()
+        {
+            return ProgressoPercentual;
         }
 
         public bool EstaConcluida()

@@ -33,6 +33,10 @@ namespace MBA.Educacao.Online.Alunos.Data.Mappings
             builder.Property(m => m.Ativo)
                 .IsRequired();
 
+            builder.Property(m => m.ProgressoPercentual)
+                .IsRequired()
+                .HasDefaultValue(0);
+
             // Configuração de HistoricoAprendizado como owned entity (classe de valor)
             builder.OwnsMany(m => m.HistoricosAprendizado, h =>
             {
@@ -53,10 +57,6 @@ namespace MBA.Educacao.Online.Alunos.Data.Mappings
 
                 h.Property(h => h.DataConclusao)
                     .IsRequired(false);
-
-                h.Property(h => h.ProgressoPercentual)
-                    .HasPrecision(5, 2)
-                    .IsRequired();
 
                 h.Property(h => h.Status)
                     .HasConversion<int>()

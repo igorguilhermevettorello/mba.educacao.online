@@ -3,6 +3,7 @@ using System;
 using MBA.Educacao.Online.Alunos.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MBA.Educacao.Online.Alunos.Data.Migrations
 {
     [DbContext(typeof(AlunoContext))]
-    partial class AlunoContextModelSnapshot : ModelSnapshot
+    [Migration("20251108223920_AjustarProgressoPercentual")]
+    partial class AjustarProgressoPercentual
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.21");
@@ -97,11 +100,6 @@ namespace MBA.Educacao.Online.Alunos.Data.Migrations
                     b.Property<DateTime>("DataValidade")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("ProgressoPercentual")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER")
-                        .HasDefaultValue(0);
-
                     b.HasKey("Id");
 
                     b.HasIndex("AlunoId");
@@ -143,6 +141,9 @@ namespace MBA.Educacao.Online.Alunos.Data.Migrations
 
                             b1.Property<Guid>("MatriculaId")
                                 .HasColumnType("TEXT");
+
+                            b1.Property<int>("ProgressoPercentual")
+                                .HasColumnType("INTEGER");
 
                             b1.Property<int>("Status")
                                 .HasColumnType("INTEGER");

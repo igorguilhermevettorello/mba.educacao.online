@@ -7,7 +7,6 @@ namespace MBA.Educacao.Online.Alunos.Domain.Entities
         public Guid? AulaId { get; private set; }
         public DateTime DataInicio { get; private set; }
         public DateTime? DataConclusao { get; private set; }
-        public decimal ProgressoPercentual { get; private set; }
         public StatusAprendizadoEnum Status { get; private set; }
 
         protected HistoricoAprendizado() { }
@@ -16,8 +15,7 @@ namespace MBA.Educacao.Online.Alunos.Domain.Entities
         {
             AulaId = aulaId;
             DataInicio = DateTime.Now;
-            ProgressoPercentual = 0;
-            Status = StatusAprendizadoEnum.Pendente;
+            Status = StatusAprendizadoEnum.EmAndamento;
         }
 
         public static HistoricoAprendizado Criar(Guid? aulaId = null)
@@ -25,59 +23,40 @@ namespace MBA.Educacao.Online.Alunos.Domain.Entities
             return new HistoricoAprendizado(aulaId);
         }
 
-        public HistoricoAprendizado AtualizarProgresso(decimal percentual)
+        public HistoricoAprendizado IniciarEstudo()
         {
-            if (percentual < 0 || percentual > 100)
-                throw new ArgumentException("Percentual deve estar entre 0 e 100");
+            if (Status == StatusAprendizadoEnum.Concluido)
+                throw new InvalidOperationException("Aula já foi concluída");
 
-            var novoHistorico = new HistoricoAprendizado
+            return new HistoricoAprendizado
             {
                 AulaId = AulaId,
                 DataInicio = DataInicio,
                 DataConclusao = DataConclusao,
-                ProgressoPercentual = percentual,
-                Status = Status
+                Status = StatusAprendizadoEnum.EmAndamento
             };
-
-            if (percentual == 100)
-            {
-                return novoHistorico.Concluir();
-            }
-            else if (percentual > 0)
-            {
-                novoHistorico.Status = StatusAprendizadoEnum.EmAndamento;
-            }
-
-            return novoHistorico;
         }
 
-        public HistoricoAprendizado Concluir()
+        public HistoricoAprendizado FinalizarEstudo()
         {
+            if (Status == StatusAprendizadoEnum.Concluido)
+                throw new InvalidOperationException("Aula já foi concluída");
+
+            if (Status != StatusAprendizadoEnum.EmAndamento)
+                throw new InvalidOperationException("Aula precisa estar em andamento para ser finalizada");
+
             return new HistoricoAprendizado
             {
                 AulaId = AulaId,
                 DataInicio = DataInicio,
                 DataConclusao = DateTime.Now,
-                ProgressoPercentual = 100,
                 Status = StatusAprendizadoEnum.Concluido
-            };
-        }
-
-        public HistoricoAprendizado Iniciar()
-        {
-            return new HistoricoAprendizado
-            {
-                AulaId = AulaId,
-                DataInicio = DataInicio,
-                DataConclusao = DataConclusao,
-                ProgressoPercentual = ProgressoPercentual,
-                Status = StatusAprendizadoEnum.EmAndamento
             };
         }
 
         public bool EstaConcluido()
         {
-            return Status == StatusAprendizadoEnum.Concluido && ProgressoPercentual == 100;
+            return Status == StatusAprendizadoEnum.Concluido;
         }
 
         public bool EstaEmAndamento()

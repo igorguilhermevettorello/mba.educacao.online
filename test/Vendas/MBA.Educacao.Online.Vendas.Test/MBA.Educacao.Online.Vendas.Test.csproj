@@ -24,8 +24,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\Pagamentos\MBA.Educacao.Online.Pagamentos.Application\MBA.Educacao.Online.Pagamentos.Application.csproj" />
-    <ProjectReference Include="..\..\..\src\Pagamentos\MBA.Educacao.Online.Pagamentos.Domain\MBA.Educacao.Online.Pagamentos.Domain.csproj" />
+    <ProjectReference Include="..\..\..\src\Vendas\MBA.Educacao.Online.Vendas.Application\MBA.Educacao.Online.Vendas.Application.csproj" />
+    <ProjectReference Include="..\..\..\src\Vendas\MBA.Educacao.Online.Vendas.Domain\MBA.Educacao.Online.Vendas.Domain.csproj" />
   </ItemGroup>
 
 </Project>
+

@@ -99,24 +99,6 @@ namespace MBA.Educacao.Online.Alunos.Domain.Entities
             matricula.IniciarAprendizado(aulaId);
         }
 
-        public void AtualizarProgressoAprendizado(Guid cursoId, decimal percentual, Guid? aulaId = null)
-        {
-            var matricula = _matriculas.FirstOrDefault(m => m.CursoId == cursoId && m.Ativo);
-            if (matricula == null)
-                throw new InvalidOperationException("Matrícula não encontrada");
-
-            matricula.AtualizarProgressoAprendizado(percentual, aulaId);
-        }
-
-        public void ConcluirAprendizado(Guid cursoId, Guid? aulaId = null)
-        {
-            var matricula = _matriculas.FirstOrDefault(m => m.CursoId == cursoId && m.Ativo);
-            if (matricula == null)
-                throw new InvalidOperationException("Matrícula não encontrada");
-
-            matricula.ConcluirAprendizado(aulaId);
-        }
-
         public decimal ObterProgressoNoCurso(Guid cursoId)
         {
             var matricula = _matriculas.FirstOrDefault(m => m.CursoId == cursoId && m.Ativo);

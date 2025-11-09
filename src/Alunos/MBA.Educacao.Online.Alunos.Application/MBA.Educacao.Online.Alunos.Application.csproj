@@ -15,7 +15,12 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Core\MBA.Educacao.Online.Core.Domain\MBA.Educacao.Online.Core.Domain.csproj" />
     <ProjectReference Include="..\..\Core\MBA.Educacao.Online.Core.Application\MBA.Educacao.Online.Core.Application.csproj" />
+    <ProjectReference Include="..\..\Cursos\MBA.Educacao.Online.Cursos.Domain\MBA.Educacao.Online.Cursos.Domain.csproj" />
     <ProjectReference Include="..\MBA.Educacao.Online.Alunos.Domain\MBA.Educacao.Online.Alunos.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Queries\" />
   </ItemGroup>
 
 </Project>

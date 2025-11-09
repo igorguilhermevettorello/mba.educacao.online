@@ -8,7 +8,7 @@ namespace MBA.Educacao.Online.Cursos.Application.Validators
         public InativarCursoCommandValidator()
         {
             RuleFor(x => x.CursoId)
-                .Empty()
+                .NotEmpty()
                 .WithMessage("Id do curso é obrigatório.");
         }
     }

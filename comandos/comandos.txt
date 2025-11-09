@@ -78,7 +78,8 @@ dotnet ef migrations add InitialMigrations \
 dotnet ef migrations add InitialMigrations --project ./src/Alunos/MBA.Educacao.Online.Alunos.Data/MBA.Educacao.Online.Alunos.Data.csproj --startup-project ./api/MBA.Educacao.Online.API/MBA.Educacao.Online.API.csproj --context AlunoContext --output-dir ./Migrations
 
 dotnet ef migrations add InitialMigrations --project ./src/Alunos/MBA.Educacao.Online.Alunos.Data/MBA.Educacao.Online.Alunos.Data.csproj --startup-project ./api/MBA.Educacao.Online.API/MBA.Educacao.Online.API.csproj --context AlunoContext --output-dir ./Migrations
-dotnet ef migrations add AjustarChaves --project ./src/Alunos/MBA.Educacao.Online.Alunos.Data/MBA.Educacao.Online.Alunos.Data.csproj --startup-project ./api/MBA.Educacao.Online.API/MBA.Educacao.Online.API.csproj --context AlunoContext --output-dir ./Migrations
+dotnet ef migrations add AjustarProgressoPercentual --project ./src/Alunos/MBA.Educacao.Online.Alunos.Data/MBA.Educacao.Online.Alunos.Data.csproj --startup-project ./api/MBA.Educacao.Online.API/MBA.Educacao.Online.API.csproj --context AlunoContext --output-dir ./Migrations
+dotnet ef migrations add AlterarTableProgressoPercentual --project ./src/Alunos/MBA.Educacao.Online.Alunos.Data/MBA.Educacao.Online.Alunos.Data.csproj --startup-project ./api/MBA.Educacao.Online.API/MBA.Educacao.Online.API.csproj --context AlunoContext --output-dir ./Migrations
 
 ## Aplicar Migration do Bounded Context Alunos
 dotnet ef database update \
@@ -122,3 +123,7 @@ find ~/ -type f -name "dev.db"
 find . -type d \( -name "bin" -o -name "obj" \) -exec rm -rf {} +
 ############################################
 
+dotnet tool install --global dotnet-reportgenerator-globaltool
+dotnet test MBA.Educacao.Online.sln --collect:"XPlat Code Coverage" --results-directory ./TestResults
+reportgenerator -reports:"TestResults/**/coverage.cobertura.xml" -targetdir:"TestResults/CoverageReport" -reporttypes:Html
+Start-Process "TestResults/CoverageReport/index.html"
