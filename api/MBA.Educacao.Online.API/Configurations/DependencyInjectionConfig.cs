@@ -1,5 +1,7 @@
 using MBA.Educacao.Online.Alunos.Data.Repositories;
+using MBA.Educacao.Online.Alunos.Data.Services;
 using MBA.Educacao.Online.Alunos.Domain.Interfaces.Repositories;
+using MBA.Educacao.Online.Alunos.Domain.Interfaces.Services;
 using MBA.Educacao.Online.API.Extensions;
 using MBA.Educacao.Online.Core.Domain.Interfaces.Identity;
 using MBA.Educacao.Online.Core.Domain.Interfaces.Mediator;
@@ -50,6 +52,7 @@ namespace MBA.Educacao.Online.API.Configurations
             service.AddScoped<IPedidoRepository, PedidoRepository>();
             service.AddScoped<IAlunoRepository, AlunoRepository>();
             service.AddScoped<IMatriculaRepository, MatriculaRepository>();
+            service.AddScoped<ICertificadoRepository, CertificadoRepository>();
             service.AddScoped<IPagamentoRepository, PagamentoRepository>();
         }
 
@@ -58,6 +61,7 @@ namespace MBA.Educacao.Online.API.Configurations
             service.AddScoped<IMediatorHandler, MediatorHandler>();
             service.AddScoped<ICursoAppService, CursoAppService>();
             service.AddScoped<ICursoService, CursoService>();
+            service.AddScoped<ICertificadoPdfService, CertificadoPdfService>();
             service.AddScoped<IPagamentoService, PagamentoService>();
             service.AddScoped<IPagamentoCartaoCreditoFacade, PagamentoCartaoCreditoFacade>();
             service.AddScoped<IPayPalGateway, PayPalGateway>();

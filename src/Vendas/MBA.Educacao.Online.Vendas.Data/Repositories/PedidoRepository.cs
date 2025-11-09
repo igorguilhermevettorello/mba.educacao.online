@@ -112,8 +112,17 @@ namespace MBA.Educacao.Online.Vendas.Data.Repositories
             var ultimoCodigo = await _context.Pedidos
                 .AsNoTracking()
                 .MaxAsync(p => (int?)p.Codigo) ?? 0;
-            
+
             return ultimoCodigo + 1;
+        }
+
+        public async Task<List<Pedido>> ObterTodos()
+        {
+            return await _context.Pedidos
+                .Include(p => p.PedidoItens)
+                .AsNoTracking()
+                .OrderByDescending(p => p.DataCadastro)
+                .ToListAsync();
         }
 
         public void Dispose()

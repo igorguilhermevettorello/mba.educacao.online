@@ -4,6 +4,7 @@ using MBA.Educacao.Online.Alunos.Domain.Interfaces.Repositories;
 using MBA.Educacao.Online.Core.Domain.DTOs;
 using MBA.Educacao.Online.Core.Domain.Interfaces.Mediator;
 using MBA.Educacao.Online.Core.Domain.Interfaces.Notifications;
+using MBA.Educacao.Online.Core.Domain.Messages;
 using MBA.Educacao.Online.Core.Domain.Messages.CommonMessages.IntegrationEvents;
 using MBA.Educacao.Online.Core.Domain.Notifications;
 using MediatR;
@@ -32,16 +33,8 @@ namespace MBA.Educacao.Online.Alunos.Application.Handlers.Commands
         public async Task<bool> Handle(ProcessarMatriculaCommand request, CancellationToken cancellationToken)
         {
             // Valida o comando
-            if (!request.IsValid())
-            {
-                foreach (var erro in request.ValidationResult.Errors)
-                {
-                    Notificar(erro.PropertyName, erro.ErrorMessage);
-                }
-                return false;
-            }
+            if (!ValidarComando(request)) return false;
 
-            // Busca o aluno (com tracking para adicionar evento)
             var aluno = _alunoRepository.BuscarPorId(request.AlunoId);
             if (aluno == null)
             {
@@ -49,21 +42,18 @@ namespace MBA.Educacao.Online.Alunos.Application.Handlers.Commands
                 return false;
             }
 
-            // Verifica se o aluno está ativo
             if (!aluno.Ativo)
             {
                 Notificar("Aluno", "Não é possível matricular um aluno inativo");
                 return false;
             }
 
-            // Valida se existem cursos na lista
             if (!request.ListaCursos.Itens.Any())
             {
                 Notificar("ListaCursos", "Não há cursos para matricular");
                 return false;
             }
 
-            // Processa cada curso e adiciona a matrícula
             var cursosMatriculados = 0;
             var cursosIgnorados = 0;
             var matriculasCriadas = new List<Matricula>();
@@ -83,15 +73,10 @@ namespace MBA.Educacao.Online.Alunos.Application.Handlers.Commands
                     // Define a data de validade da matrícula (exemplo: 1 ano a partir de hoje)
                     var dataValidade = DateTime.Now.AddYears(1);
 
-                    // Cria a matrícula diretamente com AlunoId, CursoId e DataValidade
+                    
                     var novaMatricula = new Matricula(request.AlunoId, curso.Id, dataValidade);
-
-                    // Adiciona ao repositório
                     _matriculaRepository.Adicionar(novaMatricula);
-
-                    // Armazena a matrícula criada para posterior publicação de eventos
                     matriculasCriadas.Add(novaMatricula);
-
                     cursosMatriculados++;
                 }
                 catch (InvalidOperationException ex)
@@ -125,10 +110,7 @@ namespace MBA.Educacao.Online.Alunos.Application.Handlers.Commands
                     listaMatriculas
                 );
 
-                // Adiciona o evento ao agregado Aluno
                 aluno.AdicionarEvento(atualizarPedidoItemEvent);
-
-                // Marca o aluno como alterado para persistir o evento
                 _alunoRepository.Alterar(aluno);
             }
 
@@ -140,6 +122,18 @@ namespace MBA.Educacao.Online.Alunos.Application.Handlers.Commands
             }
 
             return true;
+        }
+
+        private bool ValidarComando(Command request)
+        {
+            if (request.IsValid()) return true;
+
+            foreach (var error in request.ValidationResult.Errors)
+            {
+                Notificar(error.PropertyName, error.ErrorMessage);
+            }
+
+            return false;
         }
 
         private void Notificar(string campo, string mensagem)

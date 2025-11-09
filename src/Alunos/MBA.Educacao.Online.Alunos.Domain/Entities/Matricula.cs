@@ -18,7 +18,6 @@ namespace MBA.Educacao.Online.Alunos.Domain.Entities
 
         protected Matricula() { }
 
-        // Construtor original para manter compatibilidade quando criado através do agregado Aluno
         public Matricula(Guid cursoId, DateTime dataValidade)
         {
             ValidarCursoId(cursoId);
@@ -31,7 +30,6 @@ namespace MBA.Educacao.Online.Alunos.Domain.Entities
             ProgressoPercentual = 0;
         }
 
-        // Construtor para criação direta com AlunoId
         public Matricula(Guid alunoId, Guid cursoId, DateTime dataValidade) : this(cursoId, dataValidade)
         {
             ValidarAlunoId(alunoId);

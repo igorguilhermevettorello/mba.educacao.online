@@ -32,7 +32,6 @@ namespace MBA.Educacao.Online.Alunos.Application.Handlers.Commands
             // Valida o comando
             if (!ValidarComando(request)) return false;
 
-            // Verifica se o curso existe
             var curso = await _cursoRepository.BuscarPorIdAsync(request.CursoId);
             if (curso == null)
             {
@@ -40,7 +39,6 @@ namespace MBA.Educacao.Online.Alunos.Application.Handlers.Commands
                 return false;
             }
 
-            // Verifica se a aula existe
             var aula = await _aulaRepository.BuscarPorIdAsync(request.AulaId);
             if (aula == null)
             {
@@ -48,14 +46,12 @@ namespace MBA.Educacao.Online.Alunos.Application.Handlers.Commands
                 return false;
             }
 
-            // Verifica se a aula pertence ao curso
             if (aula.CursoId != request.CursoId)
             {
                 Notificar("AulaId", "Aula não pertence ao curso informado");
                 return false;
             }
 
-            // Busca a matrícula pelo ID
             var matricula = _matriculaRepository.BuscarPorId(request.MatriculaId);
             if (matricula == null)
             {
@@ -63,35 +59,30 @@ namespace MBA.Educacao.Online.Alunos.Application.Handlers.Commands
                 return false;
             }
 
-            // Verifica se a matrícula pertence ao aluno
             if (matricula.AlunoId != request.AlunoId)
             {
                 Notificar("Matricula", "Matrícula não pertence ao aluno informado");
                 return false;
             }
 
-            // Verifica se o curso da matrícula corresponde ao informado
             if (matricula.CursoId != request.CursoId)
             {
                 Notificar("CursoId", "Curso não corresponde à matrícula informada");
                 return false;
             }
 
-            // Verifica se a matrícula está ativa
             if (!matricula.Ativo)
             {
                 Notificar("Matricula", "Matrícula não está ativa");
                 return false;
             }
 
-            // Verifica se a matrícula está vencida
             if (matricula.EstaVencida())
             {
                 Notificar("Matricula", "Matrícula está vencida");
                 return false;
             }
 
-            // Obtém o total de aulas do curso
             var totalAulas = curso.ObterTotalAulas();
             if (totalAulas == 0)
             {
@@ -99,7 +90,6 @@ namespace MBA.Educacao.Online.Alunos.Application.Handlers.Commands
                 return false;
             }
 
-            // Finaliza o estudo da aula e recalcula o progresso
             try
             {
                 matricula.FinalizarEstudoAula(request.AulaId, totalAulas);
@@ -115,10 +105,7 @@ namespace MBA.Educacao.Online.Alunos.Application.Handlers.Commands
                 return false;
             }
 
-            // Marca a matrícula como alterada
             _matriculaRepository.Alterar(matricula);
-
-            // Salva as alterações
             var resultado = await _matriculaRepository.UnitOfWork.Commit();
             if (!resultado)
             {

@@ -12,5 +12,6 @@ namespace MBA.Educacao.Online.Vendas.Domain.Interfaces.Repositories
         Task<Pedido?> ObterPorId(Guid pedidoId);
         Task<Pedido?> ObterPorIdComTracking(Guid pedidoId);
         Task<Pedido?> ObterPedidoRascunhoPorAlunoId(Guid alunoId);
+        Task<List<Pedido>> ObterTodos();
     }
 }
