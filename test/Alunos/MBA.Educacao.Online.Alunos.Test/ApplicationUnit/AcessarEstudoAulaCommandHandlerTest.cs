@@ -438,6 +438,53 @@ namespace MBA.Educacao.Online.Alunos.Test.ApplicationUnit
             );
         }
 
+        [Fact(DisplayName = "Acessar Estudo - Matrícula Vencida - Deve Retornar Falso")]
+        [Trait("Alunos", "Handlers - Commands - AcessarEstudoAula")]
+        public async Task Handle_MatriculaVencida_DeveRetornarFalso()
+        {
+            // Arrange
+            var alunoId = Guid.NewGuid();
+            var matriculaId = Guid.NewGuid();
+            var cursoId = Guid.NewGuid();
+            var aulaId = Guid.NewGuid();
+
+            var curso = new Curso("MBA em Gestão", "Curso completo", "Eduardo Pires", NivelCurso.Avancado, 1000);
+            var aula = new Aula("Aula 1", "Introdução", 60, 1);
+            typeof(Aula).GetProperty("CursoId")!.SetValue(aula, cursoId);
+            typeof(Aula).GetProperty("Id")!.SetValue(aula, aulaId);
+
+            // Matrícula criada com data válida, depois alteramos para vencida usando reflexão
+            var matricula = new Matricula(alunoId, cursoId, DateTime.Now.AddMonths(12));
+            typeof(Matricula).GetProperty("Id")!.SetValue(matricula, matriculaId);
+            typeof(Matricula).GetProperty("DataValidade")!.SetValue(matricula, DateTime.Now.AddDays(-1)); // Data vencida
+
+            var command = new AcessarEstudoAulaCommand(alunoId, matriculaId, cursoId, aulaId);
+
+            _mocker.GetMock<ICursoRepository>()
+                .Setup(r => r.BuscarPorIdAsync(cursoId))
+                .ReturnsAsync(curso);
+
+            _mocker.GetMock<IAulaRepository>()
+                .Setup(r => r.BuscarPorIdAsync(aulaId))
+                .ReturnsAsync(aula);
+
+            _mocker.GetMock<IMatriculaRepository>()
+                .Setup(r => r.BuscarPorId(matriculaId))
+                .Returns(matricula);
+
+            // Act
+            var resultado = await _handler.Handle(command, CancellationToken.None);
+
+            // Assert
+            resultado.Should().BeFalse();
+            _mocker.GetMock<INotificador>().Verify(
+                n => n.Handle(It.Is<Notificacao>(not =>
+                    not.Campo == "Matricula" &&
+                    not.Mensagem == "Matrícula está vencida")),
+                Times.Once
+            );
+        }
+
         #endregion
 
         #region Cenários de Falha - Persistência
@@ -567,4 +614,3 @@ namespace MBA.Educacao.Online.Alunos.Test.ApplicationUnit
         #endregion
     }
 }
-

@@ -55,6 +55,13 @@ select a.Id as AlunoId, a.Nome as aluno, c.Id as CursoId, c.Descricao as curso, 
         and h.MatriculaId = m.Id
  where c.Id = :cursoId
    and a.Id = :alunoId;
-
+------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
+select au.UserName as usuario, ar.Name as regra
+  from AspNetUserRoles aur
+  left join AspNetRoles ar
+         on ar.Id = aur.RoleId
+  left join AspNetUsers au
+         on au.Id = aur.UserId;
 ------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------
